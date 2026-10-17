@@ -30,7 +30,7 @@ test.describe("public board · English", () => {
     await expect(live.getByRole("heading", { name: "PHC Chikhlakasa" })).toBeVisible();
     await expect(live.getByRole("heading", { name: "Demo PHC Rampur-1" })).toHaveCount(0);
     await expect(live.getByText(/no anti-venom sent to \d+ of \d+ rural PHCs/)).toBeVisible();
-    await expect(page.getByText(/Durg warehouse, ready to issue/)).toBeVisible();
+    await expect(page.getByText(/the Durg warehouse had .* ready to issue/)).toBeVisible();
 
     const verify = page.getByRole("region", { name: /Verify it yourself/ });
     await expect(verify).toBeVisible();
@@ -42,7 +42,7 @@ test.describe("public board · English", () => {
 
   test("an unknown proof key shows the not-found copy", async ({ page }) => {
     await page.goto("/verify/0xdeadbeef");
-    await expect(page.getByRole("heading", { name: "This proof isn't on the board" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "This proof is not on the board" })).toBeVisible();
     await expect(page.getByText("404", { exact: true })).toBeVisible();
   });
 
@@ -97,9 +97,9 @@ test("language toggle switches copy and survives navigation", async ({ page }) =
 
   await page.goto("/about");
   await expect(page.locator("html")).toHaveAttribute("lang", "en");
-  await expect(page.getByRole("heading", { level: 1 })).toContainText("Is the anti-venom");
+  await expect(page.getByRole("heading", { level: 1 })).toContainText("Does the nearest centre have anti-venom");
 
-  await page.getByRole("link", { name: "Find stock" }).click();
+  await page.getByRole("link", { name: "Find medicine" }).click();
   await expect(page).toHaveURL(/\/$/);
   await expect(page.locator("html")).toHaveAttribute("lang", "en");
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Where can you get it now?");

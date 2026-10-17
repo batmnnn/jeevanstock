@@ -130,6 +130,9 @@ export interface SupplyGap {
   none: number;
   total: number;
   since: string;
+  /** Anti-venom vials ready to issue at the Durg warehouse, which also supplies Balod. */
+  warehouseAsv: number;
+  centres: number;
 }
 
 /** Rural PHCs with no anti-venom issue in the pulled window. UPHCs and CHCs are left out on purpose. */
@@ -139,6 +142,8 @@ export function asvGap(lang: Lang): SupplyGap {
     none: phcs.filter((centre) => !centre.issues.ASV).length,
     total: phcs.length,
     since: formatIsoDate(directoryJson.issuesFrom, lang) ?? directoryJson.issuesFrom,
+    warehouseAsv: directoryJson.warehouse.ASV.ready,
+    centres: DIRECTORY.length,
   };
 }
 
