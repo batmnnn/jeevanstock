@@ -10,7 +10,7 @@ Is the anti-snake venom (ASV) or anti-rabies vaccine (ARV) in stock at the neare
 4. Open **/dashboard**. Your report shows as acknowledged; "Verify it yourself" lists every wallet with explorer links.
 5. Open **/live**. The real Durg and Balod centres from the state supplier's (CGMSCL) public register: last shipment only, no shelf count, until a centre joins. 22 of 45 rural PHCs there got no ASV since 1 Apr while the district warehouse holds 3,867 vials.
 
-Writes take 7–9 seconds (Tiramisu blocks are 2s; the app waits for the receipt).
+Writes take about 8–12 seconds (Tiramisu blocks are 2s; the app waits for the receipt).
 
 ## Run it offline (no keys)
 ```bash
