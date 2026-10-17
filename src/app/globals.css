@@ -1,0 +1,67 @@
+@import "tailwindcss";
+
+/* Design tokens. Calm civic tone: warm paper, deep ink, one trust-green accent.
+   Status colours always pair with a text label — colour is never the only signal. */
+@theme {
+  --font-sans: var(--font-inter), var(--font-deva), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-mono-face), ui-monospace, SFMono-Regular, monospace;
+
+  --color-paper: #faf8f3;
+  --color-surface: #ffffff;
+  --color-ink: #14201b;
+  --color-ink-2: #3d4a44;
+  --color-ink-3: #66726c;
+  --color-line: #e4e0d6;
+  --color-line-2: #d3cec1;
+
+  --color-brand: #0b6e4f;
+  --color-brand-ink: #ffffff;
+  --color-brand-deep: #084c37;
+  --color-brand-soft: #e6f2ed;
+
+  --color-in: #0b7a3e;
+  --color-in-soft: #e3f4ea;
+  --color-low: #8a5a00;
+  --color-low-soft: #fff1cc;
+  --color-out: #b3261e;
+  --color-out-soft: #fce4e2;
+  --color-stale: #4b5563;
+  --color-stale-soft: #eceef1;
+
+  --color-focus: #ffbf47;
+
+  --radius-card: 14px;
+  --shadow-card: 0 1px 0 rgb(20 32 27 / 0.04), 0 1px 2px rgb(20 32 27 / 0.06);
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    @apply bg-paper text-ink font-sans antialiased;
+    line-height: 1.55;
+  }
+  :lang(hi) body,
+  body:lang(hi) {
+    line-height: 1.7;
+  }
+  :focus-visible {
+    outline: 3px solid var(--color-focus);
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@utility tabular {
+  font-variant-numeric: tabular-nums;
+}
