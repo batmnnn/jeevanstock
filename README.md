@@ -1,16 +1,19 @@
 # JeevanStock — जीवन स्टॉक
-Is the anti-snake venom (ASV) or anti-rabies vaccine (ARV) in stock at the nearest health centre, right now? A Hindi-first, tamper-evident stock board on [Arkiv](https://arkiv.network) (Tiramisu testnet). Built for **Arkiv: Global Tour Stop**, 17–18 Oct 2026.
+Is the anti-snake venom (ASV) or anti-rabies vaccine (ARV) in stock at the nearest health centre now? JeevanStock is a Hindi-first, tamper-evident stock board on [Arkiv](https://arkiv.network) (Tiramisu testnet). We built it for **Arkiv: Global Tour Stop**, 17–18 Oct 2026.
 
 **Live:** https://jeevanstock.azurewebsites.net · **Answers by criterion:** [SUBMISSION.md](SUBMISSION.md) · **Schema:** [arkiv/schema.md](arkiv/schema.md) · **Friction:** [arkiv/friction.md](arkiv/friction.md)
 
-## For judges: two minutes
-1. Open **/demo**. Three practice centres whose stock comes from Arkiv. The staff PINs are on that page.
-2. Open **Demo PHC Rampur-1** → "Not available here" → pick a reason. You get a receipt; **View proof** shows the entity on Tiramisu (creator = payer wallet, readonly, expiry) with an explorer link.
-3. **Staff sign-in** with the Rampur-1 PIN. Post vials (one transaction for both drugs), then **Confirm** your report. That writes a readonly `ack` from the Rampur-1 wallet and extends your report to 30 days, atomically.
-4. Open **/dashboard**. Your report shows as acknowledged; "Verify it yourself" lists every wallet with explorer links.
-5. Open **/live**. The real Durg and Balod centres from the state supplier's (CGMSCL) public register: last shipment only, no shelf count, until a centre joins. 22 of 45 rural PHCs there got no ASV since 1 Apr while the district warehouse holds 3,867 vials.
+## For judges (two minutes)
+1. Open **/demo**. This page shows three demo centres. Their stock comes from Arkiv. The page also shows the staff PINs.
+2. Open **Demo PHC Rampur-1**. Select "Not available here" and then select a reason.
+3. Look at the receipt. Select **View proof** to see the entity on Tiramisu: creator (the payer wallet), readonly flag, expiry and an explorer link.
+4. Select **Staff sign-in**. Type the Rampur-1 PIN.
+5. Post vials. One transaction posts both drugs.
+6. Select **Confirm** on your report. The Rampur-1 wallet writes a readonly `ack` and extends your report to 30 days in one atomic transaction.
+7. Open **/dashboard**. Your report shows as acknowledged. "Verify it yourself" lists every wallet with explorer links.
+8. Open **/live**. This board shows the real Durg and Balod centres from the public register of the state supplier (CGMSCL). It shows only the last shipment, not a shelf count, until a centre joins. There, 22 of 45 rural PHCs got no ASV since 1 Apr. But the district warehouse holds 3,867 vials.
 
-Writes take about 8–12 seconds (Tiramisu blocks are 2s; the app waits for the receipt).
+Writes take about 8–12 seconds. Tiramisu makes a block every 2s, and the app waits for the receipt.
 
 ## Run it offline (no keys)
 ```bash
@@ -28,7 +31,7 @@ npm run seed           # registers the 3 demo centres (idempotent) and posts a s
 npm run dev:chain      # or: npm run build && npm run start:chain
 npm run read           # keyless audit of everything the admin and centre wallets wrote
 ```
-`.github/workflows/keepalive.yml` re-runs `npm run seed` every 4 hours so the demo stock never goes stale (keys as repository secrets).
+The workflow `.github/workflows/keepalive.yml` runs `npm run seed` again every 4 hours, so the demo stock does not become stale. The workflow reads the keys from repository secrets.
 
 ## Quality gates
 ```bash
@@ -38,13 +41,18 @@ npm run test:e2e       # Playwright: family, staff, public, axe accessibility, o
 ```
 
 ## Architecture
-- `src/lib/domain.ts`, `src/lib/views.ts` — pure trust rules: stock counts only if `$creator` is the centre's registered wallet, reports only if the payer wrote them, acks only from the centre wallet; stock older than 6h is stale.
-- `src/lib/repo/` — one `Repo` interface. `ArkivRepo` (SDK 0.8.1, keyless reads, server-held signing wallets, `executeBatch` for shifts and confirms) and `MemoryRepo` (same semantics, offline).
-- `src/lib/directory.ts` + `src/data/cg-durg-balod.json` — CGMSCL facilities and issue history (public data, kept off-chain on purpose).
-- `src/app/` — `/demo` and `/live` boards, centre page, report and receipt, `/staff`, `/dashboard`, `/verify/[key]` proof cards, `/about`, printable QR `/poster`.
-- No personal data: no names, phones, GPS, device IDs or IPs are stored. Distance sorting happens only in the browser.
+- `src/lib/domain.ts`, `src/lib/views.ts`: the trust rules, as pure functions. A stock post counts only if `$creator` is the registered wallet of the centre. A report counts only if the payer wallet wrote it. An ack counts only if the centre wallet wrote it. A stock post older than 6h is stale.
+- `src/lib/repo/`: one `Repo` interface with two implementations. `ArkivRepo` uses SDK 0.8.1, keyless reads, signing wallets on the server, and `executeBatch` for shifts and confirms. `MemoryRepo` has the same semantics and works offline.
+- `src/lib/directory.ts` and `src/data/cg-durg-balod.json`: CGMSCL facilities and issue history. This is public data, and we keep it off-chain on purpose.
+- `src/app/`: the `/demo` and `/live` boards, the centre page, the report and receipt pages, `/staff`, `/dashboard`, the `/verify/[key]` proof cards, `/about` and the printable QR `/poster`.
+- No personal data: the app does not store names, phone numbers, GPS, device IDs or IPs. Only the browser sorts centres by distance.
 
 ## Deploy (Azure App Service, Linux, Node 22)
-App settings: `DATA_SOURCE=arkiv`, `ARKIV_API_KEY`, `ADMIN_KEY`, `PAYER_KEY`, `CENTRE_KEYS`, `CENTRE_PINS`, `SESSION_SECRET`, `SHOW_DEMO_PINS=1`. Build with `npm run build` (standalone output) and start with `node server.js`. Kept live until 23 Oct.
+Set these app settings: `DATA_SOURCE=arkiv`, `ARKIV_API_KEY`, `ADMIN_KEY`, `PAYER_KEY`, `CENTRE_KEYS`, `CENTRE_PINS`, `SESSION_SECRET`, `SHOW_DEMO_PINS=1`.
 
-MIT licensed. Demo centres, staff and families are synthetic; Durg and Balod facility data is public CGMSCL data.
+1. Build with `npm run build` (standalone output).
+2. Start with `node server.js`.
+
+We keep the deploy live until 23 Oct.
+
+The license is MIT. Demo centres, staff and families are synthetic. The Durg and Balod facility data is public CGMSCL data.

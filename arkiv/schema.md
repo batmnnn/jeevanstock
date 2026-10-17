@@ -1,6 +1,7 @@
 # Arkiv schema — JeevanStock
-SDK: `@arkiv-network/sdk` **0.8.1** (method names checked against its `.d.ts`). Network: Tiramisu (chain 7738577). 1 block = 2s.
-Every entity carries `app = "jeevanstock-demo"` and a `kind`. Centres and staff are synthetic. Attribute names are lowercase with underscores: Tiramisu rejects an uppercase byte in a user attribute name (`Ident32InvalidByte` on `centreId`, friction F6). The app maps them back to camelCase on read (`src/lib/chain-attrs.ts`).
+SDK: `@arkiv-network/sdk` **0.8.1** (we checked the method names against its `.d.ts`). Network: Tiramisu (chain 7738577). 1 block = 2s.
+
+Every entity carries `app = "jeevanstock-demo"` and a `kind`. Centres and staff are synthetic. Attribute names are lowercase with underscores. Tiramisu rejects an uppercase byte in a user attribute name (`Ident32InvalidByte` on `centreId`, friction F6). The app maps the names back to camelCase when it reads them (`src/lib/chain-attrs.ts`).
 
 | kind | Created by | Attributes | Payload (JSON) | Lifetime | Flags |
 |---|---|---|---|---|---|
@@ -18,19 +19,19 @@ Every entity carries `app = "jeevanstock-demo"` and a `kind`. Centres and staff 
 | Demo CHC Sonpur | [`0x1AB16c702008422EA2924DE60607bB81dcbF3014`](https://tiramisu.explorer.arkiv.network/address/0x1AB16c702008422EA2924DE60607bB81dcbF3014) | `stock`, `ack` |
 | Demo PHC Kalapur-2 | [`0x9f13eF0aBCe7a6e37D612C35f629B12C212D0D33`](https://tiramisu.explorer.arkiv.network/address/0x9f13eF0aBCe7a6e37D612C35f629B12C212D0D33) | `stock`, `ack` |
 
-Centre entities (expire ~1 Nov 2026; `npm run seed` re-registers):
+The centre entities expire ~1 Nov 2026. `npm run seed` registers them again.
 - Rampur-1 [`0x1e0d5731…1861be`](https://tiramisu.explorer.arkiv.network/entity/0x1e0d57314c4d683a2759e30494a4dc925411db6bd794092f81d6e585da1861be)
 - Sonpur [`0xbaf9f21f…e058c2`](https://tiramisu.explorer.arkiv.network/entity/0xbaf9f21f25e8e3a3068148d29a2366f416da74b22981d0fc388d6a6577e058c2)
 - Kalapur-2 [`0x7c0e6400…886c38`](https://tiramisu.explorer.arkiv.network/entity/0x7c0e64007fbae8426cf1037fe06f69a9d735fb087fed02365b5ba71bc0886c38)
 
-A family report written from the local app on 17 Oct: [`0x2d5dc58f…4c1e84`](https://tiramisu.explorer.arkiv.network/entity/0x2d5dc58f6884d30d54c6a0aab22a47ca217b0e34d99d25550d45d2c13c4c1e84). Every receipt on the site links to its own entity.
+The local app wrote this family report on 17 Oct: [`0x2d5dc58f…4c1e84`](https://tiramisu.explorer.arkiv.network/entity/0x2d5dc58f6884d30d54c6a0aab22a47ca217b0e34d99d25550d45d2c13c4c1e84). Each receipt on the site links to its own entity.
 
 ## What is not on Arkiv, and why
 | Data | Where it lives | Why |
 |---|---|---|
-| Durg/Balod facility list and CGMSCL issue history | `src/data/cg-durg-balod.json`, with source URLs | Public government data we didn't author; signing it would imply we vouch for it |
-| A family's location | The browser only | Distance sorting needs no server, so the location never leaves the phone |
-| Names, phones, IPs, device IDs | Nowhere | Never collected. Arkiv data is public forever-ish; the schema is the privacy boundary |
+| Durg/Balod facility list and CGMSCL issue history | `src/data/cg-durg-balod.json`, with source URLs | Public government data that we did not write. If we signed it, people could think that we guarantee it |
+| A family's location | The browser only | The browser sorts by distance without a server, so the location never leaves the phone |
+| Names, phones, IPs, device IDs | Nowhere | The app never collects them. Arkiv data stays public for a very long time, so the schema is the privacy boundary |
 | Staff PINs, signing keys, session secret | Server environment | Secrets |
 
 ## Calls used (all exist in 0.8.1)
@@ -73,7 +74,13 @@ await centreWallet.executeBatch({
 // proof card
 await pub.getEntity(key); // creator, owner, creationFlags, createdAt, expiresAt, attributes
 ```
-Measured on Tiramisu (17 Oct, local server → RPC, including receipt wait): report 8.7s, shift post (2 creates, 1 tx) 7.8s, confirm (create + extend, 1 tx) 6.8s. Separate transactions took ~20s and ~18s.
+We measured these times on Tiramisu on 17 Oct, from the local server to the RPC. The times include the wait for the receipt:
+- report: 8.7s
+- shift post (2 creates, 1 tx): 7.8s
+- confirm (create + extend, 1 tx): 6.8s
 
-Also used: `getBlockTiming` (for expiry maths). Limits (SDK source): MAX_ATTRIBUTES = 32, MAX_PAYLOAD_BYTES = 128 KiB.
-Reads go through `src/lib/rpc.ts`: an `X-API-KEY` header when `ARKIV_API_KEY` is set, and no automatic retries (friction F7).
+Separate transactions took ~20s and ~18s.
+
+We also use `getBlockTiming` to calculate expiry. The SDK source sets these limits: MAX_ATTRIBUTES = 32, MAX_PAYLOAD_BYTES = 128 KiB.
+
+All reads go through `src/lib/rpc.ts`. This file adds an `X-API-KEY` header when `ARKIV_API_KEY` is set. It also turns off automatic retries (friction F7).
