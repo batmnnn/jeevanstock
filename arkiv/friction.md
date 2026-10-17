@@ -29,6 +29,24 @@ Format per issue: **Expected / Actual / Versions / Repro / Impact / Workaround**
 - Actual: JSON-RPC without a User-Agent header returned 403. It worked with `user-agent: curl/8`.
 - Repro: Python `urllib.request` POST eth_blockNumber to the Tiramisu RPC.
 
-## F6. (fill during build) SDK / query / expiry surprises
-- e.g. `ExpirationTime` rejects durations that aren't whole multiples of 2s (by design; error text is good).
-- ...
+## F7. Keyless query budget runs out, and viem then hangs for half an hour
+- Expected: a rate-limited read fails fast, or the SDK surfaces the quota.
+- Actual (17 Oct, ~01:30 IST, after a day of local testing): every `arkiv_query` returned
+  `429 {"error":"ANON_COST_LIMITED","message":"unauthenticated query budget exhausted; get an API key at https://hub.arkiv.network for a monthly quota"}`
+  with `ratelimit: limit=10000, remaining=0, reset=1965` and `retry-after: 1965`. `eth_blockNumber` still answered 200.
+  viem's `http()` transport honours `Retry-After`, so the SDK's `select()…` iterator slept ~33 min. Our pages hung (one request logged 6.1 min) instead of erroring.
+- Repro:
+  ```sh
+  curl -s -D - -H 'content-type: application/json' \
+    -d '{"jsonrpc":"2.0","id":1,"method":"arkiv_query","params":["kind = \"centre\"",{"includeData":{"key":true},"resultsPerPage":1}]}' \
+    https://rpc.tiramisu.db-chain.testnet.arkiv.network
+  ```
+  Once the budget is spent this prints the 429 and headers above.
+- Impact: a public demo on the keyless RPC dies quietly once judges start clicking. The `Arkiv-Cost` / `Arkiv-Quota-Used-Percent` headers exist but the SDK doesn't expose them, so we couldn't see the budget draining.
+- Workaround: an access key from hub.arkiv.network/api-keys sent as `X-API-KEY` (`src/lib/rpc.ts`), `retryCount: 0` on the transport, and the repo serves its last good snapshot for up to 15 min when a read fails.
+
+## F6. User attribute names reject uppercase
+- Expected: the SDK 0.8.1 grammar (`[A-Za-z][A-Za-z0-9._-]*`) — `centreId` is a legal name, and the client accepts it.
+- Actual: Tiramisu reverts `Ident32InvalidByte(6, 0x49)` on `centreId`. The "I" is outside the name the chain accepts. `$contentType` still works.
+- Workaround: snake_case on the wire (`centre_id`, `posted_at`, `hour_bucket`, `report_key`). The app maps those back to camelCase when it reads.
+- `ExpirationTime` also rejects durations that aren't whole multiples of 2s (by design; the error text is good).

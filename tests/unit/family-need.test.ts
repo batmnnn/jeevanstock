@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { parseNeed } from "@/lib/family/need";
-import { centreHref, homeHref, reportHref, verifyHref } from "@/lib/family/routes";
+import { boardHref, centreHref, homeHref, reportHref, verifyHref } from "@/lib/family/routes";
 
 const HEX = `0x${"ab".repeat(32)}`;
 const ATTACKS: unknown[] = [
@@ -50,9 +50,11 @@ describe("parseNeed", () => {
 
 describe("family routes stay inside the app", () => {
   it("builds the happy paths", () => {
-    expect(homeHref("ASV")).toBe("/?need=ASV");
-    expect(homeHref("ARV")).toBe("/?need=ARV");
+    expect(homeHref("ASV")).toBe("/");
     expect(homeHref(null)).toBe("/");
+    expect(boardHref("live", "ASV")).toBe("/live?need=ASV");
+    expect(boardHref("demo", "ARV")).toBe("/demo?need=ARV");
+    expect(boardHref("live", null)).toBe("/live");
     expect(centreHref("DEMO-RAMPUR-1", "ARV")).toBe("/centre/DEMO-RAMPUR-1?need=ARV");
     expect(centreHref("DEMO-RAMPUR-1", null)).toBe("/centre/DEMO-RAMPUR-1");
     expect(reportHref("DEMO-SONPUR-CHC", "ASV")).toBe("/centre/DEMO-SONPUR-CHC/report?drug=ASV");

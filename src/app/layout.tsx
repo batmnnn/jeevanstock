@@ -1,27 +1,53 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Noto_Sans_Devanagari, JetBrains_Mono } from "next/font/google";
+import { IBM_Plex_Mono, IBM_Plex_Sans, IBM_Plex_Sans_Devanagari, Tiro_Devanagari_Hindi } from "next/font/google";
 import { SiteHeader, DemoBanner } from "@/components/site-header";
 import { getLang } from "@/lib/lang";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
-const deva = Noto_Sans_Devanagari({ subsets: ["devanagari"], weight: ["400", "500", "600", "700"], variable: "--font-deva", display: "swap" });
-const mono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mono-face", display: "swap" });
+const sans = IBM_Plex_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  variable: "--font-sans-face",
+  display: "swap",
+});
+
+const deva = IBM_Plex_Sans_Devanagari({
+  subsets: ["devanagari"],
+  weight: ["400", "500", "600"],
+  variable: "--font-deva",
+  display: "swap",
+});
+
+const display = Tiro_Devanagari_Hindi({
+  subsets: ["devanagari", "latin"],
+  weight: "400",
+  variable: "--font-display-face",
+  display: "swap",
+});
+
+const mono = IBM_Plex_Mono({
+  subsets: ["latin"],
+  weight: ["500"],
+  variable: "--font-mono-face",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: { default: "JeevanStock — जीवन स्टॉक", template: "%s · JeevanStock" },
-  description: "Public, tamper-evident anti-venom (ASV) and anti-rabies (ARV) stock board. Synthetic demo data.",
+  description: "Public anti-venom and rabies-vaccine board for Durg and Balod. Shelf stock appears only after a centre posts.",
 };
 
-export const viewport: Viewport = { width: "device-width", initialScale: 1, themeColor: "#0b6e4f" };
+export const viewport: Viewport = { width: "device-width", initialScale: 1, themeColor: "#eef2ff" };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const lang = await getLang();
   return (
-    <html lang={lang} className={`${inter.variable} ${deva.variable} ${mono.variable}`}>
+    <html lang={lang} className={`${sans.variable} ${deva.variable} ${display.variable} ${mono.variable}`}>
       <body className="min-h-dvh">
-        <SiteHeader lang={lang} />
-        <DemoBanner lang={lang} />
+        <div className="sticky top-0 z-20">
+          <SiteHeader lang={lang} />
+          <DemoBanner lang={lang} />
+        </div>
         {children}
       </body>
     </html>

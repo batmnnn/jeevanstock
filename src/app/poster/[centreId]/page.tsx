@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import QRCode from "qrcode";
 import { BackLink } from "@/components/ui";
 import { CENTRES } from "@/lib/centres";
-import { boardUrl, originFromHeaders } from "@/lib/dashboard/origin";
+import { boardUrl, posterOrigin } from "@/lib/dashboard/origin";
 import { safeQrSvg } from "@/lib/dashboard/svg";
 import { common } from "@/lib/i18n";
 import { getLang } from "@/lib/lang";
@@ -37,11 +37,10 @@ export default async function PosterPage({ params }: { params: Promise<{ centreI
   const c = common[lang];
   const h = await headers();
   const url = boardUrl(
-    originFromHeaders({
-      host: h.get("host"),
-      forwardedHost: h.get("x-forwarded-host"),
-      forwardedProto: h.get("x-forwarded-proto"),
-    }),
+    posterOrigin(
+      { host: h.get("host"), forwardedProto: h.get("x-forwarded-proto") },
+      { VERCEL: process.env.VERCEL },
+    ),
   );
   const svg = safeQrSvg(await QRCode.toString(url, { type: "svg", margin: 1, errorCorrectionLevel: "M" }));
 
@@ -51,7 +50,7 @@ export default async function PosterPage({ params }: { params: Promise<{ centreI
       <div className="no-print">
         <BackLink href="/poster" label={c.back} />
       </div>
-      <article className="mx-auto max-w-[190mm] bg-surface px-6 py-8 shadow-[var(--shadow-card)] sm:px-10 sm:py-12 print:max-w-none print:px-0 print:py-0 print:shadow-none">
+      <article className="mx-auto max-w-[190mm] border border-ink/20 bg-surface px-6 py-8 sm:px-10 sm:py-12 print:max-w-none print:border-0 print:px-0 print:py-0">
         <p className="text-sm font-semibold text-brand">
           <span lang="hi">जीवन स्टॉक</span>
           <span aria-hidden> · </span>
@@ -87,7 +86,7 @@ export default async function PosterPage({ params }: { params: Promise<{ centreI
             {url}
           </p>
         </div>
-        <div className="mt-8 rounded-2xl border border-out bg-out-soft px-5 py-4 text-center">
+        <div className="mt-8 border-y-2 border-out px-5 py-4 text-center">
           <p className="text-base font-semibold">
             <span lang="hi">{t.emergencyHi}</span>
           </p>

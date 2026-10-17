@@ -1,20 +1,19 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import type { ReactNode } from "react";
 import { CentreActions } from "@/components/family/centre-actions";
 import { EmergencyCall } from "@/components/family/emergency-call";
 import { Unavailable } from "@/components/unavailable";
-import { BackLink, ButtonLink, PageShell, StatusChip } from "@/components/ui";
+import { BackLink, ButtonLink, PageShell, StatusChip, cx } from "@/components/ui";
 import type { StockStatus } from "@/lib/domain";
+import { describeIssue, describeLastIssue, findShownCentre, isDirectoryCentreId, type LastIssueLabel } from "@/lib/directory";
 import { CENTRE_ID_RE } from "@/lib/family/ids";
 import { parseNeed } from "@/lib/family/need";
 import { directionsUrl } from "@/lib/family/place";
 import { readBoard } from "@/lib/family/read-board";
-import { homeHref, reportHref, verifyHref } from "@/lib/family/routes";
+import { boardFor, boardHref, reportHref, verifyHref } from "@/lib/family/routes";
 import { describeStock } from "@/lib/family/stock-text";
 import { common, type Common } from "@/lib/i18n";
 import { getLang } from "@/lib/lang";
-import { findCentreView } from "@/lib/views";
 import { family, type FamilyCopy } from "@/messages/family";
 
 export const dynamic = "force-dynamic";
@@ -29,14 +28,13 @@ function safeCount(n: number): number {
   return Math.min(Math.floor(n), 10_000);
 }
 
-function Row({ label, children }: { label: string; children: ReactNode }) {
-  return (
-    <div className="grid grid-cols-1 gap-1 border-b border-line py-3">
-      <dt className="text-ink-2">{label}</dt>
-      <dd className="font-semibold">{children}</dd>
-    </div>
-  );
-}
+const COUNT: Record<StockStatus, string> = {
+  in: "text-in",
+  low: "text-low",
+  out: "text-out",
+  stale: "text-stale",
+  sent: "text-sent",
+};
 
 function DrugBlock({
   id,
@@ -44,6 +42,8 @@ function DrugBlock({
   status,
   vialsLabel,
   updatedLabel,
+  issueNote,
+  last,
   labels,
   statusText,
 }: {
@@ -52,21 +52,43 @@ function DrugBlock({
   status: StockStatus;
   vialsLabel: string;
   updatedLabel: string;
-  labels: Pick<FamilyCopy, "statusLabel" | "vialsLabel" | "updatedLabel">;
+  issueNote: string | null;
+  last: LastIssueLabel | null;
+  labels: Pick<FamilyCopy, "statusLabel" | "vialsLabel" | "updatedLabel"> & Pick<Common, "countNow" | "countLast">;
   statusText: Pick<Common, "status">;
 }) {
   return (
-    <section className="mt-8" aria-labelledby={`${id}-heading`}>
-      <h2 id={`${id}-heading`} className="text-lg font-bold">
-        {title}
-      </h2>
-      <dl className="mt-2 border-t border-line">
-        <Row label={labels.statusLabel}>
+    <section className="glass relative mt-6 overflow-visible rounded-2xl" aria-labelledby={`${id}-heading`}>
+      <img
+        src={id === "asv" ? "/art/snake.png" : "/art/dog.png"}
+        alt=""
+        width={160}
+        height={160}
+        className="pointer-events-none absolute -top-4 right-2 z-10 h-20 w-20 object-contain drop-shadow-[0_8px_12px_rgb(20_27_45/0.16)]"
+      />
+      <div className="px-4 py-4">
+        <h2 id={`${id}-heading`} className="pr-24 text-base font-medium">
+          {title}
+        </h2>
+        <div className={cx("mt-8 flex items-start gap-4", last ? "justify-between" : "")}>
+          <div className="min-w-0">
+            <p className="text-sm text-ink-2">{last ? labels.countNow : labels.vialsLabel}</p>
+            <p className={cx("mt-2 font-mono text-4xl leading-none tabular-nums", COUNT[status])}>{vialsLabel}</p>
+          </div>
+          {last ? (
+            <div className="shrink-0 text-right">
+              <p className="text-sm text-ink-2">{labels.countLast}</p>
+              <p className="mt-2 font-mono text-4xl leading-none tabular-nums text-ink">{last.qty}</p>
+              <p className="mt-2 text-sm font-medium text-ink-2">{last.dateLabel}</p>
+            </div>
+          ) : null}
+        </div>
+        <div className="mt-3">
           <StatusChip status={status} t={statusText} />
-        </Row>
-        <Row label={labels.vialsLabel}>{vialsLabel}</Row>
-        <Row label={labels.updatedLabel}>{updatedLabel}</Row>
-      </dl>
+        </div>
+        <p className="mt-3 text-sm text-ink-2">{updatedLabel}</p>
+        {issueNote ? <p className="mt-2 text-sm text-ink-2">{issueNote}</p> : null}
+      </div>
     </section>
   );
 }
@@ -94,13 +116,14 @@ export default async function CentrePage({
     );
   }
 
-  const view = findCentreView(snap, centreId);
+  const view = findShownCentre(snap, centreId);
   if (!view) notFound();
 
   const phrases = {
     vials: c.vials,
     minutesAgo: c.minutesAgo,
     noUpdate: c.noUpdate,
+    sentShelf: c.sentShelf,
     vialsUnknown: t.vialsUnknown,
     updated: t.updated,
   };
@@ -112,11 +135,20 @@ export default async function CentrePage({
 
   return (
     <PageShell>
-      <BackLink href={homeHref(need)} label={c.back} />
-      <h1 className="text-[1.75rem] font-bold leading-tight">{view.centre.name}</h1>
-      <p className="mt-1 text-ink-2">
-        {view.centre.district} · {view.centre.state}
-      </p>
+      <BackLink href={boardHref(boardFor(view.centre.centreId), need)} label={c.back} />
+      <div className="relative">
+        <img
+          src="/art/clinic.png"
+          alt=""
+          width={903}
+          height={551}
+          className="pointer-events-none absolute -right-2 -top-2 z-0 w-32 drop-shadow-[0_12px_16px_rgb(20_27_45/0.14)]"
+        />
+        <h1 className="relative z-10 max-w-[14ch] pr-16 font-display text-4xl font-normal leading-tight">{view.centre.name}</h1>
+        <p className="relative z-10 mt-1 text-ink-2">
+          {view.centre.district} · {view.centre.state}
+        </p>
+      </div>
       <div className="mt-4">
         <EmergencyCall label={c.call108} />
       </div>
@@ -125,7 +157,7 @@ export default async function CentrePage({
         directionsUrl={directionsUrl(view.centre.lat, view.centre.lon)}
         labels={{ directions: t.directions, call: t.call, demoNote: t.demoNote, newTab: t.newTab }}
       />
-      <p className="mt-2 text-sm text-ink-3">{t.demoPhones}</p>
+      {isDirectoryCentreId(view.centre.centreId) ? null : <p className="mt-2 text-sm text-ink-3">{t.demoPhones}</p>}
 
       <DrugBlock
         id="asv"
@@ -133,7 +165,9 @@ export default async function CentrePage({
         status={view.stock.ASV.status}
         vialsLabel={asv.vialsLabel}
         updatedLabel={asv.updatedLabel}
-        labels={t}
+        issueNote={describeIssue(view.supply.ASV, lang)}
+        last={describeLastIssue(view.supply.ASV, lang)}
+        labels={{ ...t, countNow: c.countNow, countLast: c.countLast }}
         statusText={{ status: c.status }}
       />
       <DrugBlock
@@ -142,7 +176,9 @@ export default async function CentrePage({
         status={view.stock.ARV.status}
         vialsLabel={arv.vialsLabel}
         updatedLabel={arv.updatedLabel}
-        labels={t}
+        issueNote={describeIssue(view.supply.ARV, lang)}
+        last={describeLastIssue(view.supply.ARV, lang)}
+        labels={{ ...t, countNow: c.countNow, countLast: c.countLast }}
         statusText={{ status: c.status }}
       />
 
@@ -181,10 +217,21 @@ export default async function CentrePage({
       </section>
 
       <div className="mt-8">
-        <ButtonLink variant="danger" href={reportHref(view.centre.centreId, need)} className="w-full">
-          {t.notHere}
-        </ButtonLink>
-        <p className="mt-2 text-sm text-ink-3">{t.notHereHint}</p>
+        {isDirectoryCentreId(view.centre.centreId) ? (
+          <>
+            <p className="text-ink-2">{t.liveSoonReport}</p>
+            <ButtonLink href="/demo" variant="secondary" className="mt-3 w-full">
+              {t.openDemo}
+            </ButtonLink>
+          </>
+        ) : (
+          <>
+            <ButtonLink variant="danger" href={reportHref(view.centre.centreId, need)} className="w-full">
+              {t.notHere}
+            </ButtonLink>
+            <p className="mt-2 text-sm text-ink-3">{t.notHereHint}</p>
+          </>
+        )}
       </div>
     </PageShell>
   );

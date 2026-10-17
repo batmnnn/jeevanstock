@@ -1,7 +1,7 @@
 // Pure domain logic. No I/O, no SDK, no React — everything here is unit-tested.
 import type { Drug, Reason } from "./centres";
 
-export type StockStatus = "in" | "low" | "out" | "stale";
+export type StockStatus = "in" | "low" | "out" | "stale" | "sent";
 
 export const BLOCK_SECONDS = 2;
 export const STOCK_TTL_HOURS = 6;
@@ -31,7 +31,7 @@ export interface StockPost {
   centreId: string;
   drug: Drug;
   vials: number;
-  status: Exclude<StockStatus, "stale">;
+  status: Exclude<StockStatus, "stale" | "sent">;
   postedAt: number; // unix seconds
   creator: string;
   createdAtBlock: number;
@@ -49,6 +49,16 @@ export interface Report {
   expiresAtBlock: number;
 }
 
+/** Centre-signed acknowledgement. Lifetime of the report is not evidence — anyone may extend it. */
+export interface Ack {
+  key: string;
+  centreId: string;
+  reportKey: string;
+  creator: string;
+  createdAtBlock: number;
+  expiresAtBlock: number;
+}
+
 export interface DrugStock {
   drug: Drug;
   status: StockStatus;
@@ -57,7 +67,7 @@ export interface DrugStock {
   postKey: string | null;
 }
 
-export const statusForVials = (vials: number): Exclude<StockStatus, "stale"> =>
+export const statusForVials = (vials: number): Exclude<StockStatus, "stale" | "sent"> =>
   vials <= 0 ? "out" : vials < LOW_THRESHOLD ? "low" : "in";
 
 export function isValidVials(v: unknown): v is number {
@@ -92,9 +102,25 @@ export function latestStock(
   });
 }
 
-/** A report whose lifetime exceeds the original 48h window was extended by the centre (acknowledged). */
-export function isAcknowledged(r: Pick<Report, "createdAtBlock" | "expiresAtBlock">): boolean {
-  return r.expiresAtBlock - r.createdAtBlock > REPORT_TTL_BLOCKS * 1.5;
+/** Centres listed on the board must have been created by the admin wallet. */
+export function trustedCentres<T extends Pick<Centre, "creator">>(centres: readonly T[], admin: string): T[] {
+  return centres.filter((c) => sameAddr(c.creator, admin));
+}
+
+/**
+ * A report is acknowledged only when this centre's registered wallet created an ack
+ * naming that report. A longer expiry is not enough: reports are permissionlessly extendable.
+ */
+export function isAcknowledged(
+  reportKey: string,
+  acks: readonly Pick<Ack, "reportKey" | "centreId" | "creator">[],
+  centre: Pick<Centre, "centreId" | "wallet">,
+): boolean {
+  if (!reportKey) return false;
+  const want = reportKey.toLowerCase();
+  return acks.some(
+    (a) => a.centreId === centre.centreId && a.reportKey.toLowerCase() === want && sameAddr(a.creator, centre.wallet),
+  );
 }
 
 export function trustedReports(reports: Report[], payer: string): Report[] {
@@ -111,13 +137,24 @@ export function haversineKm(a: { lat: number; lon: number }, b: { lat: number; l
   return 2 * R * Math.asin(Math.min(1, Math.sqrt(h)));
 }
 
-const STATUS_RANK: Record<StockStatus, number> = { in: 0, low: 1, stale: 2, out: 3 };
+const STATUS_RANK: Record<StockStatus, number> = { in: 0, low: 1, sent: 2, stale: 3, out: 4 };
 
-/** Sort centres for a family: usable stock first, then by distance (if known), then by name. */
-export function rankCentres<T extends { name: string; status: StockStatus; distanceKm?: number | null }>(rows: T[]): T[] {
+/** Later ISO date first. A missing date sorts after a real one. */
+export function compareSupplyDateDesc(a?: string | null, b?: string | null): number {
+  const as = a && /^\d{4}-\d{2}-\d{2}$/.test(a) ? a : "";
+  const bs = b && /^\d{4}-\d{2}-\d{2}$/.test(b) ? b : "";
+  if (as === bs) return 0;
+  if (!as) return 1;
+  if (!bs) return -1;
+  return as < bs ? 1 : -1;
+}
+
+/** Shelf count first, then the newest shipment, then no evidence, then a known empty shelf. */
+export function rankCentres<T extends { name: string; status: StockStatus; distanceKm?: number | null; suppliedOn?: string | null }>(rows: T[]): T[] {
   return [...rows].sort(
     (a, b) =>
       STATUS_RANK[a.status] - STATUS_RANK[b.status] ||
+      compareSupplyDateDesc(a.suppliedOn, b.suppliedOn) ||
       (a.distanceKm ?? Infinity) - (b.distanceKm ?? Infinity) ||
       a.name.localeCompare(b.name),
   );

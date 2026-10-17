@@ -8,11 +8,13 @@ export function VerifyYourself({
   source,
   admin,
   payer,
+  centres,
   lang,
 }: {
   source: "arkiv" | "memory";
   admin: string;
   payer: string;
+  centres: readonly { centreId: string; name: string; wallet: string }[];
   lang: Lang;
 }) {
   const t = dashboard[lang];
@@ -20,26 +22,41 @@ export function VerifyYourself({
   return (
     <section aria-labelledby="verify-heading" className="mt-14 rounded-[var(--radius-card)] border border-line bg-surface p-5 sm:p-8">
       <div className="flex flex-wrap items-center gap-3">
-        <h2 id="verify-heading" className="text-2xl font-bold tracking-tight">
+        <h2 id="verify-heading" className="font-display text-3xl font-normal">
           {t.verifyHeading}
         </h2>
-        <p className="rounded-full bg-brand-soft px-3 py-1 text-sm font-semibold text-brand">{source === "arkiv" ? t.sourceArkiv : t.sourceMemory}</p>
+        <p className="text-sm font-medium text-ink-2">{source === "arkiv" ? t.sourceArkiv : t.sourceMemory}</p>
       </div>
       <p className="mt-3 max-w-2xl text-ink-2">{t.verifyLede}</p>
       <dl className="mt-6 grid gap-4 sm:grid-cols-2">
         <div>
           <dt className="text-sm font-medium text-ink-3">{t.adminLabel}</dt>
           <dd className="mt-1">
-            <ChainAddress address={admin} source={source} linkLabel={t.explorerAddress} empty={DASH} />
+            <ChainAddress address={admin} source={source} linkLabel={t.explorerAddress} empty={DASH} full />
           </dd>
         </div>
         <div>
           <dt className="text-sm font-medium text-ink-3">{t.payerLabel}</dt>
           <dd className="mt-1">
-            <ChainAddress address={payer} source={source} linkLabel={t.explorerAddress} empty={DASH} />
+            <ChainAddress address={payer} source={source} linkLabel={t.explorerAddress} empty={DASH} full />
           </dd>
         </div>
       </dl>
+      {centres.length > 0 ? (
+        <>
+          <h3 className="mt-8 text-base font-semibold">{t.centreWallets}</h3>
+          <dl className="mt-3 grid gap-4 sm:grid-cols-2">
+            {centres.map((centre) => (
+              <div key={centre.centreId}>
+                <dt className="text-sm font-medium text-ink-3">{centre.name}</dt>
+                <dd className="mt-1">
+                  <ChainAddress address={centre.wallet} source={source} linkLabel={t.explorerAddress} empty={DASH} full />
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </>
+      ) : null}
       <h3 className="mt-8 text-base font-semibold">{t.rulesHeading}</h3>
       <ol className="mt-3 list-decimal space-y-3 pl-5 text-ink-2">
         <li>{t.ruleCentre}</li>
@@ -48,7 +65,7 @@ export function VerifyYourself({
       </ol>
       <h3 className="mt-8 text-base font-semibold">{t.commandLabel}</h3>
       <p className="mt-1 text-sm text-ink-3">{t.commandHint}</p>
-      <pre className="mt-3 overflow-x-auto rounded-xl bg-ink px-4 py-3 text-sm text-paper">
+      <pre tabIndex={0} aria-label={t.commandLabel} className="mt-3 overflow-x-auto border border-ink bg-ink px-4 py-3 text-sm text-paper focus-visible:outline-2 focus-visible:outline-offset-2">
         <code>{command}</code>
       </pre>
     </section>

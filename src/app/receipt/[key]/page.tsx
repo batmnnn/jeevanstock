@@ -52,10 +52,10 @@ export default async function ReceiptPage({
 
   return (
     <PageShell>
-      <div className="-mx-4 bg-brand px-6 py-8 text-center text-brand-ink sm:mx-0 sm:rounded-[var(--radius-card)]">
-        <h1 className="text-2xl font-bold leading-tight">{t.receiptTitle}</h1>
-        <p className="mt-4 text-base">{t.referenceLabel}</p>
-        <p className="mt-1 text-3xl font-bold tracking-wide tabular">
+      <div className="glass rounded-2xl px-6 py-8">
+        <h1 className="font-display text-4xl font-normal leading-tight text-in">{t.receiptTitle}</h1>
+        <p className="mt-6 text-sm text-ink-3">{t.referenceLabel}</p>
+        <p className="mt-1 font-mono text-4xl leading-none text-in tabular-nums">
           <Mono>{shortHex(parsed.key)}</Mono>
         </p>
       </div>

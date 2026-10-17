@@ -12,7 +12,7 @@ export default async function NotFound() {
     <Main width="proof">
       <section className="pt-8">
         <p className="font-mono text-sm font-semibold text-ink-3">404</p>
-        <h1 className="mt-3 text-4xl font-bold tracking-tight">{t.notFoundTitle}</h1>
+        <h1 className="mt-3 font-display text-4xl font-normal leading-tight">{t.notFoundTitle}</h1>
         <p className="mt-3 text-lg text-ink-2">{t.notFoundBody}</p>
         <div className="mt-6 flex flex-wrap gap-3">
           <ButtonLink href="/">{t.home}</ButtonLink>

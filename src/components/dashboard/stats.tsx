@@ -3,49 +3,70 @@ import type { StockStatus } from "@/lib/domain";
 import type { DashboardStats } from "@/lib/views";
 import { common, type Lang } from "@/lib/i18n";
 import { dashboard } from "@/messages/dashboard";
-import { Card, StatusChip } from "@/components/ui";
+import { StatusChip } from "@/components/ui";
 
 const DRUGS: readonly Drug[] = ["ASV", "ARV"];
-const STATUSES: readonly StockStatus[] = ["in", "low", "out", "stale"];
+const STATUSES: readonly StockStatus[] = ["in", "low", "sent", "stale", "out"];
 
-export function Stats({ stats, lang }: { stats: DashboardStats; lang: Lang }) {
+export function Stats({
+  stats,
+  label,
+  reports = true,
+  lang,
+}: {
+  stats: DashboardStats;
+  label: string;
+  /** Off where reports aren't open yet, so the tiles don't show a permanent zero. */
+  reports?: boolean;
+  lang: Lang;
+}) {
   const t = dashboard[lang];
   const c = common[lang];
   return (
-    <section aria-labelledby="stats-heading">
-      <h2 id="stats-heading" className="sr-only">
-        {t.statsLabel}
-      </h2>
-      <div className="grid gap-4 lg:grid-cols-3">
+    <div role="group" aria-label={label} className="mt-6">
+      <div className="grid gap-8 lg:grid-cols-3">
         {DRUGS.map((drug) => (
-          <Card key={drug} as="article" className="h-full">
-            <h3 className="text-base font-semibold">{c.drug[drug]}</h3>
-            <ul className="mt-4 grid grid-cols-2 gap-2">
+          <article key={drug}>
+            <h3 className="text-base font-medium">{c.drug[drug]}</h3>
+            <ul className="glass mt-2 overflow-hidden rounded-2xl">
               {STATUSES.map((status) => (
-                <li key={status} className="rounded-xl bg-paper px-3 py-3">
-                  <p className="text-3xl font-bold tabular leading-none">{stats.byStatus[drug][status]}</p>
-                  <div className="mt-2">
-                    <StatusChip status={status} t={c} />
-                  </div>
+                <li
+                  key={status}
+                  className="flex items-center justify-between gap-3 border-b border-line px-4 py-2.5 last:border-b-0"
+                >
+                  <StatusChip status={status} t={c} />
+                  <span className="font-mono text-2xl leading-none tabular-nums">
+                    {stats.byStatus[drug][status]}
+                  </span>
                 </li>
               ))}
             </ul>
-          </Card>
+          </article>
         ))}
-        <Card as="article" className="h-full">
-          <h3 className="text-base font-semibold">{t.reportsTile}</h3>
-          <ul className="mt-4 grid flex-1 grid-cols-2 gap-2">
-            <li className="rounded-xl bg-paper px-3 py-3">
-              <p className="text-4xl font-bold tabular leading-none">{stats.openReports}</p>
-              <p className="mt-2 text-sm font-semibold text-ink-2">{t.openReports}</p>
-            </li>
-            <li className="rounded-xl bg-paper px-3 py-3">
-              <p className="text-4xl font-bold tabular leading-none">{stats.acknowledgedReports}</p>
-              <p className="mt-2 text-sm font-semibold text-ink-2">{t.acknowledgedReports}</p>
-            </li>
-          </ul>
-        </Card>
+        {reports ? (
+          <article>
+            <h3 className="text-base font-medium">{t.reportsTile}</h3>
+            <ul className="glass mt-2 overflow-hidden rounded-2xl">
+              <li className="flex items-baseline justify-between gap-3 border-b border-line px-4 py-3">
+                <p className="text-sm font-medium text-ink-2">
+                  {t.openReports}
+                </p>
+                <p className="font-mono text-3xl leading-none tabular-nums">
+                  {stats.openReports}
+                </p>
+              </li>
+              <li className="flex items-baseline justify-between gap-3 px-4 py-3">
+                <p className="text-sm font-medium text-ink-2">
+                  {t.acknowledgedReports}
+                </p>
+                <p className="font-mono text-3xl leading-none tabular-nums">
+                  {stats.acknowledgedReports}
+                </p>
+              </li>
+            </ul>
+          </article>
+        ) : null}
       </div>
-    </section>
+    </div>
   );
 }

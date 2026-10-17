@@ -1,5 +1,6 @@
 import type { Drug, Reason } from "../centres";
 import { CENTRES } from "../centres";
+import { isDirectoryCentreId } from "../directory";
 import {
   blocksForHours,
   CONFIRMED_TTL_DAYS,
@@ -9,6 +10,7 @@ import {
   statusForVials,
   STOCK_TTL_HOURS,
   BLOCK_SECONDS,
+  type Ack,
   type Centre,
   type Report,
   type StockPost,
@@ -18,7 +20,8 @@ import { RepoError, type EntityProof, type Repo, type Snapshot, type WriteResult
 type Row =
   | { kind: "centre"; data: Centre; createdAtBlock: number; expiresAtBlock: number; readonly: true; ple: false; owner: string }
   | { kind: "stock"; data: StockPost; createdAtBlock: number; expiresAtBlock: number; readonly: false; ple: false; owner: string }
-  | { kind: "report"; data: Report; createdAtBlock: number; expiresAtBlock: number; readonly: true; ple: true; owner: string };
+  | { kind: "report"; data: Report; createdAtBlock: number; expiresAtBlock: number; readonly: true; ple: true; owner: string }
+  | { kind: "ack"; data: Ack; createdAtBlock: number; expiresAtBlock: number; readonly: true; ple: false; owner: string };
 
 const addr = (n: number) => "0x" + n.toString(16).padStart(40, "0");
 export const MEMORY_ADMIN = addr(0xad);
@@ -75,6 +78,50 @@ export class MemoryRepo implements Repo {
     return null;
   }
 
+  /** Test hook: a centre row with any creator. The snapshot keeps it only when the creator is the admin. */
+  insertCentre(data: Centre): void {
+    this.rows.set(data.key, {
+      kind: "centre", data, createdAtBlock: this.block(), expiresAtBlock: this.block() + blocksForHours(24 * 14),
+      readonly: true, ple: false, owner: data.creator,
+    });
+  }
+
+  /** Test hook: a report with any creator. Only the payer is trusted, and only the payer's can be confirmed. */
+  insertReport(centreId: string, creator: string): WriteResult {
+    const key = randKey();
+    const data: Report = {
+      key, centreId, drug: "ASV", reason: "out", hourBucket: hourBucket(this.now()), creator,
+      createdAtBlock: this.block(), expiresAtBlock: this.block() + blocksForHours(REPORT_TTL_HOURS),
+    };
+    this.rows.set(key, {
+      kind: "report", data, createdAtBlock: data.createdAtBlock, expiresAtBlock: data.expiresAtBlock,
+      readonly: true, ple: true, owner: creator,
+    });
+    return { entityKey: key, txHash: "0x" + key.slice(2).padEnd(64, "b") };
+  }
+
+  /** Test hook: an ack with any creator. Only the centre's registered wallet is trusted. */
+  insertAck(centreId: string, reportKey: string, creator: string): WriteResult {
+    const key = randKey();
+    const data: Ack = {
+      key, centreId, reportKey, creator, createdAtBlock: this.block(),
+      expiresAtBlock: this.block() + blocksForHours(24 * CONFIRMED_TTL_DAYS),
+    };
+    this.rows.set(key, {
+      kind: "ack", data, createdAtBlock: data.createdAtBlock, expiresAtBlock: data.expiresAtBlock,
+      readonly: true, ple: false, owner: creator,
+    });
+    return { entityKey: key, txHash: "0x" + key.slice(2).padEnd(64, "a") };
+  }
+
+  /** Test hook: move expiry the way a permissionless extend would, without writing an ack. */
+  bumpExpiry(entityKey: string, expiresAtBlock: number): void {
+    const r = this.rows.get(entityKey);
+    if (!r) return;
+    r.expiresAtBlock = expiresAtBlock;
+    if (r.kind !== "centre") r.data.expiresAtBlock = expiresAtBlock;
+  }
+
   /** Test hook: insert a post with an arbitrary creator (used to prove spoofed posts are ignored). */
   insertStock(centreId: string, drug: Drug, vials: number, creator: string, ageSec = 0): WriteResult {
     const key = randKey();
@@ -90,13 +137,16 @@ export class MemoryRepo implements Repo {
     const centres: Centre[] = [];
     const stock: StockPost[] = [];
     const reports: Report[] = [];
+    const acks: Ack[] = [];
     for (const r of this.rows.values()) {
       if (!this.live(r)) continue;
-      if (r.kind === "centre") centres.push(r.data);
-      else if (r.kind === "stock") stock.push(r.data);
-      else reports.push({ ...r.data, expiresAtBlock: r.expiresAtBlock });
+      if (r.kind === "centre") {
+        if (r.data.creator.toLowerCase() === MEMORY_ADMIN.toLowerCase()) centres.push(r.data);
+      } else if (r.kind === "stock") stock.push(r.data);
+      else if (r.kind === "report") reports.push({ ...r.data, expiresAtBlock: r.expiresAtBlock });
+      else acks.push({ ...r.data, expiresAtBlock: r.expiresAtBlock });
     }
-    return { centres, stock, reports, currentBlock: this.block(), nowSec: this.nowSec(), admin: MEMORY_ADMIN, payer: MEMORY_PAYER };
+    return { centres, stock, reports, acks, currentBlock: this.block(), nowSec: this.nowSec(), admin: MEMORY_ADMIN, payer: MEMORY_PAYER };
   }
 
   async getEntity(key: string): Promise<EntityProof | null> {
@@ -117,8 +167,15 @@ export class MemoryRepo implements Repo {
     return this.insertStock(centreId, drug, vials, found.c.wallet);
   }
 
+  async postShift(centreId: string, counts: readonly { drug: Drug; vials: number }[]): Promise<WriteResult[]> {
+    if (counts.some((c) => !isValidVials(c.vials))) throw new RepoError("invalid", "vials out of range");
+    const found = this.centreById(centreId);
+    if (!found) throw new RepoError("not_found", "unknown centre");
+    return counts.map((c) => this.insertStock(centreId, c.drug, c.vials, found.c.wallet));
+  }
+
   async fileReport(centreId: string, drug: Drug, reason: Reason): Promise<WriteResult> {
-    if (!this.centreById(centreId)) throw new RepoError("not_found", "unknown centre");
+    if (!this.centreById(centreId) && !isDirectoryCentreId(centreId)) throw new RepoError("not_found", "unknown centre");
     const key = randKey();
     const data: Report = {
       key, centreId, drug, reason, hourBucket: hourBucket(this.now()), creator: MEMORY_PAYER,
@@ -128,13 +185,26 @@ export class MemoryRepo implements Repo {
     return { entityKey: key, txHash: "0x" + key.slice(2).padEnd(64, "0") };
   }
 
+  private trustedAck(centreId: string, reportKey: string, wallet: string): boolean {
+    const want = reportKey.toLowerCase();
+    for (const r of this.rows.values()) {
+      if (r.kind !== "ack" || !this.live(r)) continue;
+      if (r.data.centreId === centreId && r.data.reportKey.toLowerCase() === want && r.data.creator.toLowerCase() === wallet.toLowerCase()) return true;
+    }
+    return false;
+  }
+
   async confirmReport(centreId: string, reportKey: string): Promise<WriteResult> {
     const r = this.rows.get(reportKey);
     if (!r || !this.live(r) || r.kind !== "report") throw new RepoError("not_found", "report not found or expired");
+    if (r.data.creator.toLowerCase() !== MEMORY_PAYER.toLowerCase()) throw new RepoError("forbidden", "untrusted report");
     if (r.data.centreId !== centreId) throw new RepoError("forbidden", "report belongs to another centre");
+    const found = this.centreById(centreId);
+    if (!found) throw new RepoError("not_found", "unknown centre");
     const next = this.block() + blocksForHours(24 * CONFIRMED_TTL_DAYS);
-    if (next <= r.expiresAtBlock) throw new RepoError("invalid", "already acknowledged");
-    r.expiresAtBlock = next;
-    return { entityKey: reportKey, txHash: "0x" + reportKey.slice(2).padEnd(64, "1") };
+    if (next > r.expiresAtBlock) r.expiresAtBlock = next;
+    if (this.trustedAck(centreId, reportKey, found.c.wallet)) throw new RepoError("invalid", "already acknowledged");
+    const ack = this.insertAck(centreId, reportKey, found.c.wallet);
+    return { entityKey: reportKey, txHash: ack.txHash };
   }
 }

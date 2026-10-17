@@ -19,15 +19,34 @@ export function decodeSession(token: string | undefined, secret: string, nowSec 
   if (expected.length !== got.length || !timingSafeEqual(expected, got)) return null;
   try {
     const { c, e } = JSON.parse(Buffer.from(payload, "base64url").toString());
-    if (typeof c !== "string" || typeof e !== "number" || e <= nowSec) return null;
+    if (typeof c !== "string" || !/^[A-Z0-9-]{3,40}$/.test(c)) return null;
+    if (typeof e !== "number" || !Number.isSafeInteger(e) || e <= nowSec) return null;
     return c;
   } catch {
     return null;
   }
 }
 
+export interface StaffCookieFlags {
+  httpOnly: true;
+  sameSite: "strict";
+  secure: boolean;
+  path: "/";
+}
+
+/** Shared by login and logout so a secure cookie can actually be cleared. */
+export function staffCookieFlags(env: { NODE_ENV?: string; VERCEL?: string }): StaffCookieFlags {
+  return {
+    httpOnly: true,
+    sameSite: "strict",
+    secure: env.NODE_ENV === "production" || Boolean(env.VERCEL),
+    path: "/",
+  };
+}
+
 /** Constant-time PIN comparison (hash both sides so lengths match). */
 export function pinMatches(given: string, expected: string): boolean {
+  if (typeof given !== "string" || typeof expected !== "string") return false;
   const h = (s: string) => createHmac("sha256", "pin").update(s).digest();
   return timingSafeEqual(h(given), h(expected));
 }

@@ -29,6 +29,13 @@ describe("decodeStock", () => {
   it("drops entities missing block metadata", () => {
     expect(decodeStock({ ...good, createdAt: undefined })).toBeNull();
   });
+  it("reads the snake_case names Tiramisu accepts", () => {
+    const wired = {
+      ...base,
+      attributes: { centre_id: cell("str", "DEMO-A"), drug: cell("str", "ASV"), vials: cell("u64", 12n), posted_at: cell("u64", 1_800_000_000n) },
+    };
+    expect(decodeStock(wired)).toMatchObject({ centreId: "DEMO-A", vials: 12, postedAt: 1_800_000_000 });
+  });
 });
 
 describe("decodeCentre", () => {

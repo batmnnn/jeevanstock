@@ -4,14 +4,14 @@ import { fileFamilyReport } from "@/app/actions/report";
 import { EmergencyCall } from "@/components/family/emergency-call";
 import { ReportForm } from "@/components/family/report-form";
 import { Unavailable } from "@/components/unavailable";
-import { BackLink, PageShell } from "@/components/ui";
+import { BackLink, ButtonLink, PageShell } from "@/components/ui";
 import { CENTRE_ID_RE } from "@/lib/family/ids";
 import { parseNeed } from "@/lib/family/need";
 import { readBoard } from "@/lib/family/read-board";
 import { centreHref } from "@/lib/family/routes";
 import { common } from "@/lib/i18n";
 import { getLang } from "@/lib/lang";
-import { findCentreView } from "@/lib/views";
+import { findShownCentre, isDirectoryCentreId } from "@/lib/directory";
 import { family } from "@/messages/family";
 
 export const dynamic = "force-dynamic";
@@ -44,8 +44,21 @@ export default async function ReportPage({
     );
   }
 
-  const view = findCentreView(snap, centreId);
+  const view = findShownCentre(snap, centreId);
   if (!view) notFound();
+
+  if (isDirectoryCentreId(centreId)) {
+    return (
+      <PageShell>
+        <BackLink href={centreHref(view.centre.centreId, drug)} label={c.back} />
+        <h1 className="text-[1.75rem] font-bold leading-tight">{t.liveTitle}</h1>
+        <p className="mt-2 text-lg text-ink-2">{t.liveSoonReport}</p>
+        <ButtonLink href="/demo" className="mt-6 w-full">
+          {t.openDemo}
+        </ButtonLink>
+      </PageShell>
+    );
+  }
 
   return (
     <PageShell>

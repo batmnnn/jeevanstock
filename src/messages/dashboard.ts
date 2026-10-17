@@ -9,6 +9,7 @@ export interface DashboardCopy {
   refreshNote: string;
   summary: (p: { centres: number; asvOut: number; arvOut: number; open: number }) => string;
   statsLabel: string;
+  demoStatsLabel: string;
   reportsTile: string;
   openReports: string;
   acknowledgedReports: string;
@@ -42,13 +43,18 @@ export interface DashboardCopy {
   commandHint: string;
   footerLabel: string;
   explorerAddress: string;
+  demoHeading: string;
+  demoLede: string;
+  liveHeading: string;
+  gap: (p: { none: number; total: number; since: string }) => string;
+  centreWallets: string;
 }
 
 export interface ProofCopy {
   metaTitle: string;
   title: string;
-  kind: Record<"centre" | "stock" | "report" | "other", string>;
-  trusted: Record<Extract<TrustCode, "stock-centre" | "report-payer" | "centre-admin">, string>;
+  kind: Record<"centre" | "stock" | "report" | "ack" | "other", string>;
+  trusted: Record<Extract<TrustCode, "stock-centre" | "report-payer" | "centre-admin" | "ack-centre">, string>;
   untrusted: string;
   created: string;
   expires: string;
@@ -135,6 +141,7 @@ export const dashboard = {
         ? "इस बोर्ड पर अभी कोई केंद्र पंजीकृत नहीं है।"
         : `${centres} केंद्र। ${asvOut} पर एंटी-वेनम खत्म है, ${arvOut} पर रेबीज़ वैक्सीन खत्म है। ${open} रिपोर्ट की पुष्टि अभी बाकी है।`,
     statsLabel: "सारांश",
+    demoStatsLabel: "डेमो सारांश",
     reportsTile: "रिपोर्ट",
     openReports: "खुली रिपोर्ट",
     acknowledgedReports: "पुष्टि हुई रिपोर्ट",
@@ -161,13 +168,18 @@ export const dashboard = {
     adminLabel: "एडमिन वॉलेट",
     payerLabel: "रिपोर्टर वॉलेट",
     rulesHeading: "क्या गिना जाता है",
-    ruleCentre: "केंद्र तभी सूची में आता है जब एडमिन वॉलेट ने उसे बनाया हो। केंद्र खुद अपना पंजीकरण नहीं लिख सकता।",
+    ruleCentre: "दुर्ग और बालोद की इमारतें CGMSCL की सूची से आती हैं। शेल्फ की गिनती तभी बनती है जब उस केंद्र का पंजीकृत वॉलेट शीशियाँ लिखे।",
     ruleStock: "स्टॉक की पोस्ट तभी गिनी जाती है जब चेन पर उसका बनाने वाला ($creator) उस केंद्र का पंजीकृत वॉलेट हो। किसी और वॉलेट की पोस्ट छोड़ दी जाती है।",
-    ruleReport: "परिवार की रिपोर्ट तभी गिनी जाती है जब सार्वजनिक रिपोर्टर वॉलेट ने उसे बनाया हो। रिपोर्ट सिर्फ़ पढ़ी जा सकती है — हम भी उसे बदल नहीं सकते।",
+    ruleReport: "परिवार की रिपोर्ट तभी गिनी जाती है जब सार्वजनिक रिपोर्टर वॉलेट ने उसे बनाया हो। रिपोर्ट सिर्फ़ पढ़ी जा सकती है — हम भी उसे बदल नहीं सकते। उसे ज़्यादा देर तक जीवित रखना पुष्टि नहीं है, क्योंकि कोई भी ऐसा कर सकता है। पुष्टि तभी गिनी जाती है जब उस केंद्र का पंजीकृत वॉलेट एक अलग ack रिकॉर्ड बनाए।",
     commandLabel: "चेन पढ़ने की कमांड",
     commandHint: "वॉलेट की ज़रूरत नहीं। यह कमांड सार्वजनिक बोर्ड पढ़ती है।",
     footerLabel: "पेज",
     explorerAddress: "एक्सप्लोरर पर पता खोलें",
+    demoHeading: "डेमो केंद्र, Arkiv पर लाइव",
+    demoLede: "तीन अभ्यास केंद्र। नीचे की हर गिनती, हर रिपोर्ट और हर पुष्टि Arkiv Tiramisu टेस्टनेट पर एक रिकॉर्ड है। स्टाफ़ PIN डेमो पेज पर हैं।",
+    liveHeading: "जल्द लाइव: दुर्ग और बालोद",
+    gap: ({ none, total, since }) => `CGMSCL के रजिस्टर के अनुसार ${since} से ${total} में से ${none} ग्रामीण PHC को एंटी-वेनम नहीं भेजा गया।`,
+    centreWallets: "केंद्र वॉलेट",
   },
   en: {
     metaTitle: "Public board",
@@ -179,6 +191,7 @@ export const dashboard = {
         ? "No centres are registered on this board yet."
         : `${centres} ${centres === 1 ? "centre" : "centres"}. Anti-snake venom is out at ${asvOut}, rabies vaccine is out at ${arvOut}. ${open} ${open === 1 ? "report is" : "reports are"} still open.`,
     statsLabel: "Summary",
+    demoStatsLabel: "Demo summary",
     reportsTile: "Reports",
     openReports: "Open reports",
     acknowledgedReports: "Acknowledged reports",
@@ -205,13 +218,18 @@ export const dashboard = {
     adminLabel: "Admin wallet",
     payerLabel: "Reporter wallet",
     rulesHeading: "What counts",
-    ruleCentre: "A centre is listed only when the admin wallet created it. A centre cannot register itself.",
+    ruleCentre: "Durg and Balod buildings are listed from the CGMSCL directory. A shelf count is counted only when that centre's registered wallet posts it.",
     ruleStock: "A stock post counts only when its on-chain creator ($creator) is that centre's registered wallet. Posts from any other wallet are ignored.",
-    ruleReport: "A family report counts only when the public reporter wallet created it. Reports are read-only: nobody, including us, can edit them.",
+    ruleReport: "A family report counts only when the public reporter wallet created it. Reports are read-only: nobody, including us, can edit them. A longer lifetime is not an acknowledgement, because anyone can extend a report. It counts as acknowledged only when that centre's registered wallet creates a separate ack record.",
     commandLabel: "Read the chain",
     commandHint: "No wallet required. This command reads the public board.",
     footerLabel: "Pages",
     explorerAddress: "Open address in the explorer",
+    demoHeading: "Demo centres, live on Arkiv",
+    demoLede: "Three practice centres. Every count, family report and acknowledgement below is a record on the Arkiv Tiramisu testnet. The staff PINs are on the Demo page.",
+    liveHeading: "Coming live: Durg and Balod",
+    gap: ({ none, total, since }) => `CGMSCL's issue register shows no anti-venom sent to ${none} of ${total} rural PHCs since ${since}.`,
+    centreWallets: "Centre wallets",
   },
 } satisfies Messages<DashboardCopy>;
 
@@ -219,11 +237,12 @@ export const proof = {
   hi: {
     metaTitle: "सबूत",
     title: "सबूत",
-    kind: { centre: "स्वास्थ्य केंद्र", stock: "स्टॉक पोस्ट", report: "परिवार की रिपोर्ट", other: "अज्ञात रिकॉर्ड" },
+    kind: { centre: "स्वास्थ्य केंद्र", stock: "स्टॉक पोस्ट", report: "परिवार की रिपोर्ट", ack: "पुष्टि", other: "अज्ञात रिकॉर्ड" },
     trusted: {
       "stock-centre": "जाँचा हुआ: यह पोस्ट पंजीकृत केंद्र ने डाली है",
       "report-payer": "जाँचा हुआ: सार्वजनिक रिपोर्टर वॉलेट ने दर्ज किया",
       "centre-admin": "जाँचा हुआ: एडमिन वॉलेट ने पंजीकृत किया",
+      "ack-centre": "जाँचा हुआ: पंजीकृत केंद्र के वॉलेट ने इस रिपोर्ट की पुष्टि की",
     },
     untrusted: "भरोसेमंद नहीं — जीवन स्टॉक इसे नहीं गिनता",
     created: "बना",
@@ -260,11 +279,12 @@ export const proof = {
   en: {
     metaTitle: "Proof",
     title: "Proof",
-    kind: { centre: "Health centre", stock: "Stock post", report: "Family report", other: "Unknown record" },
+    kind: { centre: "Health centre", stock: "Stock post", report: "Family report", ack: "Acknowledgement", other: "Unknown record" },
     trusted: {
       "stock-centre": "Verified: posted by the registered centre",
       "report-payer": "Verified: filed by the public reporter wallet",
       "centre-admin": "Verified: registered by the admin wallet",
+      "ack-centre": "Verified: the registered centre wallet acknowledged this report",
     },
     untrusted: "Not trusted — ignored by JeevanStock",
     created: "Created",
@@ -304,7 +324,7 @@ export const poster = {
   hi: {
     metaTitle: "पोस्टर",
     indexTitle: "केंद्र के पोस्टर",
-    indexLede: "दीवार पर लगाने के लिए पोस्टर। कोड एंटी-वेनम का सार्वजनिक बोर्ड खोलता है। सारे केंद्र काल्पनिक हैं।",
+    indexLede: "दीवार पर लगाने के लिए पोस्टर। ये तीन पोस्टर स्टाफ़ डेमो के हैं। सार्वजनिक बोर्ड पर दुर्ग और बालोद के असली केंद्र हैं।",
     print: "छापें",
     open: "पोस्टर खोलें",
     headline: "साँप या कुत्ते ने काटा? यहाँ देखें दवा कहाँ है",
@@ -324,7 +344,7 @@ export const poster = {
   en: {
     metaTitle: "Posters",
     indexTitle: "Centre posters",
-    indexLede: "Print a poster for the wall. The code opens the public anti-snake venom board. Every centre is synthetic.",
+    indexLede: "Print a poster for the wall. These three posters are the staff demo. The public board lists real centres in Durg and Balod.",
     print: "Print",
     open: "Open poster",
     headline: "साँप या कुत्ते ने काटा? यहाँ देखें दवा कहाँ है",

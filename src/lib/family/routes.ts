@@ -1,10 +1,23 @@
+import { CENTRES } from "@/lib/centres";
 import { CENTRE_ID_RE, parseHexId } from "./ids";
 import { parseNeed } from "./need";
 
-/** Internal path only. Unknown choices go to the home list, never into the query string. */
-export function homeHref(need: unknown): string {
+export type Board = "demo" | "live";
+
+export function boardFor(centreId: string): Board {
+  return CENTRES.some((centre) => centre.centreId === centreId) ? "demo" : "live";
+}
+
+/** Front door. A medicine choice belongs on a board, not on this path. */
+export function homeHref(_need?: unknown): string {
+  return "/";
+}
+
+/** Internal path only. Unknown choices never enter the query string. */
+export function boardHref(board: Board, need: unknown): string {
+  const base = board === "demo" ? "/demo" : "/live";
   const parsed = parseNeed(need);
-  return parsed ? `/?need=${parsed}` : "/";
+  return parsed ? `${base}?need=${parsed}` : base;
 }
 
 export function centreHref(centreId: unknown, need: unknown): string {

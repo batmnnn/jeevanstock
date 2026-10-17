@@ -13,7 +13,7 @@ import { FormFeedback } from "./feedback";
 import { PendingButton, PendingNote } from "./pending";
 
 const stepBtn =
-  "inline-flex size-12 items-center justify-center rounded-xl border border-line-2 bg-surface text-2xl font-semibold leading-none text-ink hover:bg-paper disabled:cursor-not-allowed disabled:opacity-50";
+  "glass inline-flex size-12 items-center justify-center rounded-2xl text-2xl font-medium leading-none text-ink hover:bg-white/80 disabled:cursor-not-allowed disabled:opacity-50";
 
 export function StockForm({ lang, initialAsv, initialArv }: { lang: Lang; initialAsv: number; initialArv: number }) {
   const t = staff[lang];
@@ -113,7 +113,7 @@ function VialStepper({
           value={text}
           onChange={(e) => {
             const next = e.target.value;
-            if (next === "" || /^(0|[1-9]\d{0,2})$/.test(next)) apply(next);
+            if (next.length <= 8) apply(next);
           }}
           onKeyDown={(e) => {
             if (e.key === "ArrowUp") {
@@ -126,12 +126,11 @@ function VialStepper({
           }}
           inputMode="numeric"
           autoComplete="off"
-          maxLength={3}
           readOnly={pending}
-          aria-invalid={invalid || undefined}
+          aria-invalid={invalid || (text !== "" && n === null) || undefined}
           aria-describedby={described}
           className={cx(
-            "h-12 w-24 scroll-mt-24 rounded-xl border bg-surface text-center text-xl font-semibold tabular",
+            "h-12 w-24 scroll-mt-24 border bg-surface text-center font-mono text-xl tabular-nums",
             invalid ? "border-out" : "border-line-2",
           )}
         />

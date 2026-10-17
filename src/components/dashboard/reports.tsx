@@ -9,7 +9,8 @@ import { cx } from "@/components/ui";
 function Badge({ acknowledged, lang }: { acknowledged: boolean; lang: Lang }) {
   const t = dashboard[lang];
   return (
-    <span className={cx("inline-flex rounded-full px-2.5 py-1 text-sm font-semibold", acknowledged ? "bg-in-soft text-in" : "bg-low-soft text-low")}>
+    <span className={cx("inline-flex items-center gap-2 text-sm font-medium", acknowledged ? "text-in" : "text-low")}>
+      <span aria-hidden className={cx("size-2.5 rounded-full", acknowledged ? "bg-in" : "bg-low")} />
       {acknowledged ? t.ackBadge : t.openBadge}
     </span>
   );
@@ -29,7 +30,7 @@ export function Reports({ items, lang }: { items: FeedItem[]; lang: Lang }) {
   const c = common[lang];
   return (
     <section aria-labelledby="reports-heading" className="mt-12">
-      <h2 id="reports-heading" className="text-2xl font-bold tracking-tight">
+      <h2 id="reports-heading" className="font-display text-3xl font-normal">
         {t.reportsHeading}
       </h2>
       {items.length === 0 ? (

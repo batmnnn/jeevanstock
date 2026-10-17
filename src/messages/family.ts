@@ -7,6 +7,20 @@ type ReportErrorKey = ReportField | Exclude<ReportErrorCode, "validation">;
 export interface FamilyCopy {
   homeTitle: string;
   homeLead: string;
+  demoDoor: string;
+  demoDoorBody: string;
+  liveDoor: string;
+  liveDoorBody: string;
+  demoTitle: string;
+  demoLead: string;
+  liveTitle: string;
+  liveLead: string;
+  liveSoonReport: string;
+  openDemo: string;
+  staffDoor: string;
+  demoStaffTitle: string;
+  tryTitle: string;
+  trySteps: readonly string[];
   resultsTitle: Record<Drug, string>;
   resultsLead: string;
   snakebite: string;
@@ -71,12 +85,38 @@ export interface FamilyCopy {
   notFoundTitle: string;
   notFoundBody: string;
   chooseCentre: string;
+  searchLabel: string;
+  searchPlaceholder: string;
+  searchNone: string;
+  searchLoose: string;
+  searchOne: string;
+  searchMany: string;
+  searchGo: string;
 }
 
 export const family = {
   hi: {
     homeTitle: "अभी कहाँ मिलेगा?",
-    homeLead: "काटने के बाद नज़दीकी केंद्र देखें। खतरा हो तो 108 पर कॉल करें।",
+    homeLead: "डेमो में रिपोर्ट भेज सकते हैं। दुर्ग और बालोद की सूची जल्द लाइव होगी। खतरा हो तो 108 पर कॉल करें।",
+    demoDoor: "डेमो केंद्र",
+    demoDoorBody: "तीन अभ्यास केंद्र। स्टाफ़ पिन यहीं हैं। दवा नहीं मिली तो रिपोर्ट भेजें।",
+    liveDoor: "जल्द लाइव",
+    liveDoorBody: "दुर्ग और बालोद के असली केंद्र। खेप दिखती है। शेल्फ तब, जब केंद्र जुड़े।",
+    demoTitle: "डेमो केंद्र",
+    demoLead: "ये तीन अभ्यास केंद्र हैं। स्टाफ़ पिन से शीशियाँ लिखता है। परिवार रिपोर्ट भेज सकता है।",
+    liveTitle: "जल्द लाइव",
+    liveLead: "दुर्ग और बालोद के केंद्र असली हैं। अभी खेप दिखती है, शेल्फ की गिनती नहीं। केंद्र जुड़े, तब रिपोर्ट खुलेगी।",
+    liveSoonReport: "यह केंद्र अभी जुड़ा नहीं है। रिपोर्ट डेमो केंद्र पर भेज सकते हैं।",
+    openDemo: "डेमो केंद्र खोलें",
+    staffDoor: "स्टाफ़ प्रवेश",
+    demoStaffTitle: "डेमो स्टाफ़ पिन",
+    tryTitle: "दो मिनट में आज़माएँ",
+    trySteps: [
+      "नीचे Demo PHC Rampur-1 खोलें। रिपोर्ट भेजें: दवा नहीं मिली।",
+      "रसीद खोलें। यही रिकॉर्ड Arkiv पर है, एक्सप्लोरर का लिंक साथ है।",
+      "स्टाफ़ प्रवेश में Rampur-1 का पिन डालें। शीशियाँ लिखें, फिर रिपोर्ट की पुष्टि करें।",
+      "डैशबोर्ड पर गिनती, रिपोर्ट और स्टाफ़ का जवाब दिखेगा।",
+    ],
     resultsTitle: { ASV: "एंटी-वेनम कहाँ है?", ARV: "रेबीज़ वैक्सीन कहाँ है?" },
     resultsLead: "जहाँ दवा उपलब्ध है, वहाँ पहले जाएँ।",
     snakebite: "साँप ने काटा",
@@ -91,8 +131,8 @@ export const family = {
     locationUnsupported: "इस फ़ोन से जगह नहीं मिल पाई। सूची फिर भी देख सकते हैं।",
     locationReady: "दूरी दिख रही है।",
     distanceUnit: "किमी",
-    stockFirst: "जहाँ दवा उपलब्ध है, वे केंद्र ऊपर हैं।",
-    stockThenDistance: "जहाँ दवा उपलब्ध है, वे केंद्र ऊपर हैं। फिर सबसे पास वाला।",
+    stockFirst: "जहाँ शीशियाँ लिखी हैं वे ऊपर हैं, फिर सबसे नई खेप।",
+    stockThenDistance: "जहाँ शीशियाँ लिखी हैं वे ऊपर हैं, फिर सबसे नई खेप, फिर सबसे पास वाला।",
     nearestFirst: "सबसे पास वाला केंद्र ऊपर है।",
     listNearby: "केंद्रों की सूची",
     listAll: "सभी केंद्र",
@@ -162,10 +202,36 @@ export const family = {
     notFoundTitle: "यह पेज नहीं मिला",
     notFoundBody: "लिंक गलत हो सकता है। सूची से केंद्र चुनें।",
     chooseCentre: "केंद्र चुनें",
+    searchLabel: "केंद्र खोजें",
+    searchPlaceholder: "नाम या पहले अक्षर",
+    searchNone: "ऐसा कोई केंद्र नहीं मिला।",
+    searchLoose: "पूरा नाम नहीं मिला। शुरू के अक्षरों से दिखा रहे हैं।",
+    searchOne: "1 केंद्र",
+    searchMany: "केंद्र",
+    searchGo: "खोजें",
   },
   en: {
     homeTitle: "Where can you get it now?",
-    homeLead: "See nearby centres after a bite. If there is danger, call 108.",
+    homeLead: "Send a report on the demo. The Durg and Balod list is coming live. If there is danger, call 108.",
+    demoDoor: "Demo centres",
+    demoDoorBody: "Three practice centres. The staff PINs are on this board. Tell it if the medicine was missing.",
+    liveDoor: "Coming live",
+    liveDoorBody: "Real centres in Durg and Balod. You can see shipments. Shelf counts start when a centre joins.",
+    demoTitle: "Demo centres",
+    demoLead: "Three practice centres. Staff post vials with a PIN. A family can send a report.",
+    liveTitle: "Coming live",
+    liveLead: "Durg and Balod centres are real. You see the last shipment, not a shelf count. Reports open when a centre joins.",
+    liveSoonReport: "This centre has not joined yet. You can send a report on the demo centre.",
+    openDemo: "Open the demo",
+    staffDoor: "Staff sign-in",
+    demoStaffTitle: "Demo staff PINs",
+    tryTitle: "Try it in two minutes",
+    trySteps: [
+      "Open Demo PHC Rampur-1 below. Send a report: medicine was missing.",
+      "Open the receipt. That record is on Arkiv, with a link to the explorer.",
+      "Staff sign-in with the Rampur-1 PIN. Post vials, then confirm the report.",
+      "The dashboard shows the count, the report and the staff reply.",
+    ],
     resultsTitle: { ASV: "Where is anti-venom?", ARV: "Where is the rabies vaccine?" },
     resultsLead: "Go first to a centre that has it in stock.",
     snakebite: "साँप ने काटा",
@@ -180,8 +246,8 @@ export const family = {
     locationUnsupported: "This phone cannot share location. You can still use the list.",
     locationReady: "Distance is showing.",
     distanceUnit: "km",
-    stockFirst: "Centres with stock are listed first.",
-    stockThenDistance: "Centres with stock are listed first, then the nearest.",
+    stockFirst: "Centres with a shelf count come first, then the most recent shipment.",
+    stockThenDistance: "Centres with a shelf count come first, then the most recent shipment, then the nearest.",
     nearestFirst: "The nearest centre is listed first.",
     listNearby: "Centres",
     listAll: "All centres",
@@ -251,5 +317,12 @@ export const family = {
     notFoundTitle: "Page not found",
     notFoundBody: "This link may be wrong. Choose a centre from the list.",
     chooseCentre: "Choose a centre",
+    searchLabel: "Search a centre",
+    searchPlaceholder: "Name or first letters",
+    searchNone: "No centre matches that.",
+    searchLoose: "No full name matched. Showing the first letters.",
+    searchOne: "1 centre",
+    searchMany: "centres",
+    searchGo: "Search",
   },
 } satisfies Messages<FamilyCopy>;

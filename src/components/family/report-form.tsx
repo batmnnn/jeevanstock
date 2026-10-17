@@ -125,7 +125,7 @@ export function ReportForm({
             <label
               key={drug}
               htmlFor={`drug-${drug}`}
-              className="flex min-h-14 cursor-pointer items-center gap-3 rounded-xl border border-line-2 bg-surface px-4 py-3 has-[:checked]:border-brand has-[:checked]:bg-brand-soft"
+              className="glass flex min-h-14 cursor-pointer items-center gap-3 rounded-2xl px-4 py-3 has-[:checked]:border-brand has-[:checked]:bg-brand-soft"
             >
               <input
                 id={`drug-${drug}`}
@@ -162,7 +162,7 @@ export function ReportForm({
             <label
               key={reason}
               htmlFor={`reason-${reason}`}
-              className="flex min-h-14 cursor-pointer items-center gap-3 rounded-xl border border-line-2 bg-surface px-4 py-3 has-[:checked]:border-brand has-[:checked]:bg-brand-soft"
+              className="glass flex min-h-14 cursor-pointer items-center gap-3 rounded-2xl px-4 py-3 has-[:checked]:border-accent has-[:checked]:bg-accent-soft"
             >
               <input
                 id={`reason-${reason}`}

@@ -51,7 +51,7 @@ describe("staff copy", () => {
     expect(staff.en.postHint.toLowerCase()).toContain("post again each shift");
     expect(staff.hi.postHint).toContain("6");
     expect(staff.hi.postHint).toContain("शिफ्ट");
-    expect(staff.en.ledgerPending).toBe("Writing to the public ledger… ~5 seconds");
+    expect(staff.en.ledgerPending).toBe("Writing to the public ledger… ~10 seconds");
     expect(staff.hi.ledgerPending).toMatch(/[\u0900-\u097F]/);
     expect(staff.en.confirmedOk).toContain("30 days");
     expect(staff.en.openHint).toContain("48 hours");

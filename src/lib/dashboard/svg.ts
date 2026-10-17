@@ -1,5 +1,5 @@
 const FORBIDDEN =
-  /<\s*script|<\s*\/\s*script|<\s*foreignObject|<\s*iframe|<\s*embed|<\s*object|<\s*link|<\s*meta|on[a-z]+\s*=|javascript:|data:\s*text\/html|href\s*=|xlink:href/i;
+  /<\s*script|<\s*\/\s*script|<\s*foreignObject|<\s*iframe|<\s*embed|<\s*object|<\s*link|<\s*meta|<\s*image|<\s*use\b|<\s*animate|<\s*set\b|<\s*handler|on[a-z]+\s*=|javascript:|data:\s*text\/html|href\s*=|xlink:href/i;
 
 /**
  * Keep only a single SVG document produced by our QR encoder.

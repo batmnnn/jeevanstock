@@ -1,5 +1,5 @@
 import type { Drug } from "@/lib/centres";
-import { haversineKm, rankCentres, type StockStatus } from "@/lib/domain";
+import { compareSupplyDateDesc, haversineKm, rankCentres, type StockStatus } from "@/lib/domain";
 import { CENTRE_ID_RE } from "./ids";
 
 export function isLatLon(v: unknown): v is { lat: number; lon: number } {
@@ -68,7 +68,15 @@ type Sortable = {
   centreId: string;
   name: string;
   focus: { status: StockStatus } | null;
+  supplyOn?: { ASV: string | null; ARV: string | null };
 };
+
+function newerSupply(supply: { ASV: string | null; ARV: string | null } | undefined): string | null {
+  const asv = supply?.ASV ?? "";
+  const arv = supply?.ARV ?? "";
+  const newer = asv > arv ? asv : arv;
+  return newer || null;
+}
 
 /** Stock first when a drug is chosen, then distance, then name. Without a drug, distance only. */
 export function orderFamilyList<T extends Sortable>(
@@ -78,7 +86,17 @@ export function orderFamilyList<T extends Sortable>(
 ): Array<T & { distanceKm: number | null }> {
   const located = items.map((item) => ({ ...item, distanceKm: lookupDistance(distances, item.centreId) }));
   if (need === "ASV" || need === "ARV") {
-    return rankCentres(located.map((item) => ({ ...item, status: item.focus?.status ?? "stale" })));
+    return rankCentres(
+      located.map((item) => ({ ...item, status: item.focus?.status ?? "stale", suppliedOn: item.supplyOn?.[need] ?? null })),
+    );
+  }
+  if (located.some((item) => newerSupply(item.supplyOn))) {
+    return [...located].sort(
+      (a, b) =>
+        compareSupplyDateDesc(newerSupply(a.supplyOn), newerSupply(b.supplyOn)) ||
+        (a.distanceKm ?? Number.POSITIVE_INFINITY) - (b.distanceKm ?? Number.POSITIVE_INFINITY) ||
+        a.name.localeCompare(b.name),
+    );
   }
   if (distances) {
     return [...located].sort(

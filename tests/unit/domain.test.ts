@@ -5,7 +5,6 @@ import {
   isValidVials,
   latestStock,
   rankCentres,
-  REPORT_TTL_BLOCKS,
   statusForVials,
   trustedPosts,
   type StockPost,
@@ -62,9 +61,19 @@ describe("latestStock", () => {
 });
 
 describe("isAcknowledged", () => {
-  it("is false for an untouched 48h report and true after a 30-day extension", () => {
-    expect(isAcknowledged({ createdAtBlock: 100, expiresAtBlock: 100 + REPORT_TTL_BLOCKS })).toBe(false);
-    expect(isAcknowledged({ createdAtBlock: 100, expiresAtBlock: 100 + 1_296_000 })).toBe(true);
+  const key = "0x" + "ab".repeat(32);
+  const ack = (creator: string, reportKey = key, centreId = "DEMO-A") => ({ reportKey, centreId, creator });
+
+  it("is false with no ack, including when the report has already been extended", () => {
+    expect(isAcknowledged(key, [], centre)).toBe(false);
+  });
+
+  it("is true only for an ack from this centre's wallet naming this report", () => {
+    expect(isAcknowledged(key, [ack(WALLET)], centre)).toBe(true);
+    expect(isAcknowledged(key, [ack(WALLET.toLowerCase())], centre)).toBe(true);
+    expect(isAcknowledged(key, [ack("0x" + "ee".repeat(20))], centre)).toBe(false);
+    expect(isAcknowledged(key, [ack(WALLET, key, "DEMO-B")], centre)).toBe(false);
+    expect(isAcknowledged(key, [ack(WALLET, "0x" + "cd".repeat(32))], centre)).toBe(false);
   });
 });
 

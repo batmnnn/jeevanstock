@@ -1,6 +1,6 @@
 // Pure view models built from a repo Snapshot. Every page uses these so trust rules live in one place.
 import type { Drug } from "./centres";
-import { isAcknowledged, latestStock, trustedReports, type Centre, type DrugStock, type Report, type StockStatus } from "./domain";
+import { isAcknowledged, latestStock, trustedCentres, trustedReports, type Centre, type DrugStock, type Report, type StockStatus } from "./domain";
 import type { Snapshot } from "./repo/types";
 
 export interface ReportView extends Report {
@@ -16,14 +16,14 @@ export interface CentreView {
 
 export function buildCentreViews(s: Snapshot): CentreView[] {
   const reports = trustedReports(s.reports, s.payer);
-  return s.centres
+  return trustedCentres(s.centres, s.admin)
     .slice()
     .sort((a, b) => a.name.localeCompare(b.name))
     .map((centre) => {
       const [asv, arv] = latestStock(centre, s.stock, s.nowSec);
       const mine = reports
         .filter((r) => r.centreId === centre.centreId)
-        .map((r) => ({ ...r, acknowledged: isAcknowledged(r) }))
+        .map((r) => ({ ...r, acknowledged: isAcknowledged(r.key, s.acks, centre) }))
         .sort((a, b) => b.createdAtBlock - a.createdAtBlock);
       return { centre, stock: { ASV: asv, ARV: arv }, reports: mine, openReports: mine.filter((r) => !r.acknowledged).length };
     });
@@ -39,7 +39,7 @@ export interface DashboardStats {
 }
 
 export function dashboardStats(views: CentreView[]): DashboardStats {
-  const empty = (): Record<StockStatus, number> => ({ in: 0, low: 0, out: 0, stale: 0 });
+  const empty = (): Record<StockStatus, number> => ({ in: 0, low: 0, out: 0, stale: 0, sent: 0 });
   const byStatus: Record<Drug, Record<StockStatus, number>> = { ASV: empty(), ARV: empty() };
   let open = 0, ack = 0;
   for (const v of views) {

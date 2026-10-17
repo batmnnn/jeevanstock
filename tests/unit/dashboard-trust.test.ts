@@ -9,7 +9,7 @@ const OTHER = "0x00000000000000000000000000000000000000Ee";
 const snap: TrustSnapshot = {
   admin: ADMIN,
   payer: PAYER,
-  centres: [{ centreId: "DEMO-RAMPUR-1", wallet: WALLET }],
+  centres: [{ centreId: "DEMO-RAMPUR-1", wallet: WALLET, creator: ADMIN }],
 };
 
 describe("trustVerdict", () => {
@@ -34,7 +34,7 @@ describe("trustVerdict", () => {
   });
 
   it("does not accept another centre's wallet for this centre", () => {
-    const two: TrustSnapshot = { ...snap, centres: [...snap.centres, { centreId: "DEMO-SONPUR-CHC", wallet: OTHER }] };
+    const two: TrustSnapshot = { ...snap, centres: [...snap.centres, { centreId: "DEMO-SONPUR-CHC", wallet: OTHER, creator: ADMIN }] };
     expect(trustVerdict({ kind: "stock", creator: OTHER, attributes: { centreId: "DEMO-RAMPUR-1" } }, two).code).toBe("creator-mismatch");
   });
 

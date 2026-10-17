@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { isAcknowledged } from "@/lib/domain";
+import { isAcknowledged, trustedCentres } from "@/lib/domain";
 import { blockToUnix } from "@/lib/views";
 import type { EntityProof, Snapshot } from "@/lib/repo/types";
 import { common, type Lang } from "@/lib/i18n";
@@ -13,8 +13,14 @@ import { cx, StatusChip } from "@/components/ui";
 import { ChainAddress } from "./address";
 
 function verdictText(code: TrustCode, t: ProofCopy): string {
-  if (code === "stock-centre" || code === "report-payer" || code === "centre-admin") return t.trusted[code];
+  if (code === "stock-centre" || code === "report-payer" || code === "centre-admin" || code === "ack-centre") return t.trusted[code];
   return t.untrusted;
+}
+
+function reportAcknowledged(entity: EntityProof, snap: Snapshot): boolean {
+  const centre = trustedCentres(snap.centres, snap.admin).find((c) => c.centreId === entity.attributes.centreId);
+  if (!centre) return false;
+  return isAcknowledged(entity.key, snap.acks, centre);
 }
 
 function FactValue({ fact, lang, source }: { fact: ProofFact; lang: Lang; source: "arkiv" | "memory" }) {
@@ -61,7 +67,7 @@ export function ProofCard({
   const t = proof[lang];
   const verdict = trustVerdict(entity, snap);
   const trusted = verdict.trusted;
-  const kind = entity.kind === "centre" || entity.kind === "stock" || entity.kind === "report" ? entity.kind : "other";
+  const kind = entity.kind === "centre" || entity.kind === "stock" || entity.kind === "report" || entity.kind === "ack" ? entity.kind : "other";
   const facts = proofFacts(entity, snap.centres);
   const createdUnix = blockToUnix(entity.createdAtBlock, snap);
   const expiresUnix = blockToUnix(entity.expiresAtBlock, snap);
@@ -93,17 +99,17 @@ export function ProofCard({
   ];
 
   return (
-    <article className="rounded-[var(--radius-card)] border border-line bg-surface p-5 shadow-[var(--shadow-card)] sm:p-8">
+    <article className="glass rounded-2xl p-5 sm:p-8">
       <p className="text-sm font-semibold uppercase tracking-wide text-ink-3">{t.kind[kind]}</p>
-      <h1 className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">{t.title}</h1>
-      <div role="status" className={cx("mt-6 rounded-2xl border px-4 py-4 sm:px-5", trusted ? "border-in bg-in-soft" : "border-out bg-out-soft")}>
+      <h1 className="mt-2 font-display text-4xl font-normal leading-tight">{t.title}</h1>
+      <div role="status" className={cx("mt-6 border-y-2 px-1 py-4", trusted ? "border-in" : "border-out")}>
         <p className="text-xl font-bold leading-snug sm:text-2xl">
           <span aria-hidden className="mr-2">{trusted ? "✓" : "✗"}</span>
           {verdictText(verdict.code, t)}
         </p>
       </div>
       {entity.kind === "report" ? (
-        <p className="mt-4 text-ink-2">{isAcknowledged(entity) ? t.acknowledged : t.notAcknowledged}</p>
+        <p className="mt-4 text-ink-2">{reportAcknowledged(entity, snap) ? t.acknowledged : t.notAcknowledged}</p>
       ) : null}
       <dl className="mt-6 divide-y divide-line">
         {rows.map((row) => (
@@ -132,7 +138,7 @@ export function ProofCard({
         </p>
       </section>
       {source === "memory" ? (
-        <p role="note" className="mt-6 rounded-xl bg-paper px-4 py-3 text-sm text-ink-2">
+        <p role="note" className="glass mt-6 rounded-2xl px-4 py-3 text-sm text-ink-2">
           {t.offline}
         </p>
       ) : null}

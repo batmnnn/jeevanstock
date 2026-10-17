@@ -8,7 +8,7 @@ export function MissingProof({ lang }: { lang: Lang }) {
   return (
     <section className="rounded-[var(--radius-card)] border border-line bg-surface p-6 sm:p-8">
       <p className="font-mono text-sm font-semibold text-ink-3">404</p>
-      <h1 className="mt-3 text-3xl font-bold tracking-tight">{t.missingTitle}</h1>
+      <h1 className="mt-3 font-display text-4xl font-normal leading-tight">{t.missingTitle}</h1>
       <p className="mt-3 text-ink-2">{t.missingBody}</p>
       <div className="mt-6 flex flex-wrap gap-3">
         <ButtonLink href="/dashboard">{t.backToBoard}</ButtonLink>

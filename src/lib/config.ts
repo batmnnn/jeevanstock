@@ -31,12 +31,24 @@ export interface AppConfig {
 const DEV_SECRET = "dev-only-insecure-session-secret-change-me-0000";
 const DEV_PINS = ["1111", "2222", "3333", "4444", "5555"];
 
+/** Vercel and Azure App Service set these. Local `next start` does not, so the demo can boot without a secret. */
+function isDeployed(env: Record<string, string | undefined>): boolean {
+  return Boolean(env.VERCEL || env.VERCEL_ENV || env.WEBSITE_SITE_NAME);
+}
+
 export function parseConfig(env: Record<string, string | undefined>): AppConfig {
   const e = schema.parse(env);
   const isProd = env.NODE_ENV === "production";
+  const deployed = isDeployed(env);
   const ids = CENTRES.map((c) => c.centreId);
 
-  const pins = e.CENTRE_PINS?.split(",").map((s) => s.trim()) ?? (e.DATA_SOURCE === "memory" ? DEV_PINS.slice(0, ids.length) : []);
+  if ((deployed || (isProd && e.DATA_SOURCE === "arkiv")) && !e.SESSION_SECRET) {
+    throw new Error("SESSION_SECRET (>=32 chars) is required when deployed or in production arkiv mode");
+  }
+  if (deployed && e.SESSION_SECRET === DEV_SECRET) throw new Error("SESSION_SECRET must not be the dev default when deployed");
+  if (deployed && !e.CENTRE_PINS) throw new Error("CENTRE_PINS is required when deployed");
+
+  const pins = e.CENTRE_PINS?.split(",").map((s) => s.trim()) ?? (e.DATA_SOURCE === "memory" && !deployed ? DEV_PINS.slice(0, ids.length) : []);
   if (pins.length !== ids.length) throw new Error("CENTRE_PINS count must match CENTRES");
   if (pins.some((p) => !/^\d{4,8}$/.test(p))) throw new Error("CENTRE_PINS must be 4–8 digits each");
 
@@ -50,8 +62,6 @@ export function parseConfig(env: Record<string, string | undefined>): AppConfig 
     keys.forEach((k, i) => centreKeys.set(ids[i], hexKey.parse(k) as Hex));
   }
 
-  if (isProd && e.DATA_SOURCE === "arkiv" && !e.SESSION_SECRET) throw new Error("SESSION_SECRET (>=32 chars) is required in production");
-
   return {
     source: e.DATA_SOURCE,
     adminKey: e.ADMIN_KEY as Hex | undefined,
@@ -59,7 +69,7 @@ export function parseConfig(env: Record<string, string | undefined>): AppConfig 
     centreKeys,
     centrePins,
     sessionSecret: e.SESSION_SECRET ?? DEV_SECRET,
-    showDemoPins: e.SHOW_DEMO_PINS === "1" || e.DATA_SOURCE === "memory",
+    showDemoPins: e.SHOW_DEMO_PINS === "1" || (e.DATA_SOURCE === "memory" && !deployed),
   };
 }
 

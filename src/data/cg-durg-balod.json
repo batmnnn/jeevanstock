@@ -1,0 +1,1686 @@
+{
+  "pulled": "2026-10-17",
+  "issuesFrom": "2026-04-01",
+  "issuesTo": "2026-10-17",
+  "sources": {
+    "facilities": "https://dpdmis.in/DPDMISStock/GernalReport/FacilityDetails.aspx",
+    "issues": "https://dpdmis.in/DPDMISStock/FacilityIssue/Facility_Issue_Summary.aspx",
+    "warehouse": "https://dpdmis.in/DPDMISStock/Reports/DrugWisewarehousesrptCGMSCL.aspx",
+    "coordinates": "https://github.com/yashveeeeeeer/india-geodata/releases/download/healthcare/facilities/INDIA_HEALTH_FACILITIES_NIC.geojson"
+  },
+  "warehouse": {
+    "name": "Durg",
+    "asOf": "2026-10-17",
+    "serves": [
+      "Durg",
+      "Balod"
+    ],
+    "ASV": {
+      "itemCode": "D418",
+      "ready": 3867,
+      "qc": 0,
+      "issuedFy": 4835
+    },
+    "ARV": {
+      "itemCode": "D42",
+      "ready": 31,
+      "qc": 0,
+      "issuedFy": 32489
+    }
+  },
+  "centres": [
+    {
+      "centreId": "CG-BALOD-ARJUNDA",
+      "name": "CHC ARJUNDA",
+      "kind": "CHC",
+      "district": "Balod",
+      "state": "CG",
+      "lat": null,
+      "lon": null,
+      "issues": {
+        "ASV": {
+          "qty": 100,
+          "issuedOn": "2026-06-03",
+          "expiresOn": "2028-10-31",
+          "batch": "A4003924",
+          "itemCode": "D418"
+        },
+        "ARV": {
+          "qty": 200,
+          "issuedOn": "2026-09-14",
+          "expiresOn": "2029-03-31",
+          "batch": "SRV6025",
+          "itemCode": "D42"
+        }
+      }
+    },
+    {
+      "centreId": "CG-BALOD-DEVRIBANGLA",
+      "name": "CHC Devri Bangla",
+      "kind": "CHC",
+      "district": "Balod",
+      "state": "CG",
+      "lat": 20.927457,
+      "lon": 81.050172,
+      "issues": {
+        "ASV": {
+          "qty": 1499,
+          "issuedOn": "2026-07-08",
+          "expiresOn": "2030-01-31",
+          "batch": "A4000626",
+          "itemCode": "D418"
+        },
+        "ARV": {
+          "qty": 40,
+          "issuedOn": "2026-08-13",
+          "expiresOn": "2029-03-31",
+          "batch": "SRV6026",
+          "itemCode": "D42"
+        }
+      }
+    },
+    {
+      "centreId": "CG-BALOD-DONDILOHARA",
+      "name": "CHC Dondi Lohara",
+      "kind": "CHC",
+      "district": "Balod",
+      "state": "CG",
+      "lat": null,
+      "lon": null,
+      "issues": {
+        "ASV": {
+          "qty": 220,
+          "issuedOn": "2026-06-11",
+          "expiresOn": "2028-10-31",
+          "batch": "A4003924",
+          "itemCode": "D418"
+        },
+        "ARV": {
+          "qty": 200,
+          "issuedOn": "2026-09-14",
+          "expiresOn": "2029-03-31",
+          "batch": "SRV6025",
+          "itemCode": "D42"
+        }
+      }
+    },
+    {
+      "centreId": "CG-BALOD-BALOD",
+      "name": "CHC, Balod",
+      "kind": "CHC",
+      "district": "Balod",
+      "state": "CG",
+      "lat": null,
+      "lon": null,
+      "issues": {
+        "ASV": {
+          "qty": 30,
+          "issuedOn": "2026-07-27",
+          "expiresOn": "2030-01-31",
+          "batch": "A4000626",
+          "itemCode": "D418"
+        },
+        "ARV": {
+          "qty": 200,
+          "issuedOn": "2026-09-14",
+          "expiresOn": "2029-03-31",
+          "batch": "SRV6025",
+          "itemCode": "D42"
+        }
+      }
+    },
+    {
+      "centreId": "CG-BALOD-DONDI",
+      "name": "CHC, Dondi",
+      "kind": "CHC",
+      "district": "Balod",
+      "state": "CG",
+      "lat": null,
+      "lon": null,
+      "issues": {
+        "ASV": {
+          "qty": 100,
+          "issuedOn": "2026-06-09",
+          "expiresOn": "2028-10-31",
+          "batch": "A4003924",
+          "itemCode": "D418"
+        },
+        "ARV": {
+          "qty": 100,
+          "issuedOn": "2026-09-18",
+          "expiresOn": "2029-03-31",
+          "batch": "SRV6025",
+          "itemCode": "D42"
+        }
+      }
+    },
+    {
+      "centreId": "CG-BALOD-GUNDARDEHI",
+      "name": "CHC, Gundardehi",
+      "kind": "CHC",
+      "district": "Balod",
+      "state": "CG",
+      "lat": null,
+      "lon": null,
+      "issues": {
+        "ASV": {
+          "qty": 50,
+          "issuedOn": "2026-06-01",
+          "expiresOn": "2028-10-31",
+          "batch": "A4003924",
+          "itemCode": "D418"
+        },
+        "ARV": {
+          "qty": 50,
+          "issuedOn": "2026-08-14",
+          "expiresOn": "2029-03-31",
+          "batch": "SRV6028",
+          "itemCode": "D42"
+        }
+      }
+    },
+    {
+      "centreId": "CG-BALOD-GURUR",
+      "name": "CHC, Gurur",
+      "kind": "CHC",
+      "district": "Balod",
+      "state": "CG",
+      "lat": 20.683554,
+      "lon": 81.405764,
+      "issues": {
+        "ASV": {
+          "qty": 50,
+          "issuedOn": "2026-08-02",
+          "expiresOn": "2030-01-31",
+          "batch": "A4000626",
+          "itemCode": "D418"
+        },
+        "ARV": {
+          "qty": 50,
+          "issuedOn": "2026-09-23",
+          "expiresOn": "2029-03-31",
+          "batch": "SRV6025",
+          "itemCode": "D42"
+        }
+      }
+    },
+    {
+      "centreId": "CG-BALOD-ARMARIKALA",
+      "name": "PHC ARMARIKALA",
+      "kind": "PHC",
+      "district": "Balod",
+      "state": "CG",
+      "lat": 20.834153,
+      "lon": 81.410365,
+      "issues": {
+        "ASV": null,
+        "ARV": {
+          "qty": 50,
+          "issuedOn": "2026-06-04",
+          "expiresOn": "2029-01-31",
+          "batch": "SRV6010",
+          "itemCode": "D42"
+        }
+      }
+    },
+    {
+      "centreId": "CG-BALOD-AMADULA",
+      "name": "PHC Amadula",
+      "kind": "PHC",
+      "district": "Balod",
+      "state": "CG",
+      "lat": 20.455812,
+      "lon": 81.206973,
+      "issues": {
+        "ASV": null,
+        "ARV": {
+          "qty": 30,
+          "issuedOn": "2026-08-14",
+          "expiresOn": "2029-03-31",
+          "batch": "SRV6028",
+          "itemCode": "D42"
+        }
+      }
+    },
+    {
+      "centreId": "CG-BALOD-BELODI",
+      "name": "PHC BELODI",
+      "kind": "PHC",
+      "district": "Balod",
+      "state": "CG",
+      "lat": 20.80273,
+      "lon": 81.357363,
+      "issues": {
+        "ASV": {
+          "qty": 15,
+          "issuedOn": "2026-10-07",
+          "expiresOn": "2030-05-31",
+          "batch": "VBA005",
+          "itemCode": "D418"
+        },
+        "ARV": {
+          "qty": 2,
+          "issuedOn": "2026-10-07",
+          "expiresOn": "2029-03-31",
+          "batch": "SRV6025",
+          "itemCode": "D42"
+        }
+      }
+    },
+    {
+      "centreId": "CG-BALOD-BHAWERMARA",
+      "name": "PHC Bhawermara",
+      "kind": "PHC",
+      "district": "Balod",
+      "state": "CG",
+      "lat": null,
+      "lon": null,
+      "issues": {
+        "ASV": null,
+        "ARV": {
+          "qty": 5,
+          "issuedOn": "2026-09-30",
+          "expiresOn": "2029-03-31",
+          "batch": "SRV6025",
+          "itemCode": "D42"
+        }
+      }
+    },
+    {
+      "centreId": "CG-BALOD-CHIKHLAKASA",
+      "name": "PHC Chikhlakasa",
+      "kind": "PHC",
+      "district": "Balod",
+      "state": "CG",
+      "lat": null,
+      "lon": null,
+      "issues": {
+        "ASV": {
+          "qty": 100,
+          "issuedOn": "2026-06-04",
+          "expiresOn": "2028-10-31",
+          "batch": "A4003924",
+          "itemCode": "D418"
+        },
+        "ARV": {
+          "qty": 20,
+          "issuedOn": "2026-07-14",
+          "expiresOn": "2029-02-28",
+          "batch": "SRV6017",
+          "itemCode": "D42"
+        }
+      }
+    },
+    {
+      "centreId": "CG-BALOD-GUREDA",
+      "name": "PHC Gureda",
+      "kind": "PHC",
+      "district": "Balod",
+      "state": "CG",
+      "lat": null,
+      "lon": null,
+      "issues": {
+        "ASV": {
+          "qty": 50,
+          "issuedOn": "2026-07-23",
+          "expiresOn": "2030-01-31",
+          "batch": "A4000626",
+          "itemCode": "D418"
+        },
+        "ARV": {
+          "qty": 40,
+          "issuedOn": "2026-08-11",
+          "expiresOn": "2029-03-31",
+          "batch": "SRV6028",
+          "itemCode": "D42"
+        }
+      }
+    },
+    {
+      "centreId": "CG-BALOD-SANKRI",
+      "name": "PHC Sankri",
+      "kind": "PHC",
+      "district": "Balod",
+      "state": "CG",
+      "lat": 20.843802,
+      "lon": 81.260243,
+      "issues": {
+        "ASV": {
+          "qty": 10,
+          "issuedOn": "2026-07-03",
+          "expiresOn": "2028-10-31",
+          "batch": "A4003924",
+          "itemCode": "D418"
+        },
+        "ARV": {
+          "qty": 20,
+          "issuedOn": "2026-06-25",
+          "expiresOn": "2029-02-28",
+          "batch": "SRV6014",
+          "itemCode": "D42"
+        }
+      }
+    },
+    {
+      "centreId": "CG-BALOD-ARAJPURI",
+      "name": "PHC, Arajpuri",
+      "kind": "PHC",
+      "district": "Balod",
+      "state": "CG",
+      "lat": null,
+      "lon": null,
+      "issues": {
+        "ASV": {
+          "qty": 20,
+          "issuedOn": "2026-10-01",
+          "expiresOn": "2030-01-31",
+          "batch": "A4000626",
+          "itemCode": "D418"
+        },
+        "ARV": {
+          "qty": 20,
+          "issuedOn": "2026-07-08",
+          "expiresOn": "2029-02-28",
+          "batch": "SRV6017",
+          "itemCode": "D42"
+        }
+      }
+    },
+    {
+      "centreId": "CG-BALOD-BHARDAKALA",
+      "name": "PHC, Bhardakala",
+      "kind": "PHC",
+      "district": "Balod",
+      "state": "CG",
+      "lat": 20.994866,
+      "lon": 81.146687,
+      "issues": {
+        "ASV": null,
+        "ARV": {
+          "qty": 20,
+          "issuedOn": "2026-07-13",
+          "expiresOn": "2029-02-28",
+          "batch": "SRV6017",
+          "itemCode": "D42"
+        }
+      }
+    },
+    {
+      "centreId": "CG-BALOD-BODRA",
+      "name": "PHC, Bodra",
+      "kind": "PHC",
+      "district": "Balod",
+      "state": "CG",
+      "lat": 20.749046,
+      "lon": 81.410989,
+      "issues": {
+        "ASV": {
+          "qty": 30,
+          "issuedOn": "2026-05-04",
+          "expiresOn": "2028-10-31",
+          "batch": "A4003924",
+          "itemCode": "D418"
+        },
+        "ARV": {
+          "qty": 10,
+          "issuedOn": "2026-09-28",
+          "expiresOn": "2029-03-31",
+          "batch": "SRV6025",
+          "itemCode": "D42"
+        }
+      }
+    },
+    {
+      "centreId": "CG-BALOD-DUBCHERA",
+      "name": "PHC, Dubchera",
+      "kind": "PHC",
+      "district": "Balod",
+      "state": "CG",
+      "lat": 20.838138,
+      "lon": 81.142527,
+      "issues": {
+        "ASV": {
+          "qty": 5,
+          "issuedOn": "2026-05-18",
+          "expiresOn": "2028-10-31",
+          "batch": "A4003924",
+          "itemCode": "D418"
+        },
+        "ARV": {
+          "qty": 30,
+          "issuedOn": "2026-09-18",
+          "expiresOn": "2029-03-31",
+          "batch": "SRV6025",
+          "itemCode": "D42"
+        }
+      }
+    },
+    {
+      "centreId": "CG-BALOD-GHOTIYA",
+      "name": "PHC, Ghotiya",
+      "kind": "PHC",
+      "district": "Balod",
+      "state": "CG",
+      "lat": 20.593232,
+      "lon": 81.180378,
+      "issues": {
+        "ASV": {
+          "qty": 50,
+          "issuedOn": "2026-08-08",
+          "expiresOn": "2030-01-31",
+          "batch": "A4000626",
+          "itemCode": "D418"
+        },
+        "ARV": {
+          "qty": 5,
+          "issuedOn": "2026-10-01",
+          "expiresOn": "2029-03-31",
+          "batch": "SRV6025",
+          "itemCode": "D42"
+        }
+      }
+    },
+    {
+      "centreId": "CG-BALOD-JAGANNATHPURSAAKRA",
+      "name": "PHC, Jagannathpur (Saakra)",
+      "kind": "PHC",
+      "district": "Balod",
+      "state": "CG",
+      "lat": null,
+      "lon": null,
+      "issues": {
+        "ASV": {
+          "qty": 10,
+          "issuedOn": "2026-06-22",
+          "expiresOn": "2028-10-31",
+          "batch": "A4003924",
+          "itemCode": "D418"
+        },
+        "ARV": {
+          "qty": 50,
+          "issuedOn": "2026-09-14",
+          "expiresOn": "2029-03-31",
+          "batch": "SRV6025",
+          "itemCode": "D42"
+        }
+      }
+    },
+    {
+      "centreId": "CG-BALOD-KALANGPUR",
+      "name": "PHC, Kalangpur",
+      "kind": "PHC",
+      "district": "Balod",
+      "state": "CG",
+      "lat": 20.901116,
+      "lon": 81.333553,
+      "issues": {
+        "ASV": null,
+        "ARV": {
+          "qty": 10,
+          "issuedOn": "2026-09-28",
+          "expiresOn": "2029-03-31",
+          "batch": "SRV6025",
+          "itemCode": "D42"
+        }
+      }
+    },
+    {
+      "centreId": "CG-BALOD-KARHIBHADAR",
+      "name": "PHC, Karhibhadar",
+      "kind": "PHC",
+      "district": "Balod",
+      "state": "CG",
+      "lat": 20.700291,
+      "lon": 81.312942,
+      "issues": {
+        "ASV": null,
+        "ARV": {
+          "qty": 5,
+          "issuedOn": "2026-10-05",
+          "expiresOn": "2029-03-31",
+          "batch": "SRV6025",
+          "itemCode": "D42"
+        }
+      }
+    },
+    {
+      "centreId": "CG-BALOD-KHURSUNI",
+      "name": "PHC, Khursuni",
+      "kind": "PHC",
+      "district": "Balod",
+      "state": "CG",
+      "lat": null,
+      "lon": null,
+      "issues": {
+        "ASV": null,
+        "ARV": {
+          "qty": 10,
+          "issuedOn": "2026-08-14",
+          "expiresOn": "2029-03-31",
+          "batch": "SRV6028",
+          "itemCode": "D42"
+        }
+      }
+    },
+    {
+      "centreId": "CG-BALOD-KURDI",
+      "name": "PHC, Kurdi",
+      "kind": "PHC",
+      "district": "Balod",
+      "state": "CG",
+      "lat": 20.865356,
+      "lon": 81.213198,
+      "issues": {
+        "ASV": null,
+        "ARV": {
+          "qty": 20,
+          "issuedOn": "2026-09-23",
+          "expiresOn": "2029-03-31",
+          "batch": "SRV6025",
+          "itemCode": "D42"
+        }
+      }
+    },
+    {
+      "centreId": "CG-BALOD-LAATABOD",
+      "name": "PHC, Laatabod",
+      "kind": "PHC",
+      "district": "Balod",
+      "state": "CG",
+      "lat": 20.787916,
+      "lon": 81.252196,
+      "issues": {
+        "ASV": null,
+        "ARV": {
+          "qty": 50,
+          "issuedOn": "2026-09-14",
+          "expiresOn": "2029-03-31",
+          "batch": "SRV6025",
+          "itemCode": "D42"
+        }
+      }
+    },
+    {
+      "centreId": "CG-BALOD-MAHUDB",
+      "name": "PHC, Mahud-B",
+      "kind": "PHC",
+      "district": "Balod",
+      "state": "CG",
+      "lat": 20.82867,
+      "lon": 81.316952,
+      "issues": {
+        "ASV": null,
+        "ARV": {
+          "qty": 30,
+          "issuedOn": "2026-09-22",
+          "expiresOn": "2029-03-31",
+          "batch": "SRV6025",
+          "itemCode": "D42"
+        }
+      }
+    },
+    {
+      "centreId": "CG-BALOD-MANGCHUWA",
+      "name": "PHC, Mangchuwa",
+      "kind": "PHC",
+      "district": "Balod",
+      "state": "CG",
+      "lat": 20.740648,
+      "lon": 80.870023,
+      "issues": {
+        "ASV": {
+          "qty": 10,
+          "issuedOn": "2026-10-16",
+          "expiresOn": "2030-05-31",
+          "batch": "VBA005",
+          "itemCode": "D418"
+        },
+        "ARV": {
+          "qty": 10,
+          "issuedOn": "2026-09-28",
+          "expiresOn": "2029-03-31",
+          "batch": "SRV6025",
+          "itemCode": "D42"
+        }
+      }
+    },
+    {
+      "centreId": "CG-BALOD-NAHANDA",
+      "name": "PHC, Nahanda",
+      "kind": "PHC",
+      "district": "Balod",
+      "state": "CG",
+      "lat": 20.946757,
+      "lon": 81.048692,
+      "issues": {
+        "ASV": {
+          "qty": 5,
+          "issuedOn": "2026-06-04",
+          "expiresOn": "2028-10-31",
+          "batch": "A4003924",
+          "itemCode": "D418"
+        },
+        "ARV": {
+          "qty": 30,
+          "issuedOn": "2026-09-22",
+          "expiresOn": "2029-03-31",
+          "batch": "SRV6025",
+          "itemCode": "D42"
+        }
+      }
+    },
+    {
+      "centreId": "CG-BALOD-PALARI",
+      "name": "PHC, Palari",
+      "kind": "PHC",
+      "district": "Balod",
+      "state": "CG",
+      "lat": 20.667596,
+      "lon": 81.489684,
+      "issues": {
+        "ASV": {
+          "qty": 30,
+          "issuedOn": "2026-09-22",
+          "expiresOn": "2030-01-31",
+          "batch": "A4000626",
+          "itemCode": "D418"
+        },
+        "ARV": {
+          "qty": 5,
+          "issuedOn": "2026-09-30",
+          "expiresOn": "2029-03-31",
+          "batch": "SRV6025",
+          "itemCode": "D42"
+        }
+      }
+    },
+    {
+      "centreId": "CG-BALOD-PINKAPAR",
+      "name": "PHC, Pinkapar",
+      "kind": "PHC",
+      "district": "Balod",
+      "state": "CG",
+      "lat": 20.934695,
+      "lon": 80.984132,
+      "issues": {
+        "ASV": {
+          "qty": 10,
+          "issuedOn": "2026-06-14",
+          "expiresOn": "2028-10-31",
+          "batch": "A4003924",
+          "itemCode": "D418"
+        },
+        "ARV": {
+          "qty": 80,
+          "issuedOn": "2026-07-16",
+          "expiresOn": "2029-02-28",
+          "batch": "SRV6017",
+          "itemCode": "D42"
+        }
+      }
+    },
+    {
+      "centreId": "CG-BALOD-PIPARCHEDI",
+      "name": "PHC, Piparchedi",
+      "kind": "PHC",
+      "district": "Balod",
+      "state": "CG",
+      "lat": 20.761137,
+      "lon": 81.318329,
+      "issues": {
+        "ASV": null,
+        "ARV": {
+          "qty": 20,
+          "issuedOn": "2026-09-24",
+          "expiresOn": "2029-03-31",
+          "batch": "SRV6025",
+          "itemCode": "D42"
+        }
+      }
+    },
+    {
+      "centreId": "CG-BALOD-PURUR",
+      "name": "PHC, Purur",
+      "kind": "PHC",
+      "district": "Balod",
+      "state": "CG",
+      "lat": 20.798093,
+      "lon": 81.482121,
+      "issues": {
+        "ASV": {
+          "qty": 20,
+          "issuedOn": "2026-09-17",
+          "expiresOn": "2030-01-31",
+          "batch": "A4000626",
+          "itemCode": "D418"
+        },
+        "ARV": {
+          "qty": 115,
+          "issuedOn": "2026-07-05",
+          "expiresOn": "2029-02-28",
+          "batch": "SRV6017",
+          "itemCode": "D42"
+        }
+      }
+    },
+    {
+      "centreId": "CG-BALOD-RANCHIRAI",
+      "name": "PHC, Ranchirai",
+      "kind": "PHC",
+      "district": "Balod",
+      "state": "CG",
+      "lat": 20.947694,
+      "lon": 81.391247,
+      "issues": {
+        "ASV": {
+          "qty": 50,
+          "issuedOn": "2026-10-01",
+          "expiresOn": "2030-01-31",
+          "batch": "A4000626",
+          "itemCode": "D418"
+        },
+        "ARV": {
+          "qty": 5,
+          "issuedOn": "2026-10-01",
+          "expiresOn": "2029-03-31",
+          "batch": "SRV6025",
+          "itemCode": "D42"
+        }
+      }
+    },
+    {
+      "centreId": "CG-BALOD-SANJARI",
+      "name": "PHC, Sanjari",
+      "kind": "PHC",
+      "district": "Balod",
+      "state": "CG",
+      "lat": 20.859022,
+      "lon": 81.015411,
+      "issues": {
+        "ASV": null,
+        "ARV": {
+          "qty": 30,
+          "issuedOn": "2026-09-18",
+          "expiresOn": "2029-03-31",
+          "batch": "SRV6025",
+          "itemCode": "D42"
+        }
+      }
+    },
+    {
+      "centreId": "CG-BALOD-SIRSIDA",
+      "name": "PHC, Sirsida",
+      "kind": "PHC",
+      "district": "Balod",
+      "state": "CG",
+      "lat": 20.957369,
+      "lon": 81.406673,
+      "issues": {
+        "ASV": null,
+        "ARV": {
+          "qty": 30,
+          "issuedOn": "2026-09-22",
+          "expiresOn": "2029-03-31",
+          "batch": "SRV6025",
+          "itemCode": "D42"
+        }
+      }
+    },
+    {
+      "centreId": "CG-BALOD-SURDONGAR",
+      "name": "PHC, Surdongar",
+      "kind": "PHC",
+      "district": "Balod",
+      "state": "CG",
+      "lat": null,
+      "lon": null,
+      "issues": {
+        "ASV": null,
+        "ARV": {
+          "qty": 20,
+          "issuedOn": "2026-06-25",
+          "expiresOn": "2029-02-28",
+          "batch": "SRV6014",
+          "itemCode": "D42"
+        }
+      }
+    },
+    {
+      "centreId": "CG-BALOD-SUREGAON",
+      "name": "PHC, Suregaon",
+      "kind": "PHC",
+      "district": "Balod",
+      "state": "CG",
+      "lat": 20.913653,
+      "lon": 81.135348,
+      "issues": {
+        "ASV": {
+          "qty": 10,
+          "issuedOn": "2026-06-24",
+          "expiresOn": "2028-10-31",
+          "batch": "A4003924",
+          "itemCode": "D418"
+        },
+        "ARV": {
+          "qty": 20,
+          "issuedOn": "2026-08-19",
+          "expiresOn": "2029-03-31",
+          "batch": "SRV6028",
+          "itemCode": "D42"
+        }
+      }
+    },
+    {
+      "centreId": "CG-DURG-AHIWARA",
+      "name": "CHC AHIWARA",
+      "kind": "CHC",
+      "district": "Durg",
+      "state": "CG",
+      "lat": 21.395303,
+      "lon": 81.433953,
+      "issues": {
+        "ASV": null,
+        "ARV": {
+          "qty": 300,
+          "issuedOn": "2026-09-10",
+          "expiresOn": "2029-03-31",
+          "batch": "SRV6025",
+          "itemCode": "D42"
+        }
+      }
+    },
+    {
+      "centreId": "CG-DURG-BORI",
+      "name": "CHC BORI",
+      "kind": "CHC",
+      "district": "Durg",
+      "state": "CG",
+      "lat": 21.352155,
+      "lon": 81.270613,
+      "issues": {
+        "ASV": {
+          "qty": 100,
+          "issuedOn": "2026-07-24",
+          "expiresOn": "2030-01-31",
+          "batch": "A4000626",
+          "itemCode": "D418"
+        },
+        "ARV": {
+          "qty": 20,
+          "issuedOn": "2026-07-24",
+          "expiresOn": "2029-03-31",
+          "batch": "SRV6022",
+          "itemCode": "D42"
+        }
+      }
+    },
+    {
+      "centreId": "CG-DURG-JHEET",
+      "name": "CHC JHEET",
+      "kind": "CHC",
+      "district": "Durg",
+      "state": "CG",
+      "lat": 21.152325,
+      "lon": 81.554707,
+      "issues": {
+        "ASV": {
+          "qty": 300,
+          "issuedOn": "2026-07-22",
+          "expiresOn": "2030-01-31",
+          "batch": "A4000626",
+          "itemCode": "D418"
+        },
+        "ARV": {
+          "qty": 200,
+          "issuedOn": "2026-09-10",
+          "expiresOn": "2029-03-31",
+          "batch": "SRV6025",
+          "itemCode": "D42"
+        }
+      }
+    },
+    {
+      "centreId": "CG-DURG-KUMHARI",
+      "name": "CHC KUMHARI",
+      "kind": "CHC",
+      "district": "Durg",
+      "state": "CG",
+      "lat": null,
+      "lon": null,
+      "issues": {
+        "ASV": null,
+        "ARV": {
+          "qty": 100,
+          "issuedOn": "2026-09-14",
+          "expiresOn": "2029-03-31",
+          "batch": "SRV6025",
+          "itemCode": "D42"
+        }
+      }
+    },
+    {
+      "centreId": "CG-DURG-RISALI",
+      "name": "CHC Risali",
+      "kind": "CHC",
+      "district": "Durg",
+      "state": "CG",
+      "lat": null,
+      "lon": null,
+      "issues": {
+        "ASV": {
+          "qty": 50,
+          "issuedOn": "2026-07-10",
+          "expiresOn": "2030-01-31",
+          "batch": "A4000626",
+          "itemCode": "D418"
+        },
+        "ARV": {
+          "qty": 50,
+          "issuedOn": "2026-09-21",
+          "expiresOn": "2029-03-31",
+          "batch": "SRV6025",
+          "itemCode": "D42"
+        }
+      }
+    },
+    {
+      "centreId": "CG-DURG-UTAI",
+      "name": "CHC UTAI",
+      "kind": "CHC",
+      "district": "Durg",
+      "state": "CG",
+      "lat": null,
+      "lon": null,
+      "issues": {
+        "ASV": {
+          "qty": 170,
+          "issuedOn": "2026-06-01",
+          "expiresOn": "2028-10-31",
+          "batch": "A4003924",
+          "itemCode": "D418"
+        },
+        "ARV": {
+          "qty": 100,
+          "issuedOn": "2026-09-24",
+          "expiresOn": "2029-03-31",
+          "batch": "SRV6025",
+          "itemCode": "D42"
+        }
+      }
+    },
+    {
+      "centreId": "CG-DURG-DHAMDHA",
+      "name": "CHC, Dhamdha",
+      "kind": "CHC",
+      "district": "Durg",
+      "state": "CG",
+      "lat": null,
+      "lon": null,
+      "issues": {
+        "ASV": {
+          "qty": 200,
+          "issuedOn": "2026-07-07",
+          "expiresOn": "2028-10-31",
+          "batch": "A4003924",
+          "itemCode": "D418"
+        },
+        "ARV": {
+          "qty": 200,
+          "issuedOn": "2026-09-14",
+          "expiresOn": "2029-03-31",
+          "batch": "SRV6025",
+          "itemCode": "D42"
+        }
+      }
+    },
+    {
+      "centreId": "CG-DURG-NIKUM",
+      "name": "CHC, Nikum",
+      "kind": "CHC",
+      "district": "Durg",
+      "state": "CG",
+      "lat": 21.056543,
+      "lon": 81.201793,
+      "issues": {
+        "ASV": null,
+        "ARV": {
+          "qty": 300,
+          "issuedOn": "2026-07-17",
+          "expiresOn": "2029-02-28",
+          "batch": "SRV6017",
+          "itemCode": "D42"
+        }
+      }
+    },
+    {
+      "centreId": "CG-DURG-PATAN",
+      "name": "CHC, Patan",
+      "kind": "CHC",
+      "district": "Durg",
+      "state": "CG",
+      "lat": null,
+      "lon": null,
+      "issues": {
+        "ASV": {
+          "qty": 110,
+          "issuedOn": "2026-09-23",
+          "expiresOn": "2030-01-31",
+          "batch": "A4000626",
+          "itemCode": "D418"
+        },
+        "ARV": {
+          "qty": 100,
+          "issuedOn": "2026-09-18",
+          "expiresOn": "2029-03-31",
+          "batch": "SRV6025",
+          "itemCode": "D42"
+        }
+      }
+    },
+    {
+      "centreId": "CG-DURG-GADADEEH",
+      "name": "PHC Gadadeeh",
+      "kind": "PHC",
+      "district": "Durg",
+      "state": "CG",
+      "lat": 21.031102,
+      "lon": 81.423553,
+      "issues": {
+        "ASV": {
+          "qty": 20,
+          "issuedOn": "2026-09-02",
+          "expiresOn": "2030-01-31",
+          "batch": "A4000626",
+          "itemCode": "D418"
+        },
+        "ARV": {
+          "qty": 30,
+          "issuedOn": "2026-09-21",
+          "expiresOn": "2029-03-31",
+          "batch": "SRV6025",
+          "itemCode": "D42"
+        }
+      }
+    },
+    {
+      "centreId": "CG-DURG-KHURSUL",
+      "name": "PHC Khursul",
+      "kind": "PHC",
+      "district": "Durg",
+      "state": "CG",
+      "lat": 21.251192,
+      "lon": 81.194657,
+      "issues": {
+        "ASV": {
+          "qty": 40,
+          "issuedOn": "2026-05-18",
+          "expiresOn": "2028-10-31",
+          "batch": "A4003924",
+          "itemCode": "D418"
+        },
+        "ARV": {
+          "qty": 20,
+          "issuedOn": "2026-08-18",
+          "expiresOn": "2029-03-31",
+          "batch": "SRV6028",
+          "itemCode": "D42"
+        }
+      }
+    },
+    {
+      "centreId": "CG-DURG-MEDESARA",
+      "name": "PHC MEDESARA",
+      "kind": "PHC",
+      "district": "Durg",
+      "state": "CG",
+      "lat": 21.357252,
+      "lon": 81.354902,
+      "issues": {
+        "ASV": null,
+        "ARV": {
+          "qty": 20,
+          "issuedOn": "2026-09-16",
+          "expiresOn": "2029-03-31",
+          "batch": "SRV6025",
+          "itemCode": "D42"
+        }
+      }
+    },
+    {
+      "centreId": "CG-DURG-NANKATHI",
+      "name": "PHC Nankathi",
+      "kind": "PHC",
+      "district": "Durg",
+      "state": "CG",
+      "lat": 21.336059,
+      "lon": 81.337057,
+      "issues": {
+        "ASV": null,
+        "ARV": {
+          "qty": 15,
+          "issuedOn": "2026-09-09",
+          "expiresOn": "2029-03-31",
+          "batch": "SRV6025",
+          "itemCode": "D42"
+        }
+      }
+    },
+    {
+      "centreId": "CG-DURG-PENDRAVAN",
+      "name": "PHC Pendravan",
+      "kind": "PHC",
+      "district": "Durg",
+      "state": "CG",
+      "lat": 21.477022,
+      "lon": 81.237673,
+      "issues": {
+        "ASV": null,
+        "ARV": {
+          "qty": 20,
+          "issuedOn": "2026-09-16",
+          "expiresOn": "2029-03-31",
+          "batch": "SRV6025",
+          "itemCode": "D42"
+        }
+      }
+    },
+    {
+      "centreId": "CG-DURG-PURENA",
+      "name": "PHC Purena",
+      "kind": "PHC",
+      "district": "Durg",
+      "state": "CG",
+      "lat": null,
+      "lon": null,
+      "issues": {
+        "ASV": {
+          "qty": 10,
+          "issuedOn": "2026-05-22",
+          "expiresOn": "2028-10-31",
+          "batch": "A4003924",
+          "itemCode": "D418"
+        },
+        "ARV": {
+          "qty": 50,
+          "issuedOn": "2026-07-16",
+          "expiresOn": "2029-02-28",
+          "batch": "SRV6017",
+          "itemCode": "D42"
+        }
+      }
+    },
+    {
+      "centreId": "CG-DURG-BATREL",
+      "name": "PHC, Batrel",
+      "kind": "PHC",
+      "district": "Durg",
+      "state": "CG",
+      "lat": 20.889583,
+      "lon": 81.412984,
+      "issues": {
+        "ASV": {
+          "qty": 20,
+          "issuedOn": "2026-08-08",
+          "expiresOn": "2030-01-31",
+          "batch": "A4000626",
+          "itemCode": "D418"
+        },
+        "ARV": {
+          "qty": 20,
+          "issuedOn": "2026-07-17",
+          "expiresOn": "2029-02-28",
+          "batch": "SRV6017",
+          "itemCode": "D42"
+        }
+      }
+    },
+    {
+      "centreId": "CG-DURG-DARGAON",
+      "name": "PHC, Dargaon",
+      "kind": "PHC",
+      "district": "Durg",
+      "state": "CG",
+      "lat": 21.500527,
+      "lon": 81.409973,
+      "issues": {
+        "ASV": null,
+        "ARV": {
+          "qty": 40,
+          "issuedOn": "2026-09-21",
+          "expiresOn": "2029-03-31",
+          "batch": "SRV6025",
+          "itemCode": "D42"
+        }
+      }
+    },
+    {
+      "centreId": "CG-DURG-HANODA",
+      "name": "PHC, Hanoda",
+      "kind": "PHC",
+      "district": "Durg",
+      "state": "CG",
+      "lat": 21.13641,
+      "lon": 81.30036,
+      "issues": {
+        "ASV": null,
+        "ARV": {
+          "qty": 10,
+          "issuedOn": "2026-09-28",
+          "expiresOn": "2029-03-31",
+          "batch": "SRV6025",
+          "itemCode": "D42"
+        }
+      }
+    },
+    {
+      "centreId": "CG-DURG-JEWRADURG",
+      "name": "PHC, Jewra (Durg)",
+      "kind": "PHC",
+      "district": "Durg",
+      "state": "CG",
+      "lat": null,
+      "lon": null,
+      "issues": {
+        "ASV": null,
+        "ARV": {
+          "qty": 50,
+          "issuedOn": "2026-09-21",
+          "expiresOn": "2029-03-31",
+          "batch": "SRV6025",
+          "itemCode": "D42"
+        }
+      }
+    },
+    {
+      "centreId": "CG-DURG-MACHANDUR",
+      "name": "PHC, Machandur",
+      "kind": "PHC",
+      "district": "Durg",
+      "state": "CG",
+      "lat": 21.049823,
+      "lon": 81.360377,
+      "issues": {
+        "ASV": null,
+        "ARV": {
+          "qty": 30,
+          "issuedOn": "2026-09-14",
+          "expiresOn": "2029-03-31",
+          "batch": "SRV6025",
+          "itemCode": "D42"
+        }
+      }
+    },
+    {
+      "centreId": "CG-DURG-MURMUNDA",
+      "name": "PHC, Murmunda",
+      "kind": "PHC",
+      "district": "Durg",
+      "state": "CG",
+      "lat": 21.306223,
+      "lon": 81.466123,
+      "issues": {
+        "ASV": null,
+        "ARV": {
+          "qty": 60,
+          "issuedOn": "2026-08-11",
+          "expiresOn": "2029-03-31",
+          "batch": "SRV6028",
+          "itemCode": "D42"
+        }
+      }
+    },
+    {
+      "centreId": "CG-DURG-RANITARAI",
+      "name": "PHC, Ranitarai",
+      "kind": "PHC",
+      "district": "Durg",
+      "state": "CG",
+      "lat": 20.940825,
+      "lon": 81.505793,
+      "issues": {
+        "ASV": {
+          "qty": 10,
+          "issuedOn": "2026-07-21",
+          "expiresOn": "2030-01-31",
+          "batch": "A4000626",
+          "itemCode": "D418"
+        },
+        "ARV": {
+          "qty": 100,
+          "issuedOn": "2026-09-14",
+          "expiresOn": "2029-03-31",
+          "batch": "SRV6025",
+          "itemCode": "D42"
+        }
+      }
+    },
+    {
+      "centreId": "CG-DURG-RASMADA",
+      "name": "PHC, Rasmada",
+      "kind": "PHC",
+      "district": "Durg",
+      "state": "CG",
+      "lat": 21.211145,
+      "lon": 81.236108,
+      "issues": {
+        "ASV": {
+          "qty": 10,
+          "issuedOn": "2026-05-18",
+          "expiresOn": "2028-10-31",
+          "batch": "A4003924",
+          "itemCode": "D418"
+        },
+        "ARV": {
+          "qty": 30,
+          "issuedOn": "2026-09-22",
+          "expiresOn": "2029-03-31",
+          "batch": "SRV6025",
+          "itemCode": "D42"
+        }
+      }
+    },
+    {
+      "centreId": "CG-DURG-SARDUNG",
+      "name": "PHC, Sardung",
+      "kind": "PHC",
+      "district": "Durg",
+      "state": "CG",
+      "lat": null,
+      "lon": null,
+      "issues": {
+        "ASV": {
+          "qty": 30,
+          "issuedOn": "2026-08-02",
+          "expiresOn": "2030-01-31",
+          "batch": "A4000626",
+          "itemCode": "D418"
+        },
+        "ARV": {
+          "qty": 30,
+          "issuedOn": "2026-09-14",
+          "expiresOn": "2029-03-31",
+          "batch": "SRV6025",
+          "itemCode": "D42"
+        }
+      }
+    },
+    {
+      "centreId": "CG-DURG-BAGHERA",
+      "name": "UPHC Baghera",
+      "kind": "UPHC",
+      "district": "Durg",
+      "state": "CG",
+      "lat": null,
+      "lon": null,
+      "issues": {
+        "ASV": {
+          "qty": 10,
+          "issuedOn": "2026-07-22",
+          "expiresOn": "2030-01-31",
+          "batch": "A4000626",
+          "itemCode": "D418"
+        },
+        "ARV": {
+          "qty": 50,
+          "issuedOn": "2026-09-18",
+          "expiresOn": "2029-03-31",
+          "batch": "SRV6025",
+          "itemCode": "D42"
+        }
+      }
+    },
+    {
+      "centreId": "CG-DURG-BAIKUNTHDHAM",
+      "name": "UPHC Baikunthdham",
+      "kind": "UPHC",
+      "district": "Durg",
+      "state": "CG",
+      "lat": null,
+      "lon": null,
+      "issues": {
+        "ASV": null,
+        "ARV": {
+          "qty": 30,
+          "issuedOn": "2026-09-22",
+          "expiresOn": "2029-03-31",
+          "batch": "SRV6025",
+          "itemCode": "D42"
+        }
+      }
+    },
+    {
+      "centreId": "CG-DURG-BHILAI3",
+      "name": "UPHC Bhilai3",
+      "kind": "UPHC",
+      "district": "Durg",
+      "state": "CG",
+      "lat": null,
+      "lon": null,
+      "issues": {
+        "ASV": null,
+        "ARV": {
+          "qty": 100,
+          "issuedOn": "2026-07-17",
+          "expiresOn": "2029-02-28",
+          "batch": "SRV6017",
+          "itemCode": "D42"
+        }
+      }
+    },
+    {
+      "centreId": "CG-DURG-CHARODA",
+      "name": "UPHC Charoda",
+      "kind": "UPHC",
+      "district": "Durg",
+      "state": "CG",
+      "lat": null,
+      "lon": null,
+      "issues": {
+        "ASV": {
+          "qty": 20,
+          "issuedOn": "2026-06-23",
+          "expiresOn": "2028-10-31",
+          "batch": "A4003924",
+          "itemCode": "D418"
+        },
+        "ARV": {
+          "qty": 5,
+          "issuedOn": "2026-08-10",
+          "expiresOn": "2029-03-31",
+          "batch": "SRV6028",
+          "itemCode": "D42"
+        }
+      }
+    },
+    {
+      "centreId": "CG-DURG-CHHAWANI",
+      "name": "UPHC Chhawani",
+      "kind": "UPHC",
+      "district": "Durg",
+      "state": "CG",
+      "lat": null,
+      "lon": null,
+      "issues": {
+        "ASV": null,
+        "ARV": {
+          "qty": 50,
+          "issuedOn": "2026-09-14",
+          "expiresOn": "2029-03-31",
+          "batch": "SRV6025",
+          "itemCode": "D42"
+        }
+      }
+    },
+    {
+      "centreId": "CG-DURG-DHAMDHANAKA",
+      "name": "UPHC Dhamdha Naka",
+      "kind": "UPHC",
+      "district": "Durg",
+      "state": "CG",
+      "lat": null,
+      "lon": null,
+      "issues": {
+        "ASV": null,
+        "ARV": {
+          "qty": 200,
+          "issuedOn": "2026-09-10",
+          "expiresOn": "2029-03-31",
+          "batch": "SRV6025",
+          "itemCode": "D42"
+        }
+      }
+    },
+    {
+      "centreId": "CG-DURG-JUNWANI",
+      "name": "UPHC Junwani",
+      "kind": "UPHC",
+      "district": "Durg",
+      "state": "CG",
+      "lat": null,
+      "lon": null,
+      "issues": {
+        "ASV": null,
+        "ARV": {
+          "qty": 50,
+          "issuedOn": "2026-09-11",
+          "expiresOn": "2029-03-31",
+          "batch": "SRV6025",
+          "itemCode": "D42"
+        }
+      }
+    },
+    {
+      "centreId": "CG-DURG-KHURSIPAR",
+      "name": "UPHC Khursipar",
+      "kind": "UPHC",
+      "district": "Durg",
+      "state": "CG",
+      "lat": null,
+      "lon": null,
+      "issues": {
+        "ASV": null,
+        "ARV": {
+          "qty": 100,
+          "issuedOn": "2026-09-10",
+          "expiresOn": "2029-03-31",
+          "batch": "SRV6025",
+          "itemCode": "D42"
+        }
+      }
+    },
+    {
+      "centreId": "CG-DURG-KOHAKA",
+      "name": "UPHC Kohaka",
+      "kind": "UPHC",
+      "district": "Durg",
+      "state": "CG",
+      "lat": null,
+      "lon": null,
+      "issues": {
+        "ASV": null,
+        "ARV": {
+          "qty": 100,
+          "issuedOn": "2026-09-10",
+          "expiresOn": "2029-03-31",
+          "batch": "SRV6025",
+          "itemCode": "D42"
+        }
+      }
+    },
+    {
+      "centreId": "CG-DURG-KOSANAGAR",
+      "name": "UPHC Kosa Nagar",
+      "kind": "UPHC",
+      "district": "Durg",
+      "state": "CG",
+      "lat": null,
+      "lon": null,
+      "issues": {
+        "ASV": null,
+        "ARV": {
+          "qty": 50,
+          "issuedOn": "2026-09-14",
+          "expiresOn": "2029-03-31",
+          "batch": "SRV6025",
+          "itemCode": "D42"
+        }
+      }
+    },
+    {
+      "centreId": "CG-DURG-POTIYAKALA",
+      "name": "UPHC Potiya Kala",
+      "kind": "UPHC",
+      "district": "Durg",
+      "state": "CG",
+      "lat": null,
+      "lon": null,
+      "issues": {
+        "ASV": null,
+        "ARV": {
+          "qty": 50,
+          "issuedOn": "2026-09-18",
+          "expiresOn": "2029-03-31",
+          "batch": "SRV6025",
+          "itemCode": "D42"
+        }
+      }
+    },
+    {
+      "centreId": "CG-DURG-TANKIMARODA",
+      "name": "UPHC Tanki Maroda",
+      "kind": "UPHC",
+      "district": "Durg",
+      "state": "CG",
+      "lat": null,
+      "lon": null,
+      "issues": {
+        "ASV": null,
+        "ARV": {
+          "qty": 30,
+          "issuedOn": "2026-09-22",
+          "expiresOn": "2029-03-31",
+          "batch": "SRV6025",
+          "itemCode": "D42"
+        }
+      }
+    },
+    {
+      "centreId": "CG-DURG-VAISHALINAGAR",
+      "name": "UPHC Vaishalinagar",
+      "kind": "UPHC",
+      "district": "Durg",
+      "state": "CG",
+      "lat": null,
+      "lon": null,
+      "issues": {
+        "ASV": null,
+        "ARV": {
+          "qty": 20,
+          "issuedOn": "2026-09-21",
+          "expiresOn": "2029-03-31",
+          "batch": "SRV6025",
+          "itemCode": "D42"
+        }
+      }
+    },
+    {
+      "centreId": "CG-DURG-KHURSIPARBAPUNAGAR",
+      "name": "UPHC, Khursipar(Bapunagar)",
+      "kind": "UPHC",
+      "district": "Durg",
+      "state": "CG",
+      "lat": null,
+      "lon": null,
+      "issues": {
+        "ASV": null,
+        "ARV": {
+          "qty": 60,
+          "issuedOn": "2026-08-11",
+          "expiresOn": "2029-03-31",
+          "batch": "SRV6028",
+          "itemCode": "D42"
+        }
+      }
+    }
+  ]
+}

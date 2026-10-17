@@ -11,7 +11,7 @@ import { FormFeedback } from "./feedback";
 import { PendingButton, PendingNote } from "./pending";
 
 const field =
-  "mt-1 block min-h-12 w-full scroll-mt-24 rounded-xl border bg-surface px-3 text-base";
+  "glass mt-1 block min-h-12 w-full scroll-mt-24 rounded-2xl px-3 text-base";
 
 export function LoginForm({ lang }: { lang: Lang }) {
   const t = staff[lang];

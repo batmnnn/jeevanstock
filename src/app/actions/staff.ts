@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import type { Drug } from "@/lib/centres";
+import { ipHeaderForLimit } from "@/lib/client-ip";
 import { config } from "@/lib/config";
 import { rateLimit } from "@/lib/ratelimit";
 import { repo, RepoError } from "@/lib/repo";
@@ -63,8 +64,8 @@ function rejectLogin(knownCentreId: string | null, hash: string): StaffFormState
 }
 
 export async function login(_prev: StaffFormState, formData: FormData): Promise<StaffFormState> {
-  const forwarded = (await headers()).get("x-forwarded-for");
-  const hash = clientHash(forwarded);
+  const headerList = await headers();
+  const hash = clientHash(ipHeaderForLimit({ realIp: headerList.get("x-real-ip"), forwardedFor: headerList.get("x-forwarded-for") }));
   const parsed = parseLogin({
     centreId: textField(formData, "centreId"),
     pin: textField(formData, "pin"),
@@ -102,33 +103,31 @@ export async function postStockAction(_prev: StaffFormState, formData: FormData)
     { drug: "ASV", vials: parsed.ASV },
     { drug: "ARV", vials: parsed.ARV },
   ];
-  const proofs: StaffProof[] = [];
-
+  const allowed: typeof plan = [];
+  let rate: { code: "rate"; seconds: number } | null = null;
   for (const item of plan) {
     const gate = rateLimit(postRateKey(centreId), POST_LIMIT, POST_WINDOW_MS);
     if (!gate.ok) {
-      const rate = { code: "rate" as const, seconds: retrySeconds(gate.retryAfterSec, POST_WINDOW_MS) };
-      if (proofs.length) {
-        revalidatePath(`/staff/${centreId}`);
-        return staffPartial([{ code: "postedPartial" }, rate], proofs);
-      }
-      return staffError([rate]);
+      rate = { code: "rate", seconds: retrySeconds(gate.retryAfterSec, POST_WINDOW_MS) };
+      break;
     }
-    try {
-      const result = await repo().postStock(centreId, item.drug, item.vials);
+    allowed.push(item);
+  }
+  if (rate && !allowed.length) return staffError([rate]);
+
+  let proofs: StaffProof[];
+  try {
+    const results = await repo().postShift(centreId, allowed);
+    proofs = results.flatMap((result, i) => {
       const key = parseReportKey(result.entityKey);
-      if (key) proofs.push({ kind: item.drug, key });
-    } catch (err) {
-      const code = repoErrorCode(err instanceof RepoError ? err.code : "");
-      if (proofs.length) {
-        revalidatePath(`/staff/${centreId}`);
-        return staffPartial([{ code: "postedPartial" }, { code }], proofs);
-      }
-      return staffError([{ code }]);
-    }
+      return key ? [{ kind: allowed[i].drug, key }] : [];
+    });
+  } catch (err) {
+    return staffError([{ code: repoErrorCode(err instanceof RepoError ? err.code : "") }]);
   }
 
   revalidatePath(`/staff/${centreId}`);
+  if (rate) return staffPartial([{ code: "postedPartial" }, rate], proofs);
   return staffOk("posted", proofs);
 }
 

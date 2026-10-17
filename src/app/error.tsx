@@ -15,7 +15,7 @@ export default function ErrorPage({ error, reset }: { error: Error & { digest?: 
   return (
     <main id="main" className="mx-auto w-full max-w-2xl px-4 pb-20 pt-10 sm:px-6">
       <section role="alert">
-        <h1 className="text-4xl font-bold tracking-tight">{t.errorTitle}</h1>
+        <h1 className="font-display text-4xl font-normal leading-tight">{t.errorTitle}</h1>
         <p className="mt-3 text-lg text-ink-2">{t.errorBody}</p>
         {error.digest ? (
           <p className="mt-4 font-mono text-sm text-ink-3">

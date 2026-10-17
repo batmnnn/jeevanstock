@@ -15,7 +15,7 @@ const HEX = `0x${"ab".repeat(32)}`;
 function phrases(lang: "hi" | "en"): StockPhrases {
   const c = common[lang];
   const t = family[lang];
-  return { vials: c.vials, minutesAgo: c.minutesAgo, noUpdate: c.noUpdate, vialsUnknown: t.vialsUnknown, updated: t.updated };
+  return { vials: c.vials, minutesAgo: c.minutesAgo, noUpdate: c.noUpdate, sentShelf: c.sentShelf, vialsUnknown: t.vialsUnknown, updated: t.updated };
 }
 
 function stock(drug: Drug, over: Partial<DrugStock> = {}): DrugStock {

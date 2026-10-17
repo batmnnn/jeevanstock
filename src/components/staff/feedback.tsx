@@ -64,14 +64,14 @@ export function FormFeedback({
         </div>
       )}
       {state.status === "ok" && state.ok && (
-        <div role="status" aria-live="polite" className="rounded-xl bg-brand px-4 py-4 text-brand-ink">
+        <div role="status" aria-live="polite" className="glass rounded-2xl px-4 py-4">
           <h2 className="text-lg font-bold">{state.ok === "posted" ? t.postedOk : t.confirmedOk}</h2>
           {state.ok === "posted" && <p className="mt-1">{t.postedNext}</p>}
           {proofs.length > 0 && <ProofList lang={lang} proofs={proofs} onBrand />}
         </div>
       )}
       {state.status === "error" && proofs.length > 0 && (
-        <div className="rounded-xl border border-line bg-surface px-4 py-3">
+        <div className="glass rounded-2xl px-4 py-3">
           <ProofList lang={lang} proofs={proofs} />
         </div>
       )}

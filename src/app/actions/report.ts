@@ -2,6 +2,8 @@
 
 import { headers } from "next/headers";
 import { redirect, unstable_rethrow } from "next/navigation";
+import { ipHeaderForLimit } from "@/lib/client-ip";
+import { isDirectoryCentreId } from "@/lib/directory";
 import { clientLimitKey, centreLimitKey } from "@/lib/family/client-key";
 import { FAMILY_LIMITS } from "@/lib/family/limits";
 import { receiptPath } from "@/lib/family/receipt";
@@ -27,7 +29,7 @@ export async function fileFamilyReport(_prev: ReportFormState, formData: FormDat
 
   try {
     const snap = await repo().snapshot();
-    if (!snap.centres.some((centre) => centre.centreId === parsed.data.centreId)) {
+    if (!snap.centres.some((centre) => centre.centreId === parsed.data.centreId) && !isDirectoryCentreId(parsed.data.centreId)) {
       return { status: "error", code: "not_found", fields: ["centreId"] };
     }
   } catch (error) {
@@ -36,9 +38,11 @@ export async function fileFamilyReport(_prev: ReportFormState, formData: FormDat
     return { status: "error", code: "unavailable", fields: [] };
   }
 
-  // First forwarded hop is hashed here. The raw address is not logged or kept outside the limiter.
+  // Hashed here and kept only in the in-memory limiter. The raw address is not logged.
   const headerList = await headers();
-  const clientKey = clientLimitKey(headerList.get("x-forwarded-for"));
+  const clientKey = clientLimitKey(
+    ipHeaderForLimit({ realIp: headerList.get("x-real-ip"), forwardedFor: headerList.get("x-forwarded-for") }),
+  );
   if (!rateLimit(clientKey, FAMILY_LIMITS.perClient.limit, FAMILY_LIMITS.perClient.windowMs).ok) {
     return { status: "error", code: "rate_client", fields: [] };
   }

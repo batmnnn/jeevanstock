@@ -1,5 +1,5 @@
 import type { Drug, Reason } from "../centres";
-import type { Centre, Report, StockPost } from "../domain";
+import type { Ack, Centre, Report, StockPost } from "../domain";
 
 export interface WriteResult {
   entityKey: string;
@@ -22,6 +22,8 @@ export interface Snapshot {
   centres: Centre[];
   stock: StockPost[];
   reports: Report[];
+  /** Acks created by registered centre wallets. A longer report expiry is not an ack. */
+  acks: Ack[];
   currentBlock: number;
   nowSec: number;
   /** Addresses the read side trusts. Public information. */
@@ -35,6 +37,8 @@ export interface Repo {
   snapshot(): Promise<Snapshot>;
   getEntity(key: string): Promise<EntityProof | null>;
   postStock(centreId: string, drug: Drug, vials: number): Promise<WriteResult>;
+  /** One shift's counts in one write. Keys come back in the order given. */
+  postShift(centreId: string, counts: readonly { drug: Drug; vials: number }[]): Promise<WriteResult[]>;
   fileReport(centreId: string, drug: Drug, reason: Reason): Promise<WriteResult>;
   /** Signed by the centre's own wallet; only reports about that centre may be confirmed. */
   confirmReport(centreId: string, reportKey: string): Promise<WriteResult>;

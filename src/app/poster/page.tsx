@@ -18,7 +18,7 @@ export default async function PosterIndexPage() {
   return (
     <Main width="board">
       <header className="max-w-2xl">
-        <h1 className="text-4xl font-bold tracking-tight">{t.indexTitle}</h1>
+        <h1 className="font-display text-4xl font-normal leading-tight">{t.indexTitle}</h1>
         <p className="mt-3 text-lg text-ink-2">{t.indexLede}</p>
       </header>
       <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

@@ -18,17 +18,18 @@
 **Centre staff (one synthetic login per centre; the server holds that centre's wallet)**
 1. Open the staff link (PIN).
 2. Use **ASV** and **ARV** steppers (vials) and tap **Post**. The post expires in 6h, so stale data greys out by itself.
-3. A family report appears in the inbox. Tap **Confirm** (extends it to 30 days as an acknowledged record) or ignore it (it expires in 48h).
+3. A family report appears in the inbox. Tap **Confirm** — the centre wallet writes a readonly `ack` and extends the report to 30 days — or ignore it (it expires in 48h).
 
 ## 3. Architecture
-- **Next.js (App Router) on Vercel.** It must stay live until 23 Oct.
+- **Next.js 16 (App Router) on Azure App Service.** It must stay live until 23 Oct.
 - **Server-held wallets.** One per *synthetic* centre (env `CENTRE_KEYS`), plus one `PAYER` wallet that writes family reports. Keys stay server-side only and never go in the repo.
 - **Registry.** An admin wallet creates `centre` entities. The dashboard trusts stock only when `$creator` equals the centre's registered wallet (`createdBy()` filter). That stops spoofed stock posts.
-- **Stock posts.** Created with a 6h lifetime (`ExpirationTime.fromHours(6)` = 10,800 blocks at 2s). A new post each shift, so history is append-only.
-- **Reports.** `flags: { readonly: true, permissionlessExtension: true }`, 48h lifetime. Nobody can edit them, including us. On Confirm, the *centre wallet* calls `extendEntity` for 30 days, so the on-chain event proves the acknowledgement.
-- **Public dashboard.** Keyless reads (`createPublicClient`, no wallet): live counts, out-of-stock hours, unacknowledged reports.
-- **No personal data, even hashed.** No names, phones, GPS of the person, device IDs or IP. Reports carry only centreId, drug, reason and a coarse hour bucket. All centres in the demo are synthetic ("Demo PHC Rampur-1").
+- **Stock posts.** Created with a 6h lifetime (`ExpirationTime.fromHours(6)` = 10,800 blocks at 2s). One `executeBatch` per shift covers both drugs. A new post each shift, so history is append-only.
+- **Reports.** `flags: { readonly: true, permissionlessExtension: true }`, 48h lifetime. Nobody can edit them, including us. Anyone can extend one, so a longer lifetime is not proof the centre agreed. On Confirm, the centre wallet writes a readonly `ack` whose `$creator` is that centre's registered wallet, and extends the report to 30 days in the same `executeBatch`, so the two can't come apart. The ack is the acknowledgement.
+- **Two boards.** `/demo`: three synthetic centres whose stock, reports and acks are on Arkiv. `/live`: the real Durg and Balod centres from CGMSCL's public register (last shipment only, kept off-chain as public data), until a centre is onboarded.
+- **Public dashboard.** Keyless reads (`createPublicClient`, no wallet): demo centres, recent reports and acks, every trusted wallet, and the CGMSCL supply gap.
+- **No personal data, even hashed.** No names, phones, GPS of the person, device IDs or IP. Reports carry only centreId, drug, reason and a coarse hour bucket. Demo centres are synthetic ("Demo PHC Rampur-1"); Durg and Balod facility data is public CGMSCL data.
 - **Stretch:** ICU bed counts (`beds` entity, same pattern).
 
 ## 4. Non-goals
-Medical advice, real centre data, user accounts, payments.
+Medical advice, writing to Arkiv on behalf of real centres before they join, user accounts, payments.

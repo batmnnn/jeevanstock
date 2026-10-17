@@ -27,15 +27,15 @@ export function CentreActions({
       <button
         type="button"
         aria-disabled="true"
-        aria-label={`${labels.call} — ${name}, ${labels.demoNote}`}
         onClick={(event) => {
           event.preventDefault();
           event.stopPropagation();
         }}
-        className="inline-flex min-h-12 min-w-0 flex-1 cursor-not-allowed items-center justify-center gap-2 rounded-xl border border-line-2 bg-paper px-4 text-base font-semibold text-ink-3"
+        className="glass inline-flex min-h-12 min-w-0 flex-1 cursor-not-allowed items-center justify-center gap-2 rounded-2xl px-4 text-base font-medium text-ink-3"
       >
         {labels.call}
         <span>· {labels.demoNote}</span>
+        <span className="sr-only"> — {name}</span>
       </button>
     </div>
   );

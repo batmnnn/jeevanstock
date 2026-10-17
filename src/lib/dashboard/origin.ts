@@ -87,6 +87,18 @@ export function originFromHeaders(h: ForwardedHeaders): string {
   return `${resolveProto(h.forwardedProto, host)}://${host}`;
 }
 
+/**
+ * Origin baked into a printable QR. Uses the Host header only.
+ * `X-Forwarded-Host` is not trusted: a caller can set it to another site.
+ * On Vercel, public hosts are forced to https.
+ */
+export function posterOrigin(h: ForwardedHeaders, env: { VERCEL?: string } = {}): string {
+  const host = parseHost(h.host);
+  if (!host) return FALLBACK_ORIGIN;
+  const proto = env.VERCEL && !isLoopback(host) ? "https" : resolveProto(h.forwardedProto, host);
+  return `${proto}://${host}`;
+}
+
 /** `${origin}/?need=ASV`, or the localhost fallback if `origin` is not a bare http(s) origin. */
 export function boardUrl(origin: string): string {
   const fallback = `${FALLBACK_ORIGIN}/?need=ASV`;
