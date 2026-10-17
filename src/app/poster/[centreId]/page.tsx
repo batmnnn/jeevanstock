@@ -39,7 +39,7 @@ export default async function PosterPage({ params }: { params: Promise<{ centreI
   const url = boardUrl(
     posterOrigin(
       { host: h.get("host"), forwardedProto: h.get("x-forwarded-proto") },
-      { VERCEL: process.env.VERCEL },
+      { VERCEL: process.env.VERCEL, WEBSITE_HOSTNAME: process.env.WEBSITE_HOSTNAME },
     ),
   );
   const svg = safeQrSvg(await QRCode.toString(url, { type: "svg", margin: 1, errorCorrectionLevel: "M" }));

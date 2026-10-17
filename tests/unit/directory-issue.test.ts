@@ -80,14 +80,13 @@ describe("CGMSCL issues are not shelf stock", () => {
     expect(publicDrugStock(undefined, "ASV").vials).toBeNull();
   });
 
-  it("accepts a family report for a directory centre and does not let that report set stock", async () => {
+  it("rejects a family report for a directory centre that has not joined", async () => {
     const repo = new MemoryRepo(clock(), { seed: false });
-    await repo.fileReport("CG-BALOD-CHIKHLAKASA", "ASV", "out");
-    await expect(repo.postStock("CG-BALOD-CHIKHLAKASA", "ASV", 100)).rejects.toMatchObject({ code: "not_found" });
+    await expect(repo.fileReport("CG-BALOD-CHIKHLAKASA", "ASV", "out")).rejects.toMatchObject({ code: "not_found" });
 
     const view = buildPublicBoard(await repo.snapshot()).find((centre) => centre.centre.centreId === "CG-BALOD-CHIKHLAKASA");
-    expect(view?.openReports).toBe(1);
-    expect(view?.stock.ASV).toMatchObject({ status: "out", vials: null });
+    expect(view?.openReports).toBe(0);
+    expect(view?.stock.ASV).toMatchObject({ status: "sent", vials: null });
   });
 
   it("does not turn any shipment quantity into a shelf vial count", async () => {

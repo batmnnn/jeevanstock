@@ -149,7 +149,7 @@ export const dashboard = {
     emptyTitle: "बोर्ड अभी खाली है",
     emptyBody: "एडमिन वॉलेट केंद्र जोड़ेगा, तब केंद्र यहाँ दिखेंगे। केंद्र शीशियों की गिनती डालेगा, तब स्टॉक दिखेगा।",
     centresHeading: "केंद्र",
-    openOnCentre: (n) => `${n} रिपोर्ट खुली है`,
+    openOnCentre: (n) => (n === 1 ? "1 रिपोर्ट खुली है" : `${n} रिपोर्ट खुली हैं`),
     noOpenOnCentre: "कोई खुली रिपोर्ट नहीं",
     reportsHeading: "हाल की रिपोर्ट",
     reportsCaption: "परिवारों की रिपोर्ट, सबसे नई सबसे ऊपर",

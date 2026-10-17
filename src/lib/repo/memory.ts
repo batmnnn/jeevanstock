@@ -1,6 +1,5 @@
 import type { Drug, Reason } from "../centres";
 import { CENTRES } from "../centres";
-import { isDirectoryCentreId } from "../directory";
 import {
   blocksForHours,
   CONFIRMED_TTL_DAYS,
@@ -175,7 +174,7 @@ export class MemoryRepo implements Repo {
   }
 
   async fileReport(centreId: string, drug: Drug, reason: Reason): Promise<WriteResult> {
-    if (!this.centreById(centreId) && !isDirectoryCentreId(centreId)) throw new RepoError("not_found", "unknown centre");
+    if (!this.centreById(centreId)) throw new RepoError("not_found", "unknown centre");
     const key = randKey();
     const data: Report = {
       key, centreId, drug, reason, hourBucket: hourBucket(this.now()), creator: MEMORY_PAYER,

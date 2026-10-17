@@ -75,10 +75,10 @@ describe("originFromHeaders", () => {
 
 describe("boardUrl", () => {
   it("appends the ASV home query to a bare origin", () => {
-    expect(boardUrl("https://board.example")).toBe("https://board.example/?need=ASV");
-    expect(boardUrl("http://localhost:3000")).toBe("http://localhost:3000/?need=ASV");
+    expect(boardUrl("https://board.example")).toBe("https://board.example/demo?need=ASV");
+    expect(boardUrl("http://localhost:3000")).toBe("http://localhost:3000/demo?need=ASV");
     expect(boardUrl(originFromHeaders({ host: "localhost:3000", forwardedProto: "http" }))).toBe(
-      "http://localhost:3000/?need=ASV",
+      "http://localhost:3000/demo?need=ASV",
     );
   });
 
@@ -92,6 +92,6 @@ describe("boardUrl", () => {
     "not a url",
     "",
   ])("rejects %j", (origin) => {
-    expect(boardUrl(origin)).toBe(`${FALLBACK_ORIGIN}/?need=ASV`);
+    expect(boardUrl(origin)).toBe(`${FALLBACK_ORIGIN}/demo?need=ASV`);
   });
 });

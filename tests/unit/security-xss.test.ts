@@ -65,6 +65,7 @@ describe("poster origin", () => {
     expect(posterOrigin({ host: "localhost:3300", forwardedHost: "evil.example" })).toBe("http://localhost:3300");
     expect(posterOrigin({ host: "board.example", forwardedProto: "http" }, { VERCEL: "1" })).toBe("https://board.example");
     expect(posterOrigin({ host: "evil.example\r\nX: 1" })).toBe("http://localhost:3000");
+    expect(posterOrigin({ host: "evil.example" }, { WEBSITE_HOSTNAME: "jeevanstock.azurewebsites.net" })).toBe("https://jeevanstock.azurewebsites.net");
   });
 });
 

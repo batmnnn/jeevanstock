@@ -198,14 +198,14 @@ export default async function CentrePage({
           <ul className="mt-2 grid list-none gap-2 p-0">
             {asvProof ? (
               <li>
-                <a href={asvProof} className="font-semibold text-brand underline underline-offset-4">
+                <a href={asvProof} className="inline-flex min-h-12 items-center font-semibold text-brand underline underline-offset-4">
                   {t.proofAsv}
                 </a>
               </li>
             ) : null}
             {arvProof ? (
               <li>
-                <a href={arvProof} className="font-semibold text-brand underline underline-offset-4">
+                <a href={arvProof} className="inline-flex min-h-12 items-center font-semibold text-brand underline underline-offset-4">
                   {t.proofArv}
                 </a>
               </li>
@@ -220,7 +220,7 @@ export default async function CentrePage({
         {isDirectoryCentreId(view.centre.centreId) ? (
           <>
             <p className="text-ink-2">{t.liveSoonReport}</p>
-            <ButtonLink href="/demo" variant="secondary" className="mt-3 w-full">
+            <ButtonLink href={boardHref("demo", need)} variant="secondary" className="mt-3 w-full">
               {t.openDemo}
             </ButtonLink>
           </>

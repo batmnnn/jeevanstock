@@ -90,18 +90,21 @@ export function originFromHeaders(h: ForwardedHeaders): string {
 /**
  * Origin baked into a printable QR. Uses the Host header only.
  * `X-Forwarded-Host` is not trusted: a caller can set it to another site.
+ * On Azure App Service the site's own hostname wins, so a spoofed Host cannot retarget the QR.
  * On Vercel, public hosts are forced to https.
  */
-export function posterOrigin(h: ForwardedHeaders, env: { VERCEL?: string } = {}): string {
+export function posterOrigin(h: ForwardedHeaders, env: { VERCEL?: string; WEBSITE_HOSTNAME?: string } = {}): string {
+  const site = parseHost(env.WEBSITE_HOSTNAME);
+  if (site) return `https://${site}`;
   const host = parseHost(h.host);
   if (!host) return FALLBACK_ORIGIN;
   const proto = env.VERCEL && !isLoopback(host) ? "https" : resolveProto(h.forwardedProto, host);
   return `${proto}://${host}`;
 }
 
-/** `${origin}/?need=ASV`, or the localhost fallback if `origin` is not a bare http(s) origin. */
+/** `${origin}/demo?need=ASV`, or the localhost fallback if `origin` is not a bare http(s) origin. */
 export function boardUrl(origin: string): string {
-  const fallback = `${FALLBACK_ORIGIN}/?need=ASV`;
+  const fallback = `${FALLBACK_ORIGIN}/demo?need=ASV`;
   if (typeof origin !== "string" || origin.length === 0 || origin.length > 300) return fallback;
   if (/[\u0000-\u001F\u007F\\]/.test(origin)) return fallback;
   let url: URL;
@@ -113,5 +116,5 @@ export function boardUrl(origin: string): string {
   if (url.protocol !== "http:" && url.protocol !== "https:") return fallback;
   if (url.username || url.password || url.pathname !== "/" || url.search || url.hash) return fallback;
   if (parseHost(url.host) === null) return fallback;
-  return `${url.origin}/?need=ASV`;
+  return `${url.origin}/demo?need=ASV`;
 }

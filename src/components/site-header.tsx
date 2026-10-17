@@ -29,6 +29,7 @@ export function SiteHeader({ lang }: { lang: Lang }) {
           </button>
         </form>
       </nav>
+      <DemoBanner lang={lang} />
     </header>
   );
 }

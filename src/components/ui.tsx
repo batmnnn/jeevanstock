@@ -52,7 +52,7 @@ export function PageShell({ children, className }: { children: ReactNode; classN
 
 export function BackLink({ href, label }: { href: string; label: string }) {
   return (
-    <Link href={href} className="mb-4 inline-flex min-h-11 items-center gap-1 text-sm font-medium text-ink-2 hover:text-ink">
+    <Link href={href} className="mb-4 inline-flex min-h-12 items-center gap-1 text-sm font-medium text-ink-2 hover:text-ink">
       <span aria-hidden>←</span> {label}
     </Link>
   );

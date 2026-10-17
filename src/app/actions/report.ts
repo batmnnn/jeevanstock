@@ -3,7 +3,6 @@
 import { headers } from "next/headers";
 import { redirect, unstable_rethrow } from "next/navigation";
 import { ipHeaderForLimit } from "@/lib/client-ip";
-import { isDirectoryCentreId } from "@/lib/directory";
 import { clientLimitKey, centreLimitKey } from "@/lib/family/client-key";
 import { FAMILY_LIMITS } from "@/lib/family/limits";
 import { receiptPath } from "@/lib/family/receipt";
@@ -29,7 +28,7 @@ export async function fileFamilyReport(_prev: ReportFormState, formData: FormDat
 
   try {
     const snap = await repo().snapshot();
-    if (!snap.centres.some((centre) => centre.centreId === parsed.data.centreId) && !isDirectoryCentreId(parsed.data.centreId)) {
+    if (!snap.centres.some((centre) => centre.centreId === parsed.data.centreId)) {
       return { status: "error", code: "not_found", fields: ["centreId"] };
     }
   } catch (error) {

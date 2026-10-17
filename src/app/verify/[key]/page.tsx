@@ -25,7 +25,7 @@ export default async function VerifyPage({ params }: { params: Promise<{ key: st
   let entity: EntityProof | null;
   let snap: Snapshot;
   try {
-    [entity, snap] = await Promise.all([r.getEntity(key), r.snapshot()]);
+    [entity, snap] = await Promise.all([r.getEntity(key.toLowerCase()), r.snapshot()]);
   } catch (e) {
     if (e instanceof RepoError && e.code === "unavailable") {
       return (

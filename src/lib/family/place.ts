@@ -90,17 +90,17 @@ export function orderFamilyList<T extends Sortable>(
       located.map((item) => ({ ...item, status: item.focus?.status ?? "stale", suppliedOn: item.supplyOn?.[need] ?? null })),
     );
   }
-  if (located.some((item) => newerSupply(item.supplyOn))) {
+  if (distances) {
     return [...located].sort(
       (a, b) =>
-        compareSupplyDateDesc(newerSupply(a.supplyOn), newerSupply(b.supplyOn)) ||
         (a.distanceKm ?? Number.POSITIVE_INFINITY) - (b.distanceKm ?? Number.POSITIVE_INFINITY) ||
+        compareSupplyDateDesc(newerSupply(a.supplyOn), newerSupply(b.supplyOn)) ||
         a.name.localeCompare(b.name),
     );
   }
-  if (distances) {
+  if (located.some((item) => newerSupply(item.supplyOn))) {
     return [...located].sort(
-      (a, b) => (a.distanceKm ?? Number.POSITIVE_INFINITY) - (b.distanceKm ?? Number.POSITIVE_INFINITY) || a.name.localeCompare(b.name),
+      (a, b) => compareSupplyDateDesc(newerSupply(a.supplyOn), newerSupply(b.supplyOn)) || a.name.localeCompare(b.name),
     );
   }
   return located;

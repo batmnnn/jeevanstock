@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { IBM_Plex_Mono, IBM_Plex_Sans, IBM_Plex_Sans_Devanagari, Tiro_Devanagari_Hindi } from "next/font/google";
-import { SiteHeader, DemoBanner } from "@/components/site-header";
+import { SiteHeader } from "@/components/site-header";
 import { getLang } from "@/lib/lang";
 import "./globals.css";
 
@@ -46,7 +46,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <body className="min-h-dvh">
         <div className="sticky top-0 z-20">
           <SiteHeader lang={lang} />
-          <DemoBanner lang={lang} />
         </div>
         {children}
       </body>

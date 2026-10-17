@@ -10,6 +10,7 @@ import { parseReceiptParams, receiptDetails } from "@/lib/family/receipt";
 import { centreHref, homeHref, verifyHref } from "@/lib/family/routes";
 import { common } from "@/lib/i18n";
 import { getLang } from "@/lib/lang";
+import { repo } from "@/lib/repo";
 import { family } from "@/messages/family";
 
 export const dynamic = "force-dynamic";
@@ -46,6 +47,12 @@ export default async function ReceiptPage({
   if (!isKnownCentreId(parsed.centreId, snap.centres.map((centre) => centre.centreId))) notFound();
   const details = receiptDetails(snap.reports, parsed.key, parsed.centreId);
   if (details === "mismatch") notFound();
+  if (!details) {
+    const entity = await repo()
+      .getEntity(parsed.key.toLowerCase())
+      .catch(() => undefined);
+    if (entity === null || (entity && entity.kind !== "report")) notFound();
+  }
   const centre = snap.centres.find((item) => item.centreId === parsed.centreId);
   if (!centre) notFound();
   const proof = verifyHref(parsed.key);
