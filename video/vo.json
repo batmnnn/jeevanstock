@@ -1,0 +1,117 @@
+{
+  "voice": "ash",
+  "model": "gpt-4o-mini-tts",
+  "instructions": "Calm, warm, grounded Indian-English documentary narrator. Measured pace, short pauses between sentences, quiet gravity at the start, steady confidence at the end. Never salesy, never upbeat-advert. Pronounce JeevanStock as JEE-vun-stock, Arkiv as AR-kive, Durg as Durg, Balod as Ba-lode.",
+  "launch": [
+    {
+      "id": "l01",
+      "text": "October fourth. A snake bit a nineteen-year-old woman in Panna."
+    },
+    {
+      "id": "l02",
+      "text": "The nearest centre had no anti-venom. She died on the way."
+    },
+    {
+      "id": "l03",
+      "text": "In Durg and Balod, twenty-two of forty-five rural centres got no anti-venom this year."
+    },
+    {
+      "id": "l04",
+      "text": "Meanwhile, three thousand eight hundred vials sat in the warehouse."
+    },
+    {
+      "id": "l05",
+      "text": "The medicine exists. The information doesn't reach the family."
+    },
+    {
+      "id": "l06",
+      "text": "JeevanStock is a public stock board for anti-venom and rabies vaccine."
+    },
+    {
+      "id": "l07",
+      "text": "Nurses post vial counts with a PIN. No wallet. No crypto."
+    },
+    {
+      "id": "l08",
+      "text": "Every count expires after six hours. An old number never looks new."
+    },
+    {
+      "id": "l09",
+      "text": "Families see who has stock, call ahead, and report a stock-out in two taps."
+    },
+    {
+      "id": "l10",
+      "text": "Every record lives on Arkiv. Nobody can quietly change it. Not even us."
+    },
+    {
+      "id": "l11",
+      "text": "Hindi first. Built for Chhattisgarh. Ready for every district."
+    },
+    {
+      "id": "l12",
+      "text": "JeevanStock. Know before you go."
+    }
+  ],
+  "demo": [
+    {
+      "id": "d01",
+      "text": "This is JeevanStock, live on the Arkiv Tiramisu testnet. Two people use it: a family after a bite, and the nurse at the health centre."
+    },
+    {
+      "id": "d02",
+      "text": "The family opens the link or scans the poster. The board opens in Hindi. One tap switches to English."
+    },
+    {
+      "id": "d03",
+      "text": "They pick snakebite. Centres with anti-venom on the shelf come first. Every status is a word, not only a colour."
+    },
+    {
+      "id": "d04",
+      "text": "Rampur shows zero vials. The family taps: not available here."
+    },
+    {
+      "id": "d05",
+      "text": "Two choices: the medicine, and what happened. No name, no phone number, no location."
+    },
+    {
+      "id": "d06",
+      "text": "The report is written to Arkiv by the server's payer wallet. The family never sees a wallet or a fee."
+    },
+    {
+      "id": "d07",
+      "text": "The receipt links to the proof: who wrote the record, when it expires, and that nobody can edit it."
+    },
+    {
+      "id": "d08",
+      "text": "Now the nurse. She signs in with her centre and a PIN."
+    },
+    {
+      "id": "d09",
+      "text": "She enters the vial counts for both medicines. One atomic batch writes both records, signed by the Rampur wallet."
+    },
+    {
+      "id": "d10",
+      "text": "Each count expires after six hours, so stale stock fades from the board on its own."
+    },
+    {
+      "id": "d11",
+      "text": "The family's report is in her inbox. She confirms it. The confirmation and a thirty-day extension go in the same batch."
+    },
+    {
+      "id": "d12",
+      "text": "The public board shows it all: stock, open reports, confirmed reports."
+    },
+    {
+      "id": "d13",
+      "text": "Verify it yourself lists every wallet, with links to the Arkiv explorer and a one-line command to read the chain directly."
+    },
+    {
+      "id": "d14",
+      "text": "And the real centres of Durg and Balod are already listed, with government shipment data, never shown as shelf stock."
+    },
+    {
+      "id": "d15",
+      "text": "JeevanStock. Know before you go."
+    }
+  ]
+}

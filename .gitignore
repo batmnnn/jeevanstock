@@ -17,3 +17,12 @@ inspiration/
 .next-audit
 .audit
 .next-shot
+video/node_modules
+video/out
+video/.env
+video/public/clips
+video/public/audio/raw
+video/public
+*.mp4
+*.mov
+*.webm
