@@ -46,7 +46,7 @@ test.describe("staff · English", () => {
     await expect(page.locator("#asv")).toHaveValue("7");
     await page.getByRole("button", { name: "Post stock" }).click();
     await expect(page.getByRole("heading", { name: "Stock posted" })).toBeVisible();
-    await expect(page.getByText("One drug was posted and the other did not go through")).toHaveCount(0);
+    await expect(page.getByText("The board saved one drug only")).toHaveCount(0);
 
     await page.goto("/centre/DEMO-RAMPUR-1");
     const asv = page.getByRole("region", { name: "Anti-snake venom (ASV)" });
@@ -108,7 +108,7 @@ test.describe("staff · English", () => {
     const card = page.locator("#inbox li").filter({ hasText: "Centre closed" }).first();
     await expect(card).toBeVisible();
     await card.getByRole("button", { name: "Confirm ARV" }).click();
-    await expect(card).toContainText(/Acknowledged by this centre/);
+    await expect(card).toContainText(/This centre confirmed this report/);
     await expect(card.getByRole("button", { name: /Confirm/ })).toHaveCount(0);
 
     const after = await acknowledgedCount(page);

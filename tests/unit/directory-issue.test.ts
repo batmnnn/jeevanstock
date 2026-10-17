@@ -22,9 +22,9 @@ describe("CGMSCL issues are not shelf stock", () => {
     const view = board.find((centre) => centre.centre.centreId === "CG-BALOD-CHIKHLAKASA");
     expect(view?.stock.ASV).toEqual({ drug: "ASV", status: "sent", vials: null, postedAt: null, postKey: null });
     expect(describeIssue(entry!.issues.ASV, "en")).toBe(
-      "CGMSCL last issued 100 vials on 4 Jun 2026. Expires 31 Oct 2028. This is not the shelf count.",
+      "CGMSCL last issued 100 vials on 4 Jun 2026. The expiry date is 31 Oct 2028. This is not the shelf count.",
     );
-    expect(describeWarehouse("en")).toContain("ready to issue on 17 Oct 2026: 3867 vials");
+    expect(describeWarehouse("en")).toContain("On 17 Oct 2026, the Durg warehouse had 3867 vials");
     expect(view?.stock.ARV).toMatchObject({ status: "sent", vials: null });
     expect(board.some((centre) => centre.centre.centreId.startsWith("DEMO-"))).toBe(false);
     expect(board.length).toBe(DIRECTORY.length);

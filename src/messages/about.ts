@@ -136,7 +136,7 @@ export const about = {
     privacy: "हम नाम, फ़ोन नंबर या परिवार का ठिकाना नहीं रखते। हैश करके भी नहीं। रिपोर्ट में सिर्फ़ केंद्र, दवा, कारण और घंटा होता है। दुर्ग और बालोद के केंद्र CGMSCL की सूची से हैं। नक्शे की पिन स्वास्थ्य केंद्र निर्देशिका से हैं। CGMSCL की खेप शेल्फ की गिनती नहीं है। स्टाफ़ के तीन लॉगिन डेमो हैं।",
     sourceHeading: "खुला कोड",
     source: "लाइसेंस MIT है। कोई राज्य या संस्था इसे अपने ज़िलों के लिए चला सकती है। स्कीमा और पढ़ने का क्लाइंट कोड में हैं।",
-    staff: "स्टाफ़ प्रवेश",
+    staff: "स्टाफ़ लॉगिन",
   },
   en: {
     metaTitle: "About",
@@ -229,6 +229,6 @@ export const about = {
     privacy: "We do not keep names, phone numbers or family locations. We do not keep them in hashed form either. A report keeps only the centre, the medicine, the reason and the hour. The Durg and Balod centres come from the CGMSCL list. The map pins come from the national health-centre directory. A CGMSCL issue is not a shelf count. The three staff logins are a demo.",
     sourceHeading: "Open source",
     source: "The licence is MIT. A state or an NGO can use the code for its own districts. The schema and the read client are in the code.",
-    staff: "Staff sign-in",
+    staff: "Staff sign in",
   },
 } satisfies Messages<AboutCopy>;

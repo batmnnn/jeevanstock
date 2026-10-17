@@ -27,7 +27,7 @@ function text(lang: "hi" | "en"): string[] {
     t.acknowledged(1),
     t.acknowledged(4),
     t.updated("40 मिनट पहले"),
-    t.updated("40 min ago"),
+    t.updated("40 minutes ago"),
   ];
 }
 

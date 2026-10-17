@@ -61,7 +61,7 @@ export async function signIn(page: Page, centreId: string, pin: string) {
 
 export async function acknowledgedCount(page: Page): Promise<number> {
   await page.goto("/dashboard");
-  const label = page.getByRole("group", { name: "Demo summary" }).getByText("Acknowledged reports", { exact: true });
+  const label = page.getByRole("group", { name: "Demo summary" }).getByText("Confirmed reports", { exact: true });
   const raw = (await label.locator("xpath=following-sibling::p[1]").innerText()).trim();
   const n = Number(raw);
   expect(Number.isFinite(n), `acknowledged count was ${JSON.stringify(raw)}`).toBe(true);

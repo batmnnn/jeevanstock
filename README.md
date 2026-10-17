@@ -7,10 +7,10 @@ Is the anti-snake venom (ASV) or anti-rabies vaccine (ARV) in stock at the neare
 1. Open **/demo**. This page shows three demo centres. Their stock comes from Arkiv. The page also shows the staff PINs.
 2. Open **Demo PHC Rampur-1**. Select "Not available here" and then select a reason.
 3. Look at the receipt. Select **View proof** to see the entity on Tiramisu: creator (the payer wallet), readonly flag, expiry and an explorer link.
-4. Select **Staff sign-in**. Type the Rampur-1 PIN.
+4. Select **Staff sign in**. Type the Rampur-1 PIN.
 5. Post vials. One transaction posts both drugs.
 6. Select **Confirm** on your report. The Rampur-1 wallet writes a readonly `ack` and extends your report to 30 days in one atomic transaction.
-7. Open **/dashboard**. Your report shows as acknowledged. "Verify it yourself" lists every wallet with explorer links.
+7. Open **/dashboard**. Your report shows as confirmed. "Verify it yourself" lists every wallet with explorer links.
 8. Open **/live**. This board shows the real Durg and Balod centres from the public register of the state supplier (CGMSCL). It shows only the last shipment, not a shelf count, until a centre joins. There, 22 of 45 rural PHCs got no ASV since 1 Apr. But the district warehouse holds 3,867 vials.
 
 Writes take about 8–12 seconds. Tiramisu makes a block every 2s, and the app waits for the receipt.

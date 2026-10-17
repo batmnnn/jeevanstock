@@ -168,7 +168,7 @@ test.describe("family · geolocation stays on the device", () => {
 
     await page.goto("/demo?need=ASV");
     await page.getByRole("button", { name: "Show distance from me" }).click();
-    await expect(page.getByRole("status").filter({ hasText: "Distance is showing." })).toBeVisible();
+    await expect(page.getByRole("status").filter({ hasText: "The list now shows the distance." })).toBeVisible();
     await expect(page.getByText(/\d+(\.\d)? km/)).toHaveCount(3);
     expect(leaks, leaks.join("\n")).toEqual([]);
   });

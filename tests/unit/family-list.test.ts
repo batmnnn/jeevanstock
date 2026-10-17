@@ -60,7 +60,7 @@ describe("describeStock", () => {
   it("says how many vials and when the post was made", () => {
     expect(describeStock(stock("ASV", { vials: 12, postedAt: now - 40 * 60 }), now, copy)).toEqual({
       vialsLabel: "12 vials",
-      updatedLabel: "Updated 40 min ago",
+      updatedLabel: "Updated 40 minutes ago",
     });
     expect(describeStock(stock("ASV", { vials: 0, status: "out", postedAt: now }), now, phrases("hi")).updatedLabel).toBe("अभी अपडेट");
   });
@@ -89,7 +89,7 @@ describe("buildFamilyList", () => {
     const byId = Object.fromEntries(ordered.map((item) => [item.centreId, item]));
 
     expect(ordered.map((item) => item.centreId)).toEqual(["DEMO-SONPUR-CHC", "DEMO-KALAPUR-2", "DEMO-RAMPUR-1"]);
-    expect(byId["DEMO-SONPUR-CHC"]?.focus).toMatchObject({ status: "in", vialsLabel: "12 vials", updatedLabel: "Updated 40 min ago" });
+    expect(byId["DEMO-SONPUR-CHC"]?.focus).toMatchObject({ status: "in", vialsLabel: "12 vials", updatedLabel: "Updated 40 minutes ago" });
     expect(byId["DEMO-SONPUR-CHC"]?.focus?.proofHref).toMatch(/^\/verify\/0x[0-9a-fA-F]{64}$/);
     expect(byId["DEMO-KALAPUR-2"]?.focus?.status).toBe("low");
     expect(byId["DEMO-RAMPUR-1"]?.focus).toMatchObject({ status: "out", vialsLabel: "0 vials" });

@@ -12,7 +12,7 @@ test.describe("public board · English", () => {
     await expect(demoStats.getByRole("heading", { name: "Anti-snake venom (ASV)" })).toBeVisible();
     await expect(demoStats.getByRole("heading", { name: "Anti-rabies vaccine (ARV)" })).toBeVisible();
     await expect(demoStats.getByText("Open reports", { exact: true })).toBeVisible();
-    await expect(demoStats.getByText("Acknowledged reports", { exact: true })).toBeVisible();
+    await expect(demoStats.getByText("Confirmed reports", { exact: true })).toBeVisible();
     const liveStats = page.getByRole("group", { name: "Summary", exact: true });
     await expect(liveStats.getByRole("heading", { name: "Anti-snake venom (ASV)" })).toBeVisible();
     await expect(liveStats.getByText("Open reports", { exact: true })).toHaveCount(0);
