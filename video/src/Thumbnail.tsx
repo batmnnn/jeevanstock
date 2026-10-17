@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { AbsoluteFill } from "remotion";
 import { CLIPS } from "./clips";
-import { Clip, Glow, Grain, Phone, Still, Vignette } from "./kit";
+import { Browser, Clip, Glow, Grain, Phone, Still, Vignette } from "./kit";
 import { C, deva, mono, sans, serif } from "./theme";
 
 export type ThumbVariant = "night" | "gap" | "product";
@@ -78,6 +78,38 @@ function Product() {
           <Mark />
         </div>
       </Left>
+      <Vignette />
+      <Grain />
+    </AbsoluteFill>
+  );
+}
+
+export function Cover() {
+  return (
+    <AbsoluteFill style={{ backgroundColor: C.bg }}>
+      <Glow color={C.teal} x="72%" y="42%" opacity={0.3} />
+      <Glow color={C.amber} x="8%" y="100%" opacity={0.14} />
+      <div style={{ position: "absolute", right: -170, top: 170, transform: "perspective(2400px) rotateY(-14deg) rotateX(4deg)", transformOrigin: "right center" }}>
+        <Browser width={1060} url="jeevanstock.azurewebsites.net/dashboard">
+          <Clip src={CLIPS.board.file} start={CLIPS.board.top + 3} />
+        </Browser>
+      </div>
+      <div style={{ position: "absolute", right: 620, top: 230, transform: "rotate(-3deg)" }}>
+        <Phone height={760}>
+          <Clip src={CLIPS.family.file} start={CLIPS.family.centre + 1} />
+        </Phone>
+      </div>
+      <AbsoluteFill style={{ padding: "110px 120px", justifyContent: "space-between", width: 980 }}>
+        <Tag color={C.teal}>Live on Arkiv · India</Tag>
+        <div>
+          <div style={{ fontFamily: serif, fontSize: 168, lineHeight: 0.95, color: C.ink, letterSpacing: "-0.03em" }}>JeevanStock</div>
+          <div style={{ fontFamily: deva, fontSize: 92, fontWeight: 500, color: C.teal, marginTop: 6 }}>जीवनस्टॉक</div>
+          <div style={{ fontFamily: serif, fontStyle: "italic", fontSize: 84, color: C.amber, marginTop: 36 }}>Know before you go.</div>
+        </div>
+        <div style={{ fontFamily: sans, fontSize: 38, fontWeight: 500, lineHeight: 1.35, color: C.ink, opacity: 0.85, maxWidth: 600 }}>
+          Public anti-venom & rabies vaccine stock for rural health centres. Hindi first.
+        </div>
+      </AbsoluteFill>
       <Vignette />
       <Grain />
     </AbsoluteFill>

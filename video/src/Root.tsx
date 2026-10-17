@@ -2,7 +2,7 @@ import { AbsoluteFill, Composition, Sequence } from "remotion";
 import { Demo, demoFrames } from "./Demo";
 import { Launch, launchFrames } from "./Launch";
 import { C, FPS } from "./theme";
-import { Thumbnail, type ThumbVariant } from "./Thumbnail";
+import { Cover, Thumbnail, type ThumbVariant } from "./Thumbnail";
 
 const BRIDGE = 15;
 
@@ -27,6 +27,7 @@ export function Root() {
       <Composition id="Launch" component={Launch} durationInFrames={launchFrames()} {...size} />
       <Composition id="Demo" component={Demo} durationInFrames={demoFrames()} {...size} />
       <Composition id="Full" component={Full} durationInFrames={launchFrames() + BRIDGE + demoFrames()} {...size} />
+      <Composition id="Cover" component={Cover} durationInFrames={1} {...size} />
       <Composition id="Thumbnail" component={Thumbnail} durationInFrames={1} {...size} defaultProps={{ variant: "night" as ThumbVariant }} />
     </>
   );
