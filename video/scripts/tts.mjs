@@ -17,7 +17,7 @@ async function speak(line) {
   const res = await fetch("https://api.openai.com/v1/audio/speech", {
     method: "POST",
     headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
-    body: JSON.stringify({ model: vo.model, voice: vo.voice, input: line.hi ?? line.text, instructions: vo.instructions, response_format: "mp3" }),
+    body: JSON.stringify({ model: vo.model, voice: vo.voice, input: line.text, instructions: vo.instructions, response_format: "mp3" }),
   });
   if (!res.ok) throw new Error(`${line.id}: ${res.status} ${await res.text()}`);
   writeFileSync(file, Buffer.from(await res.arrayBuffer()));

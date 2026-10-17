@@ -1,36 +1,144 @@
 {
   "voice": "sage",
   "model": "gpt-4o-mini-tts",
-  "instructions": "Speak in natural, clear Hindi (Hindustani), like a calm documentary narrator from central India. Warm, measured and respectful. Short pause after each sentence. Read all numbers in Hindi. Lower and slower on the line about the young woman who died. Firm and plain on 'हम भी नहीं'. Never sound like an advert.",
+  "instructions": "Speak English with a natural, educated Indian accent, like a calm Indian documentary narrator (think a senior public-health doctor from Delhi presenting to an international jury). Clear consonants, warm and measured, respectful. Short pause after each sentence. Lower and slower on the line about the young woman who died. Firm and plain on \"We cannot change it either.\" Never sound like an advert.",
   "launch": [
-    { "id": "l01", "hi": "चार अक्टूबर। पन्ना में एक साँप ने उन्नीस साल की एक लड़की को काटा।", "text": "4 October. In Panna, a snake bit a woman. She was 19." },
-    { "id": "l02", "hi": "पास के केंद्र में एंटी-वेनम नहीं था। रास्ते में उसकी मौत हो गई।", "text": "The nearest centre had no anti-venom. She died on the way." },
-    { "id": "l03", "hi": "दुर्ग और बालोद के पैंतालीस ग्रामीण केंद्रों में से बाईस को इस साल एंटी-वेनम नहीं मिला।", "text": "In Durg and Balod, 22 of 45 rural centres got no anti-venom this year." },
-    { "id": "l04", "hi": "उसी समय, गोदाम में तीन हज़ार आठ सौ सड़सठ शीशियाँ तैयार थीं।", "text": "At the same time, 3,867 vials were ready in the warehouse." },
-    { "id": "l05", "hi": "दवा है। पर जानकारी परिवार तक नहीं पहुँचती।", "text": "The medicine exists. The information does not reach the family." },
-    { "id": "l06", "hi": "जीवन स्टॉक। एंटी-वेनम और रेबीज़ वैक्सीन का सार्वजनिक बोर्ड।", "text": "JeevanStock is a public stock board for anti-venom and rabies vaccine." },
-    { "id": "l07", "hi": "नर्स पिन से शीशियों की गिनती डालती है। न वॉलेट, न क्रिप्टो।", "text": "The nurse enters the vial count with a PIN. She needs no wallet and no crypto." },
-    { "id": "l08", "hi": "हर गिनती छह घंटे बाद खत्म हो जाती है। पुरानी गिनती नई नहीं दिख सकती।", "text": "Each count expires after 6 hours. An old count cannot look new." },
-    { "id": "l09", "hi": "परिवार देखता है कि दवा कहाँ है। पहले फ़ोन करें। दवा न मिले, तो दो टैप में रिपोर्ट भेजें।", "text": "The family sees which centre has the medicine. Call first. If there is no medicine, send a report in 2 taps." },
-    { "id": "l10", "hi": "हर रिकॉर्ड आर्काइव पर है। कोई उसे चुपचाप नहीं बदल सकता। हम भी नहीं।", "text": "Each record is on Arkiv. Nobody can change it quietly. We cannot change it either." },
-    { "id": "l11", "hi": "हिन्दी पहले। छत्तीसगढ़ के लिए बना। हर ज़िले के लिए तैयार।", "text": "Hindi first. Made for Chhattisgarh. Ready for every district." },
-    { "id": "l12", "hi": "जीवन स्टॉक। जाने से पहले जानें।", "text": "JeevanStock. Know before you go." }
+    {
+      "id": "l01",
+      "hi": "चार अक्टूबर। पन्ना में एक साँप ने उन्नीस साल की एक लड़की को काटा।",
+      "text": "4 October. In Panna, a snake bit a woman. She was 19."
+    },
+    {
+      "id": "l02",
+      "hi": "पास के केंद्र में एंटी-वेनम नहीं था। रास्ते में उसकी मौत हो गई।",
+      "text": "The nearest centre had no anti-venom. She died on the way."
+    },
+    {
+      "id": "l03",
+      "hi": "दुर्ग और बालोद के पैंतालीस ग्रामीण केंद्रों में से बाईस को इस साल एंटी-वेनम नहीं मिला।",
+      "text": "In Durg and Balod, 22 of 45 rural centres got no anti-venom this year."
+    },
+    {
+      "id": "l04",
+      "hi": "उसी समय, गोदाम में तीन हज़ार आठ सौ सड़सठ शीशियाँ तैयार थीं।",
+      "text": "At the same time, 3,867 vials were ready in the warehouse."
+    },
+    {
+      "id": "l05",
+      "hi": "दवा है। पर जानकारी परिवार तक नहीं पहुँचती।",
+      "text": "The medicine exists. The information does not reach the family."
+    },
+    {
+      "id": "l06",
+      "hi": "जीवन स्टॉक। एंटी-वेनम और रेबीज़ वैक्सीन का सार्वजनिक बोर्ड।",
+      "text": "JeevanStock is a public stock board for anti-venom and rabies vaccine."
+    },
+    {
+      "id": "l07",
+      "hi": "नर्स पिन से शीशियों की गिनती डालती है। न वॉलेट, न क्रिप्टो।",
+      "text": "The nurse enters the vial count with a PIN. She needs no wallet and no crypto."
+    },
+    {
+      "id": "l08",
+      "hi": "हर गिनती छह घंटे बाद खत्म हो जाती है। पुरानी गिनती नई नहीं दिख सकती।",
+      "text": "Each count expires after 6 hours. An old count cannot look new."
+    },
+    {
+      "id": "l09",
+      "hi": "परिवार देखता है कि दवा कहाँ है। पहले फ़ोन करें। दवा न मिले, तो दो टैप में रिपोर्ट भेजें।",
+      "text": "The family sees which centre has the medicine. Call first. If there is no medicine, send a report in 2 taps."
+    },
+    {
+      "id": "l10",
+      "hi": "हर रिकॉर्ड आर्काइव पर है। कोई उसे चुपचाप नहीं बदल सकता। हम भी नहीं।",
+      "text": "Each record is on Arkiv. Nobody can change it quietly. We cannot change it either."
+    },
+    {
+      "id": "l11",
+      "hi": "हिन्दी पहले। छत्तीसगढ़ के लिए बना। हर ज़िले के लिए तैयार।",
+      "text": "Hindi first. Made for Chhattisgarh. Ready for every district."
+    },
+    {
+      "id": "l12",
+      "hi": "जीवन स्टॉक। जाने से पहले जानें।",
+      "text": "JeevanStock. Know before you go."
+    }
   ],
   "demo": [
-    { "id": "d01", "hi": "यह जीवन स्टॉक है। यह आर्काइव टेस्टनेट पर लाइव है। इसे दो लोग इस्तेमाल करते हैं: काटने के बाद परिवार, और केंद्र की नर्स।", "text": "This is JeevanStock. It is live on the Arkiv testnet. Two people use it: the family after a bite, and the nurse at the centre." },
-    { "id": "d02", "hi": "परिवार लिंक खोलता है, या पोस्टर का क्यूआर कोड स्कैन करता है। बोर्ड हिन्दी में खुलता है। एक टैप से अंग्रेज़ी।", "text": "The family opens the link or scans the QR code on the poster. The board opens in Hindi. One tap changes it to English." },
-    { "id": "d03", "hi": "परिवार 'साँप ने काटा' चुनता है। जिन केंद्रों में दवा है, वे ऊपर आते हैं। हर स्थिति शब्द में लिखी है, सिर्फ़ रंग में नहीं।", "text": "The family selects snakebite. Centres with medicine come first. Each status is a word, not only a colour." },
-    { "id": "d04", "hi": "रामपुर में शून्य शीशी है। परिवार 'यहाँ नहीं मिला' दबाता है।", "text": "Rampur has 0 vials. The family taps 'Not available here'." },
-    { "id": "d05", "hi": "सिर्फ़ दो चुनाव: कौन सी दवा, और क्या हुआ। नाम नहीं, फ़ोन नंबर नहीं, लोकेशन नहीं।", "text": "There are 2 choices: the medicine and the reason. There is no name, no phone number and no location." },
-    { "id": "d06", "hi": "सर्वर का वॉलेट रिपोर्ट को आर्काइव पर लिखता है। परिवार को न वॉलेट दिखता है, न फ़ीस।", "text": "The server wallet writes the report to Arkiv. The family sees no wallet and pays no fee." },
-    { "id": "d07", "hi": "रसीद में सबूत का लिंक है। किसने लिखा, कब खत्म होगा, और कोई इसे बदल नहीं सकता।", "text": "The receipt links to the proof. It shows who wrote the record and when it expires. Nobody can edit it." },
-    { "id": "d08", "hi": "अब नर्स। वह अपना केंद्र चुनती है और पिन डालती है।", "text": "Now the nurse. She selects her centre and enters her PIN." },
-    { "id": "d09", "hi": "वह दोनों दवाओं की गिनती डालती है। एक ही बैच में दोनों रिकॉर्ड जाते हैं। रामपुर का वॉलेट उन पर साइन करता है।", "text": "She enters the count for both medicines. One batch writes both records. The Rampur wallet signs them." },
-    { "id": "d10", "hi": "हर गिनती छह घंटे बाद खत्म होती है। पुराना स्टॉक बोर्ड पर अपने-आप पुराना दिखता है।", "text": "Each count expires after 6 hours. The board then shows old stock as old." },
-    { "id": "d11", "hi": "परिवार की रिपोर्ट नर्स के इनबॉक्स में है। वह पुष्टि करती है। अब रिपोर्ट तीस दिन रहेगी।", "text": "The family report is in the nurse's inbox. She confirms it. The report now stays for 30 days." },
-    { "id": "d12", "hi": "सार्वजनिक बोर्ड सब दिखाता है: स्टॉक, खुली रिपोर्ट, और पुष्टि हुई रिपोर्ट।", "text": "The public board shows all of it: stock, open reports and confirmed reports." },
-    { "id": "d13", "hi": "'खुद जाँचें' में हर वॉलेट है। आर्काइव एक्सप्लोरर के लिंक हैं, और चेन पढ़ने की एक कमांड।", "text": "'Verify it yourself' lists each wallet. It has links to the Arkiv explorer and one command to read the chain." },
-    { "id": "d14", "hi": "दुर्ग और बालोद के असली केंद्र भी यहाँ हैं। सरकारी खेप दिखती है, पर उसे कभी शेल्फ स्टॉक नहीं कहा जाता।", "text": "The real centres of Durg and Balod are also here. The board shows government shipments. It never shows them as shelf stock." },
-    { "id": "d15", "hi": "जीवन स्टॉक। जाने से पहले जानें।", "text": "JeevanStock. Know before you go." }
+    {
+      "id": "d01",
+      "hi": "यह जीवन स्टॉक है। यह आर्काइव टेस्टनेट पर लाइव है। इसे दो लोग इस्तेमाल करते हैं: काटने के बाद परिवार, और केंद्र की नर्स।",
+      "text": "This is JeevanStock. It is live on the Arkiv testnet. Two people use it: the family after a bite, and the nurse at the centre."
+    },
+    {
+      "id": "d02",
+      "hi": "परिवार लिंक खोलता है, या पोस्टर का क्यूआर कोड स्कैन करता है। बोर्ड हिन्दी में खुलता है। एक टैप से अंग्रेज़ी।",
+      "text": "The family opens the link or scans the QR code on the poster. The board opens in Hindi. One tap changes it to English."
+    },
+    {
+      "id": "d03",
+      "hi": "परिवार 'साँप ने काटा' चुनता है। जिन केंद्रों में दवा है, वे ऊपर आते हैं। हर स्थिति शब्द में लिखी है, सिर्फ़ रंग में नहीं।",
+      "text": "The family selects snakebite. Centres with medicine come first. Each status is a word, not only a colour."
+    },
+    {
+      "id": "d04",
+      "hi": "रामपुर में शून्य शीशी है। परिवार 'यहाँ नहीं मिला' दबाता है।",
+      "text": "Rampur has 0 vials. The family taps 'Not available here'."
+    },
+    {
+      "id": "d05",
+      "hi": "सिर्फ़ दो चुनाव: कौन सी दवा, और क्या हुआ। नाम नहीं, फ़ोन नंबर नहीं, लोकेशन नहीं।",
+      "text": "There are 2 choices: the medicine and the reason. There is no name, no phone number and no location."
+    },
+    {
+      "id": "d06",
+      "hi": "सर्वर का वॉलेट रिपोर्ट को आर्काइव पर लिखता है। परिवार को न वॉलेट दिखता है, न फ़ीस।",
+      "text": "The server wallet writes the report to Arkiv. The family sees no wallet and pays no fee."
+    },
+    {
+      "id": "d07",
+      "hi": "रसीद में सबूत का लिंक है। किसने लिखा, कब खत्म होगा, और कोई इसे बदल नहीं सकता।",
+      "text": "The receipt links to the proof. It shows who wrote the record and when it expires. Nobody can edit it."
+    },
+    {
+      "id": "d08",
+      "hi": "अब नर्स। वह अपना केंद्र चुनती है और पिन डालती है।",
+      "text": "Now the nurse. She selects her centre and enters her PIN."
+    },
+    {
+      "id": "d09",
+      "hi": "वह दोनों दवाओं की गिनती डालती है। एक ही बैच में दोनों रिकॉर्ड जाते हैं। रामपुर का वॉलेट उन पर साइन करता है।",
+      "text": "She enters the count for both medicines. One batch writes both records. The Rampur wallet signs them."
+    },
+    {
+      "id": "d10",
+      "hi": "हर गिनती छह घंटे बाद खत्म होती है। पुराना स्टॉक बोर्ड पर अपने-आप पुराना दिखता है।",
+      "text": "Each count expires after 6 hours. The board then shows old stock as old."
+    },
+    {
+      "id": "d11",
+      "hi": "परिवार की रिपोर्ट नर्स के इनबॉक्स में है। वह पुष्टि करती है। अब रिपोर्ट तीस दिन रहेगी।",
+      "text": "The family report is in the nurse's inbox. She confirms it. The report now stays for 30 days."
+    },
+    {
+      "id": "d12",
+      "hi": "सार्वजनिक बोर्ड सब दिखाता है: स्टॉक, खुली रिपोर्ट, और पुष्टि हुई रिपोर्ट।",
+      "text": "The public board shows all of it: stock, open reports and confirmed reports."
+    },
+    {
+      "id": "d13",
+      "hi": "'खुद जाँचें' में हर वॉलेट है। आर्काइव एक्सप्लोरर के लिंक हैं, और चेन पढ़ने की एक कमांड।",
+      "text": "'Verify it yourself' lists each wallet. It has links to the Arkiv explorer and one command to read the chain."
+    },
+    {
+      "id": "d14",
+      "hi": "दुर्ग और बालोद के असली केंद्र भी यहाँ हैं। सरकारी खेप दिखती है, पर उसे कभी शेल्फ स्टॉक नहीं कहा जाता।",
+      "text": "The real centres of Durg and Balod are also here. The board shows government shipments. It never shows them as shelf stock."
+    },
+    {
+      "id": "d15",
+      "hi": "जीवन स्टॉक। जाने से पहले जानें।",
+      "text": "JeevanStock. Know before you go."
+    }
   ]
 }
