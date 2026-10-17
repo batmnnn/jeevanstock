@@ -154,7 +154,7 @@ const SHOTS: Shot[] = [
         <Still src="village-dawn.png" from={1.14} to={1.02} />
         <Pad>
           <div style={{ fontFamily: deva, fontSize: 104, color: C.ink, opacity: useFadeIn(2, 20) }}>हिन्दी पहले।</div>
-          <Rise text="Built for Chhattisgarh. Ready for every district." size={64} font={sans} delay={22} stagger={2} />
+          <Rise text="Built for all of India. First pilot: Chhattisgarh." size={64} font={sans} delay={22} stagger={2} />
         </Pad>
       </>
     ),
