@@ -56,17 +56,18 @@ export default async function Home() {
   return (
     <>
       <HomeScene />
-      <main id="main" className="relative z-10 mx-auto w-full max-w-5xl px-4 pb-48 pt-5 lg:pt-12">
+      <main id="main" tabIndex={-1} className="relative z-10 mx-auto w-full max-w-5xl px-4 pb-48 pt-5 lg:pt-12">
         <div className="relative lg:grid lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:gap-10">
           <div>
             <p className="glass inline-flex items-center gap-2 rounded-full px-3 py-1 text-sm font-medium text-ink-2">
               <span aria-hidden className="size-2 rounded-full bg-in" />
               {h.eyebrow}
             </p>
-            <h1 className="mt-4 max-w-[12ch] pr-20 font-display text-[2.65rem] font-normal leading-[1.12] text-balance lg:pr-0 lg:text-6xl">
+            <h1 className="mt-4 max-w-[14ch] pr-20 font-display text-[2.65rem] font-normal leading-[1.12] text-balance lg:pr-0 lg:text-6xl">
               {t.homeTitle}
             </h1>
-            <p className="mt-4 max-w-md text-lg text-ink-2">{t.homeLead}</p>
+            <p className="mt-4 max-w-md text-xl font-medium text-ink">{h.subject}</p>
+            <p className="mt-2 max-w-md text-lg text-ink-2">{t.homeLead}</p>
             <div className="mt-6 max-w-md">
               <EmergencyCall label={c.call108} />
             </div>
@@ -81,7 +82,7 @@ export default async function Home() {
         </div>
 
         <nav aria-label={h.doorsLabel} className="mt-8 grid gap-3 sm:grid-cols-2">
-          <Door href="/demo" art="/art/snake.png" tag={h.demoTag} title={t.demoDoor} body={t.demoDoorBody} meta={h.demoMeta} />
+          <Door href="/demo" art="/art/snake.png" tag={h.demoTag} title={t.demoDoor} body={h.demoBody} meta={h.demoMeta} />
           <Door href="/live" art="/art/clinic.png" tag={h.liveTag} title={t.liveDoor} body={t.liveDoorBody} meta={h.liveMeta(gap.centres)} />
         </nav>
 

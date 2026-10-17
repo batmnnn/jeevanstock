@@ -45,7 +45,7 @@ export default async function PosterPage({ params }: { params: Promise<{ centreI
   const svg = safeQrSvg(await QRCode.toString(url, { type: "svg", margin: 1, errorCorrectionLevel: "M" }));
 
   return (
-    <main id="main" className="mx-auto w-full max-w-3xl px-4 pb-16 pt-6">
+    <main id="main" tabIndex={-1} className="mx-auto w-full max-w-3xl px-4 pb-16 pt-6">
       <style>{PRINT_CSS}</style>
       <div className="no-print">
         <BackLink href="/poster" label={c.back} />

@@ -44,7 +44,7 @@ export function StatusChip({ status, t, className }: { status: StockStatus; t: P
 
 export function PageShell({ children, className }: { children: ReactNode; className?: string }) {
   return (
-    <main id="main" className={cx("mx-auto w-full max-w-xl px-4 pb-16 pt-5", className)}>
+    <main id="main" tabIndex={-1} className={cx("mx-auto w-full max-w-xl px-4 pb-16 pt-5", className)}>
       {children}
     </main>
   );

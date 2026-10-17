@@ -8,5 +8,5 @@ const WIDTH = {
 } as const;
 
 export function Main({ width, children, className }: { width: keyof typeof WIDTH; children: ReactNode; className?: string }) {
-  return <main id="main" className={cx("mx-auto w-full px-4 pb-20 pt-6 sm:px-6 lg:px-8 lg:pt-10", WIDTH[width], className)}>{children}</main>;
+  return <main id="main" tabIndex={-1} className={cx("mx-auto w-full px-4 pb-20 pt-6 sm:px-6 lg:px-8 lg:pt-10", WIDTH[width], className)}>{children}</main>;
 }

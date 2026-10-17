@@ -2,6 +2,8 @@ import type { Messages } from "@/lib/i18n";
 
 export interface HomeCopy {
   eyebrow: string;
+  subject: string;
+  demoBody: string;
   doorsLabel: string;
   demoTag: string;
   demoMeta: string;
@@ -22,6 +24,8 @@ export interface HomeCopy {
 export const home = {
   hi: {
     eyebrow: "Arkiv टेस्टनेट पर लाइव",
+    subject: "साँप के काटने पर एंटी-वेनम। कुत्ते के काटने पर रेबीज़ वैक्सीन।",
+    demoBody: "ये तीन अभ्यास केंद्र हैं। स्टाफ़ के पिन डेमो पेज पर हैं। दवा न मिले तो रिपोर्ट भेजें।",
     doorsLabel: "बोर्ड चुनें",
     demoTag: "अभी आज़माएँ",
     demoMeta: "3 अभ्यास केंद्र · रिपोर्ट और स्टाफ़ पिन",
@@ -40,6 +44,8 @@ export const home = {
   },
   en: {
     eyebrow: "Live on the Arkiv testnet",
+    subject: "Anti-venom for snakebite. Rabies vaccine for dog bite.",
+    demoBody: "There are three practice centres. The staff PINs are on the demo page. If you do not get the medicine, send a report.",
     doorsLabel: "Select a board",
     demoTag: "Try it now",
     demoMeta: "3 practice centres · reports and staff PINs",

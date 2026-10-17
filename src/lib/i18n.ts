@@ -12,6 +12,7 @@ export type Messages<T> = Record<Lang, T>;
 export const common = {
   hi: {
     appName: "जीवन स्टॉक",
+    skip: "मुख्य हिस्से पर जाएँ",
     tagline: "एंटी-वेनम और रेबीज़ वैक्सीन अभी कहाँ मिलेगी",
     switchTo: "English",
     switchLabel: "Switch to English",
@@ -40,6 +41,7 @@ export const common = {
   },
   en: {
     appName: "JeevanStock",
+    skip: "Skip to content",
     tagline: "Where to get anti-venom and rabies vaccine now",
     switchTo: "हिन्दी",
     switchLabel: "हिन्दी में देखें",
