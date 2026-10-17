@@ -10,13 +10,14 @@ export function SiteHeader({ lang }: { lang: Lang }) {
       <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:left-2 focus:top-2 focus:rounded focus:bg-surface focus:px-3 focus:py-2">
         Skip to content
       </a>
-      <div className="mx-auto flex h-14 max-w-xl items-center justify-between gap-3 px-4">
-        <Link href="/" className="flex items-center gap-2 font-bold tracking-tight">
+      <div className="mx-auto flex h-14 max-w-6xl items-center justify-between gap-2 px-4 sm:px-6 lg:px-8">
+        <Link href="/" className="flex shrink-0 items-center gap-2 font-bold tracking-tight">
           <span aria-hidden className="grid size-7 place-items-center rounded-lg bg-brand text-sm text-brand-ink">ज</span>
           <span>{t.appName}</span>
         </Link>
-        <nav className="flex items-center gap-1 text-sm">
-          <Link href="/dashboard" className="hidden rounded-lg px-2 py-2 text-ink-2 hover:text-ink sm:inline">{t.nav.dashboard}</Link>
+        <nav className="flex items-center gap-0.5 text-sm">
+          <Link href="/dashboard" className="rounded-lg px-2 py-2 text-ink-2 hover:text-ink">{t.nav.dashboard}</Link>
+          <Link href="/about" className="hidden rounded-lg px-2 py-2 text-ink-2 hover:text-ink sm:inline">{t.nav.about}</Link>
           <form action={setLang}>
             <input type="hidden" name="lang" value={other} />
             <button type="submit" aria-label={t.switchLabel} lang={other} className="min-h-10 rounded-lg border border-line-2 bg-surface px-3 font-semibold">
