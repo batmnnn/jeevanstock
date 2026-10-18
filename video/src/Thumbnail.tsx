@@ -90,7 +90,7 @@ export function Cover() {
       <Glow color={C.teal} x="72%" y="42%" opacity={0.3} />
       <Glow color={C.amber} x="8%" y="100%" opacity={0.14} />
       <div style={{ position: "absolute", right: -170, top: 170, transform: "perspective(2400px) rotateY(-14deg) rotateX(4deg)", transformOrigin: "right center" }}>
-        <Browser width={1060} url="jeevanstock.azurewebsites.net/dashboard">
+        <Browser width={1060} url="jeevan.batmnnn.live/dashboard">
           <Clip src={CLIPS.board.file} start={CLIPS.board.top + 3} />
         </Browser>
       </div>

@@ -93,7 +93,9 @@ export function originFromHeaders(h: ForwardedHeaders): string {
  * On Azure App Service the site's own hostname wins, so a spoofed Host cannot retarget the QR.
  * On Vercel, public hosts are forced to https.
  */
-export function posterOrigin(h: ForwardedHeaders, env: { VERCEL?: string; WEBSITE_HOSTNAME?: string } = {}): string {
+export function posterOrigin(h: ForwardedHeaders, env: { VERCEL?: string; WEBSITE_HOSTNAME?: string; CANONICAL_HOST?: string } = {}): string {
+  const canonical = parseHost(env.CANONICAL_HOST);
+  if (canonical && !isLoopback(canonical)) return `https://${canonical}`;
   const site = parseHost(env.WEBSITE_HOSTNAME);
   if (site) return `https://${site}`;
   const host = parseHost(h.host);

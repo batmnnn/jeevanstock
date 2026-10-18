@@ -13,7 +13,7 @@ const text = (id: string) => voText.demo.find((l) => l.id === id)?.text ?? "";
 type Device = { kind: "phone" | "browser"; clip: string; start: number; url?: string };
 type Shot = { id: string; part?: string; title?: string; device?: Device; extra?: number; render?: () => ReactNode };
 
-const SITE = "jeevanstock.azurewebsites.net";
+const SITE = "jeevan.batmnnn.live";
 const F = CLIPS.family;
 const S = CLIPS.staff;
 const B = CLIPS.board;

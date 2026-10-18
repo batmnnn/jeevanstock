@@ -3,6 +3,7 @@ import { Demo, demoFrames } from "./Demo";
 import { Launch, launchFrames } from "./Launch";
 import { C, FPS } from "./theme";
 import { Cover, Thumbnail, type ThumbVariant } from "./Thumbnail";
+import { Logo, type LogoLayout, type LogoTheme } from "./Logo";
 
 const BRIDGE = 15;
 
@@ -28,6 +29,8 @@ export function Root() {
       <Composition id="Demo" component={Demo} durationInFrames={demoFrames()} {...size} />
       <Composition id="Full" component={Full} durationInFrames={launchFrames() + BRIDGE + demoFrames()} {...size} />
       <Composition id="Cover" component={Cover} durationInFrames={1} {...size} />
+      <Composition id="LogoMark" component={Logo} durationInFrames={1} width={1024} height={1024} fps={FPS} defaultProps={{ layout: "mark" as LogoLayout, theme: "dark" as LogoTheme }} />
+      <Composition id="LogoLockup" component={Logo} durationInFrames={1} width={1400} height={480} fps={FPS} defaultProps={{ layout: "lockup" as LogoLayout, theme: "dark" as LogoTheme }} />
       <Composition id="Thumbnail" component={Thumbnail} durationInFrames={1} {...size} defaultProps={{ variant: "night" as ThumbVariant }} />
     </>
   );

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { setLang } from "@/app/actions/lang";
+import { LogoMark } from "@/components/logo-mark";
 import { NavLinks } from "@/components/nav-links";
 import { common, type Lang } from "@/lib/i18n";
 
@@ -18,7 +19,8 @@ export function SiteHeader({ lang }: { lang: Lang }) {
         {t.skip}
       </a>
       <nav className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-3 px-4 sm:flex-nowrap sm:px-6 lg:px-8">
-        <Link href="/" className="inline-flex min-h-14 shrink-0 items-center text-lg font-medium text-brand">
+        <Link href="/" className="inline-flex min-h-14 shrink-0 items-center gap-2 text-lg font-medium text-brand">
+          <LogoMark className="h-9 w-auto text-ink" />
           {t.appName}
         </Link>
         <NavLinks items={items} className="order-3 -mx-2 w-full justify-between border-t border-line/60 sm:order-none sm:mx-0 sm:ml-auto sm:w-auto sm:justify-end sm:border-0" />

@@ -101,7 +101,7 @@ const SHOTS: Shot[] = [
             <Rise text="No wallet. No crypto." size={64} color={C.dim} delay={30} />
           </div>
           <Float delay={8}>
-            <Browser width={980} url="jeevanstock.azurewebsites.net/staff">
+            <Browser width={980} url="jeevan.batmnnn.live/staff">
               <Clip src={CLIPS.staff.file} start={CLIPS.staff.post} />
             </Browser>
           </Float>
@@ -227,7 +227,7 @@ function EndCard() {
       <AbsoluteFill style={{ alignItems: "center", justifyContent: "center", gap: 22 }}>
         <Rise text="JeevanStock" size={170} delay={2} stagger={0} style={{ textAlign: "center" }} />
         <Rise text="Know before you go." size={72} delay={20} italic color={C.amber} style={{ textAlign: "center" }} />
-        <div style={{ marginTop: 30, fontFamily: mono, fontSize: 26, color: C.ink, opacity: useFadeIn(40) }}>jeevanstock.azurewebsites.net</div>
+        <div style={{ marginTop: 30, fontFamily: mono, fontSize: 26, color: C.ink, opacity: useFadeIn(40) }}>jeevan.batmnnn.live</div>
         <div style={{ fontFamily: sans, fontSize: 22, color: C.dim, opacity: useFadeIn(52) }}>Open source · Built on Arkiv · github.com/batmnnn/jeevanstock</div>
       </AbsoluteFill>
       <Vignette />

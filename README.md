@@ -1,7 +1,7 @@
 # JeevanStock — जीवन स्टॉक
 Is the anti-snake venom (ASV) or anti-rabies vaccine (ARV) in stock at the nearest health centre now? JeevanStock is a Hindi-first, tamper-evident stock board on [Arkiv](https://arkiv.network) (Tiramisu testnet). We built it for **Arkiv: Global Tour Stop**, 17–18 Oct 2026.
 
-**Live:** https://jeevanstock.azurewebsites.net · **Answers by criterion:** [SUBMISSION.md](SUBMISSION.md) · **Schema:** [arkiv/schema.md](arkiv/schema.md) · **Friction:** [arkiv/friction.md](arkiv/friction.md)
+**Live:** https://jeevan.batmnnn.live · **Answers by criterion:** [SUBMISSION.md](SUBMISSION.md) · **Schema:** [arkiv/schema.md](arkiv/schema.md) · **Friction:** [arkiv/friction.md](arkiv/friction.md)
 
 ## For judges (two minutes)
 1. Open **/demo**. This page shows three demo centres. Their stock comes from Arkiv. The page also shows the staff PINs.

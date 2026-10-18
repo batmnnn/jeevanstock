@@ -1,9 +1,9 @@
 # Devfolio answers — JeevanStock (जीवन स्टॉक)
 Arkiv: Global Tour Stop. Tracks: **Best Indian Use Case** (main) · Security · Censorship Resistance · Open Source · Privacy. The team includes an Indian national.
 
-- **Live:** https://jeevanstock.azurewebsites.net (no login; the staff PINs are on `/demo` and `/staff`)
+- **Live:** https://jeevan.batmnnn.live (no login; the staff PINs are on `/demo` and `/staff`)
 - **Repo (MIT):** https://github.com/batmnnn/jeevanstock
-- **Schema:** [arkiv/schema.md](arkiv/schema.md) · **Friction:** [arkiv/friction.md](arkiv/friction.md) · **Video:** ≤3 min, see [DEMO_SCRIPT.md](DEMO_SCRIPT.md)
+- **Schema:** [arkiv/schema.md](arkiv/schema.md) · **Friction:** [arkiv/friction.md](arkiv/friction.md) · **Video:** ≤3 min
 - **Built:** 17–18 Oct 2026, inside the 9–18 Oct window. First commit `223f490` (17 Oct 05:38 IST). We wrote no code before that commit.
 
 ### Wallets that create entities on Tiramisu (chain 7738577)

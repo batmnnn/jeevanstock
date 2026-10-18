@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { headers } from "next/headers";
 import { notFound } from "next/navigation";
 import QRCode from "qrcode";
+import { LogoMark } from "@/components/logo-mark";
 import { BackLink } from "@/components/ui";
 import { CENTRES } from "@/lib/centres";
 import { boardUrl, posterOrigin } from "@/lib/dashboard/origin";
@@ -39,7 +40,7 @@ export default async function PosterPage({ params }: { params: Promise<{ centreI
   const url = boardUrl(
     posterOrigin(
       { host: h.get("host"), forwardedProto: h.get("x-forwarded-proto") },
-      { VERCEL: process.env.VERCEL, WEBSITE_HOSTNAME: process.env.WEBSITE_HOSTNAME },
+      { VERCEL: process.env.VERCEL, WEBSITE_HOSTNAME: process.env.WEBSITE_HOSTNAME, CANONICAL_HOST: process.env.CANONICAL_HOST },
     ),
   );
   const svg = safeQrSvg(await QRCode.toString(url, { type: "svg", margin: 1, errorCorrectionLevel: "M" }));
@@ -51,7 +52,8 @@ export default async function PosterPage({ params }: { params: Promise<{ centreI
         <BackLink href="/poster" label={c.back} />
       </div>
       <article className="mx-auto max-w-[190mm] border border-ink/20 bg-surface px-6 py-8 sm:px-10 sm:py-12 print:max-w-none print:border-0 print:px-0 print:py-0">
-        <p className="text-sm font-semibold text-brand">
+        <p className="flex items-center gap-2 text-sm font-semibold text-brand">
+          <LogoMark className="h-8 w-auto text-ink" />
           <span lang="hi">जीवन स्टॉक</span>
           <span aria-hidden> · </span>
           <span lang="en">JeevanStock</span>
